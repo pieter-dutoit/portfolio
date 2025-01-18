@@ -1,3 +1,36 @@
+-- Drop all tables
+DROP TABLE IF EXISTS BlogTag;
+
+DROP TABLE IF EXISTS Blog;
+
+DROP TABLE IF EXISTS JobTag;
+
+DROP TABLE IF EXISTS Role;
+
+DROP TABLE IF EXISTS Job;
+
+DROP TABLE IF EXISTS ProjectTag;
+
+DROP TABLE IF EXISTS ProjectImage;
+
+DROP TABLE IF EXISTS Image;
+
+DROP TABLE IF EXISTS Project;
+
+DROP TABLE IF EXISTS SocialLink;
+
+DROP TABLE IF EXISTS Achievement;
+
+DROP TABLE IF EXISTS QualificationTag;
+
+DROP TABLE IF EXISTS Qualification;
+
+DROP TABLE IF EXISTS Tag;
+
+DROP TABLE IF EXISTS Category;
+
+DROP TABLE IF EXISTS Profile;
+
 -- Profile table
 CREATE TABLE
   IF NOT EXISTS Profile (
@@ -57,18 +90,13 @@ CREATE TABLE
 
 -- Category table
 CREATE TABLE
-  IF NOT EXISTS Category (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT
-  );
+  IF NOT EXISTS Category (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL);
 
 -- Tag table
 CREATE TABLE
   IF NOT EXISTS Tag (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
     category_id INTEGER,
     FOREIGN KEY (category_id) REFERENCES Category (id) ON DELETE SET NULL
   );
@@ -89,13 +117,21 @@ CREATE TABLE
     id SERIAL PRIMARY KEY,
     company_name VARCHAR(255) NOT NULL,
     company_address TEXT,
-    role VARCHAR(255) NOT NULL,
-    start_date DATE,
-    end_date DATE,
-    description TEXT,
     company_logo_url TEXT,
     profile_id INTEGER NOT NULL,
     FOREIGN KEY (profile_id) REFERENCES Profile (id) ON DELETE CASCADE
+  );
+
+-- Role table
+CREATE TABLE
+  IF NOT EXISTS Role (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    job_id INTEGER NOT NULL,
+    FOREIGN KEY (job_id) REFERENCES Job (id) ON DELETE CASCADE
   );
 
 -- JobTag table
@@ -129,4 +165,41 @@ CREATE TABLE
     PRIMARY KEY (blog_id, tag_id),
     FOREIGN KEY (blog_id) REFERENCES Blog (id) ON DELETE CASCADE,
     FOREIGN KEY (tag_id) REFERENCES Tag (id) ON DELETE CASCADE
+  );
+
+-- Qualification table
+CREATE TABLE
+  IF NOT EXISTS Qualification (
+    id SERIAL PRIMARY KEY,
+    institution_name VARCHAR(255) NOT NULL,
+    institution_address TEXT,
+    institution_logo_url TEXT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    profile_id INTEGER NOT NULL,
+    FOREIGN KEY (profile_id) REFERENCES Profile (id) ON DELETE CASCADE
+  );
+
+-- QualificationTag table
+CREATE TABLE
+  IF NOT EXISTS QualificationTag (
+    qualification_id INTEGER NOT NULL,
+    tag_id INTEGER NOT NULL,
+    PRIMARY KEY (qualification_id, tag_id),
+    FOREIGN KEY (qualification_id) REFERENCES Qualification (id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES Tag (id) ON DELETE CASCADE
+  );
+
+-- Achievement table
+CREATE TABLE
+  IF NOT EXISTS Achievement (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    verification_url TEXT,
+    pdf_url TEXT,
+    qualification_id INTEGER NOT NULL,
+    FOREIGN KEY (qualification_id) REFERENCES Qualification (id) ON DELETE CASCADE
   );
