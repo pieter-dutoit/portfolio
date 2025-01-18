@@ -105,7 +105,11 @@ VALUES
   ('AWS EC2', 1),
   ('SQL', 1),
   ('HTML', 1),
-  ('CSS', 1);
+  ('CSS', 1),
+  ('Software Testing', 1),
+  ('Database Design', 1),
+  ('Web Development', 1),
+  ('Software Development Lifecycle (SDLC)', 1);
 
 -- Insert seed data into ProjectTag table
 INSERT INTO
@@ -192,3 +196,57 @@ INSERT INTO
 VALUES
   (1, 1),
   (1, 2);
+
+-- Insert seed data into Qualification table
+INSERT INTO
+  Qualification (
+    institution_name,
+    institution_address,
+    institution_logo_url,
+    name,
+    description,
+    start_date,
+    end_date,
+    profile_id
+  )
+VALUES
+  (
+    'Griffith University',
+    'Gold Coast, QLD, Australia',
+    'https://k3c1kebeprqu2qck.public.blob.vercel-storage.com/griffith-logo%20copy-eKhRkRXuzFsLJjz0H9W8RCF5VLM5qb.jpg', -- Replace with logo URL if available
+    'Master of Information Technology; Major in Software Development & Support',
+    'Expected Graduation: July 2025',
+    '2023-07-01',
+    NULL,
+    1
+  );
+
+-- Insert seed data into Achievements table
+INSERT INTO
+  Achievement (
+    name,
+    description,
+    verification_url,
+    pdf_url,
+    qualification_id
+  )
+VALUES
+  (
+    'Griffith Award for Academic Excellence – 2023',
+    'Received the award for maintaining a GPA of 7 (on a scale of 1 to 7)',
+    'https://www.credly.com/badges/70c5f56e-a2ea-4c2f-b2a3-56bfe59b310d/linked_in?t=sfptdd',
+    NULL,
+    1
+  );
+
+-- Insert seed data into QualificationTag table
+INSERT INTO
+  QualificationTag (qualification_id, tag_id)
+VALUES
+  (1, 4),
+  (1, 5),
+  (1, 6),
+  (1, 14),
+  (1, 15),
+  (1, 16),
+  (1, 17);

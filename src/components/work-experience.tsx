@@ -1,18 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { getJobs } from '@/db/queries/job'
-import { formatDate } from '@/lib/utils'
 
-import RichText from '../rich-text'
+import RichText from './rich-text'
+import CompanyProfile from './company-profile'
+import TagList from './tag-list'
+import SectionHeading from './section-heading'
+import DateRange from './date-range'
 
 export default async function WorkExperience() {
   const jobs = await getJobs()
 
   return (
-    <section className='py-20'>
-      <h2 className='text-4xl font-light text-slate-400 lg:text-5xl'>
-        Professional Experience
-      </h2>
-      <ul className='relative py-8 lg:mt-4'>
+    <section className='mt-12 lg:mt-20'>
+      <SectionHeading>Work Experience</SectionHeading>
+      <ul className='relative py-8'>
         {/* Job Listings */}
         {jobs.map(
           ({
@@ -24,31 +25,15 @@ export default async function WorkExperience() {
             roles
           }) => (
             <li key={id} className='relative z-10'>
-              <div className='flex items-center gap-4'>
-                <img
-                  src={company_logo_url}
-                  alt={company_name + ' logo'}
-                  height={48}
-                  width={48}
-                  className='size-12 overflow-hidden rounded-lg border-2 border-emerald-600'
-                />
-                <div>
-                  <h3 className='text-xl'>{company_name}</h3>
-                  <span className='text-sm'>{company_address}</span>
-                </div>
-              </div>
+              {/* Company profile */}
+              <CompanyProfile
+                name={company_name}
+                address={company_address}
+                logo_url={company_logo_url}
+              />
 
               {/* Tags */}
-              <ul className='my-4 flex flex-row flex-wrap items-center gap-2'>
-                {tags.map(({ id, name }, index) => (
-                  <li
-                    key={id + index}
-                    className='rounded-xl bg-slate-600 px-3 py-1 text-sm font-semibold'
-                  >
-                    {name}
-                  </li>
-                ))}
-              </ul>
+              <TagList tags={tags} />
 
               {/* Roles */}
               <ul className='relative mt-8 flex flex-col gap-8'>
@@ -65,9 +50,7 @@ export default async function WorkExperience() {
                         <h3 className='text-lg font-bold text-slate-300'>
                           {title}
                         </h3>
-                        <div className='overflow-hidden text-sm font-semibold'>
-                          {formatDate(start_date)} - {formatDate(end_date)}
-                        </div>
+                        <DateRange from={start_date} to={end_date} />
                       </div>
 
                       {/* Role Description */}
