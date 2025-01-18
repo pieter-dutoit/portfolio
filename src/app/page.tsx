@@ -1,3 +1,9 @@
-export default function Page() {
-  return <div className='mx-autos container'>Portfolio</div>
+import AboutMe from '@/components/about-me'
+
+export default async function Page() {
+  return (
+    <>
+      <AboutMe />
+    </>
+  )
 }
