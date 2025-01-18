@@ -6,48 +6,62 @@ export interface Job {
   id: number
   company_name: string
   company_address?: string
-  role: string
-  start_date?: string
-  end_date?: string
-  description?: string
   company_logo_url?: string
   profile_id: number
+  tags: Tag[]
+  roles: Role[]
+}
+
+export interface Role {
+  id: number
+  title: string
+  description?: string
+  start_date?: string
+  end_date?: string
 }
 
 export interface Tag {
   id: number
   name: string
-  description?: string
   category_id?: number
 }
 
-export interface JobTag {
-  job_id: number
-  tag_id: number
-}
-
 export async function getJobs() {
-  return executeQuery<(Job & Tag)[]>(async (sql) => {
+  return executeQuery<Job[]>(async (sql) => {
     const result = await sql`
       SELECT 
         j.*,
-        COALESCE(
-          json_agg(
-            json_build_object('id', t.id, 'name', t.name, 'description', t.description)
-          ) FILTER (WHERE t.id IS NOT NULL),
-          '[]'
-        ) AS tags
+        COALESCE(r.roles, '[]') AS roles,
+        COALESCE(t.tags, '[]') AS tags
       FROM 
         Job j
-      LEFT JOIN 
-        JobTag jt ON j.id = jt.job_id
-      LEFT JOIN 
-        Tag t ON t.id = jt.tag_id
-      GROUP BY 
-        j.id
+      LEFT JOIN (
+        SELECT 
+          r.job_id,
+          json_agg(
+            json_build_object('id', r.id, 'title', r.title, 'description', r.description, 'start_date', r.start_date, 'end_date', r.end_date)
+          ) AS roles
+        FROM 
+          Role r
+        GROUP BY 
+          r.job_id
+      ) r ON r.job_id = j.id
+      LEFT JOIN (
+        SELECT 
+          jt.job_id,
+          json_agg(
+            json_build_object('id', t.id, 'name', t.name)
+          ) AS tags
+        FROM 
+          JobTag jt
+        JOIN 
+          Tag t ON t.id = jt.tag_id
+        GROUP BY 
+          jt.job_id
+      ) t ON t.job_id = j.id
       ORDER BY 
-        j.id DESC 
+        j.id DESC;
     `
-    return result as (Job & Tag)[]
+    return result as Job[]
   })
 }

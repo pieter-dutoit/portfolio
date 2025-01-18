@@ -1,3 +1,30 @@
+-- Drop all tables
+DROP TABLE IF EXISTS BlogTag;
+
+DROP TABLE IF EXISTS Blog;
+
+DROP TABLE IF EXISTS JobTag;
+
+DROP TABLE IF EXISTS Role;
+
+DROP TABLE IF EXISTS Job;
+
+DROP TABLE IF EXISTS ProjectTag;
+
+DROP TABLE IF EXISTS Tag;
+
+DROP TABLE IF EXISTS Category;
+
+DROP TABLE IF EXISTS ProjectImage;
+
+DROP TABLE IF EXISTS Image;
+
+DROP TABLE IF EXISTS Project;
+
+DROP TABLE IF EXISTS SocialLink;
+
+DROP TABLE IF EXISTS Profile;
+
 -- Profile table
 CREATE TABLE
   IF NOT EXISTS Profile (
@@ -57,18 +84,13 @@ CREATE TABLE
 
 -- Category table
 CREATE TABLE
-  IF NOT EXISTS Category (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT
-  );
+  IF NOT EXISTS Category (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL);
 
 -- Tag table
 CREATE TABLE
   IF NOT EXISTS Tag (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
     category_id INTEGER,
     FOREIGN KEY (category_id) REFERENCES Category (id) ON DELETE SET NULL
   );
@@ -89,13 +111,21 @@ CREATE TABLE
     id SERIAL PRIMARY KEY,
     company_name VARCHAR(255) NOT NULL,
     company_address TEXT,
-    role VARCHAR(255) NOT NULL,
-    start_date DATE,
-    end_date DATE,
-    description TEXT,
     company_logo_url TEXT,
     profile_id INTEGER NOT NULL,
     FOREIGN KEY (profile_id) REFERENCES Profile (id) ON DELETE CASCADE
+  );
+
+-- Role table
+CREATE TABLE
+  IF NOT EXISTS Role (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    job_id INTEGER NOT NULL,
+    FOREIGN KEY (job_id) REFERENCES Job (id) ON DELETE CASCADE
   );
 
 -- JobTag table
