@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/navbar'
 
 import './globals.css'
-import { roboto } from '@/fonts'
+import { workSans } from '@/fonts'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,12 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${roboto.className} antialiased`}>
+      <body className={`${workSans.className} antialiased`}>
         <header>
           <Navbar />
         </header>
 
-        <main className='bg-gradient-to-b from-black to-gray-950'>
+        <main className='bg-gradient-to-b from-gray-950 to-black'>
           <div className='container mx-auto px-6'>{children}</div>
         </main>
       </body>

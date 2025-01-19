@@ -15,7 +15,7 @@ export default async function AboutMe() {
       </h1>
 
       <section className='mt-8'>
-        <h2 className='sr-only'>About Me</h2>
+        <h2 className='text-xl font-bold'>About Me</h2>
 
         {about_me && (
           <div className='text-lg font-light'>

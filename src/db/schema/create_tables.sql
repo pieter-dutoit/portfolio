@@ -59,7 +59,6 @@ CREATE TABLE
   IF NOT EXISTS Project (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    overview TEXT,
     description TEXT,
     repo_url TEXT,
     demo_url TEXT,
@@ -154,6 +153,8 @@ CREATE TABLE
     content TEXT,
     cover_image_url TEXT,
     profile_id INTEGER NOT NULL,
+    published_at TIMESTAMP DEFAULT NOW (),
+    updated_at TIMESTAMP DEFAULT NOW (),
     FOREIGN KEY (profile_id) REFERENCES Profile (id) ON DELETE CASCADE
   );
 

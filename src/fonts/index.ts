@@ -1,16 +1,16 @@
 import localFont from 'next/font/local'
 
-export const roboto = localFont({
+export const workSans = localFont({
   src: [
     {
-      path: './Roboto-VariableFont_wdth,wght.ttf'
+      path: './WorkSans-VariableFont_wght.ttf'
     },
     {
-      path: './Roboto-Italic-VariableFont_wdth,wght.ttf',
+      path: './WorkSans-Italic-VariableFont_wght.ttf',
       style: 'italic'
     }
   ],
-  variable: '--font-roboto',
+  variable: '--font-worksans',
   display: 'swap',
   preload: true
 })
