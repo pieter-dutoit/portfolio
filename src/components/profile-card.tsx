@@ -46,7 +46,7 @@ export default async function ProfileCard() {
 
       <a
         href={`mailto:${email_address}`}
-        className='mt-8 min-w-40 max-w-full rounded-md bg-emerald-500 px-6 py-2 text-base font-semibold tracking-wider'
+        className='mt-8 min-w-40 max-w-full rounded-md bg-emerald-600 px-6 py-2 text-lg font-extrabold'
       >
         Reach out!
       </a>

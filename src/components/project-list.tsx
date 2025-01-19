@@ -8,17 +8,18 @@ export default async function ProjectList() {
   return (
     <MasonryList sectionName='Blog posts'>
       {projects.map(({ id, title, tags, cover_image_url }) => {
-        const blogType = tags.find(
-          (tag) => tag.category_name === 'blog_type'
+        const projectType = tags.find(
+          (tag) => tag.category_name === 'project_type'
         )?.name
+        console.log({ tags })
 
         return (
           <MasonryTile
-            href={`/blog-posts/${id}`}
+            href={`/projects/${id}`}
             key={id}
             type='project'
             title={title}
-            tagName={blogType}
+            tagName={projectType}
             image_url={cover_image_url}
           />
         )

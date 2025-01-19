@@ -12,16 +12,12 @@ const pageLinks = [
   {
     name: 'Blog Posts',
     path: '/blog-posts'
-  },
-  {
-    name: 'Contact me',
-    path: '#contact'
   }
 ]
 
 export default function Navbar() {
   return (
-    <nav className='w-full bg-black'>
+    <nav className='w-full bg-gray-950'>
       <ul className='container mx-auto flex min-h-16 w-full flex-row items-center justify-center gap-2 overflow-x-scroll px-4 md:justify-start'>
         {pageLinks.map(({ path, name }) => (
           <li key={path}>

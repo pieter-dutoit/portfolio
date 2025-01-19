@@ -5,12 +5,11 @@ import { executeQuery } from '@/db/client'
 export interface Project {
   id: number
   title: string
-  overview?: string
   description?: string
   repo_url?: string
   demo_url?: string
-  start_date?: Date
-  end_date?: Date
+  start_date?: string
+  end_date?: string
   cover_image_url?: string
   profile_id: number
   tags: Tag[]

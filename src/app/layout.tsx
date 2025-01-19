@@ -22,7 +22,7 @@ export default function RootLayout({
           <Navbar />
         </header>
 
-        <main className='bg-gradient-to-b from-black to-gray-950'>
+        <main className='bg-gradient-to-b from-gray-950 to-black'>
           <div className='container mx-auto px-6'>{children}</div>
         </main>
       </body>

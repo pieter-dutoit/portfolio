@@ -32,7 +32,7 @@ export default function MasonryTile({
         />
         <div className='relative p-2 pt-4'>
           {tagName && (
-            <div className='absolute bottom-full left-2 translate-y-2 rounded-sm border-[1px] border-white bg-emerald-500 px-2 py-1 text-sm font-extrabold'>
+            <div className='absolute bottom-full left-4 translate-y-2 rounded-sm border-[1px] border-white bg-emerald-500 px-2 py-1 text-sm font-extrabold'>
               {tagName}
             </div>
           )}

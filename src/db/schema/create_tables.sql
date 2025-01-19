@@ -59,7 +59,6 @@ CREATE TABLE
   IF NOT EXISTS Project (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    overview TEXT,
     description TEXT,
     repo_url TEXT,
     demo_url TEXT,
