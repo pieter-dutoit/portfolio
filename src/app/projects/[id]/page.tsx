@@ -4,11 +4,19 @@ import { notFound } from 'next/navigation'
 
 import RichText from '@/components/rich-text'
 import TagList from '@/components/tag-list'
-import { getProjectById } from '@/db/queries/project'
+import { getProjectById, getProjects } from '@/db/queries/project'
 import DateRange from '@/components/date-range'
 
 interface Props {
   params: Promise<{ id: string }>
+}
+
+export async function generateStaticParams() {
+  const projects = await getProjects()
+
+  return projects.map(({ id }) => ({
+    id: '' + id
+  }))
 }
 
 export default async function BlogPost({ params }: Props) {
