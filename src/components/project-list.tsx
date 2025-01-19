@@ -11,7 +11,6 @@ export default async function ProjectList() {
         const projectType = tags.find(
           (tag) => tag.category_name === 'project_type'
         )?.name
-        console.log({ tags })
 
         return (
           <MasonryTile

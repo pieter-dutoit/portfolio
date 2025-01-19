@@ -16,7 +16,6 @@ export default async function Education() {
 
       <ul className='relative py-8'>
         {qualifications.map((qualification) => {
-          console.log({ qualification })
           const {
             id,
             institution_name,
