@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { getJobs } from '@/db/queries/job'
 
 import RichText from './rich-text'
