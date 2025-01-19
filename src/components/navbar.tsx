@@ -10,8 +10,8 @@ const pageLinks = [
     path: '/projects'
   },
   {
-    name: 'Blog',
-    path: '/blog'
+    name: 'Blog Posts',
+    path: '/blog-posts'
   },
   {
     name: 'Contact me',

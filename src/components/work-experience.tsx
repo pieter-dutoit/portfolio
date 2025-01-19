@@ -11,7 +11,7 @@ export default async function WorkExperience() {
   const jobs = await getJobs()
 
   return (
-    <section className='mt-12 lg:mt-20'>
+    <section className='mt-12 lg:mt-16'>
       <SectionHeading>Work Experience</SectionHeading>
       <ul className='relative py-8'>
         {/* Job Listings */}

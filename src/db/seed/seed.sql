@@ -81,7 +81,7 @@ INSERT INTO
 VALUES
   ('technical_skill'),
   ('soft_skill'),
-  ('featured');
+  ('blog_type');
 
 -- Insert seed data into Tag table
 INSERT INTO
@@ -109,7 +109,10 @@ VALUES
   ('Software Testing', 1),
   ('Database Design', 1),
   ('Web Development', 1),
-  ('Software Development Lifecycle (SDLC)', 1);
+  ('Software Development Lifecycle (SDLC)', 1),
+  ('Teamwork', 2),
+  ('Decision-making', 2),
+  ('Reflection', 3);
 
 -- Insert seed data into ProjectTag table
 INSERT INTO
@@ -178,15 +181,17 @@ INSERT INTO
     excerpt,
     content,
     cover_image_url,
+    published_at,
+    updated_at,
     profile_id
   )
 VALUES
   (
     FALSE,
-    'My First Blog Post',
-    'This is an excerpt of my first blog post.',
-    'This is the content of my first blog post.',
-    'https://example.com/blog-cover.jpg',
+    'Teamwork: Making decisions in a group assignment',
+    'During my studies at Griffith University, I collaborated with a 4-person team to develop a Java-based Tetris game with advanced features like AI and multiplayer capabilities. To kickstart the project, I created a table summarizing all tasks and shared it in a Teams chat, allowing members to self-assign tasks. While this approach was logical and stress-free for me, one teammate raised concerns about fairness. This led to a group discussion where tasks were reallocated, ensuring everyone felt the workload was balanced. Reflecting on this, I learned the importance of considering diverse decision-making styles and fostering inclusivity in team dynamics.',
+    'During my studies at Griffith University, I was assigned to a 4-person team where our assignment was to write a Java-based Tetris game, with advanced features such as AI- and multi-player capabilities. The specification sheet clearly listed and categorised all sub-tasks and outcomes. The tasks varied in widely nature and included coding, drawing diagrams and writing reports. Having only met my teammates recently, we were unsure of how we would divide the workload, since we were unfamiliar with each others'' preferences for certain types of work.\n\nTo get the project going, I created a table summary of all tasks and shared the list on a Teams chat group. I asked all members to add their names next to the tasks they wished to complete. This approach suited me well, because I''m introverted with a "Thinking" approach to decision-making. This meant that in my view, this method of task assignment was stress-free, convenient, and required minimal communication, while giving members the freedom to pick the tasks they preferred.\n\nAt first, most members seemed content with selecting tasks in this way. However, one team member raised a concern over the approach, stating that it was unbalanced, because tasks were being self-assigned without consideration of other members'' preferences. Consequently, we organised an online meeting where everyone expressed their interest in specific tasks, and some tasks were re-assigned to ensure everyone felt the workload division was fair. By the end of the meeting, everyone was in agreement of the workload division.\n\nAfter the meeting, I reconsidered my approach to making decisions, and how it may affect team members. Although I thought my approach to workload division was logical and fair, it may have appeared inconsiderate to others. I realise now that others may have a "Feeling" approach to decision-making, meaning they prefer the decision-making process to be more inclusive and consider the emotional impact of decisions on others. In the future, I would still suggest my opinion regarding group decisions, but I would present it as a suggestion rather than a finalised decision. This would allow other members to voice any opinions or suggestions and let them feel more involved in the decision-making process.',
+    'https://k3c1kebeprqu2qck.public.blob.vercel-storage.com/tetris_screenshot-LhfpbUG5k4PSCmPDeF4t2fgNBYnomA.jpg',
     1
   );
 
@@ -194,8 +199,12 @@ VALUES
 INSERT INTO
   BlogTag (blog_id, tag_id)
 VALUES
-  (1, 1),
-  (1, 2);
+  (1, 4),
+  (1, 10),
+  (1, 20),
+  (1, 24),
+  (1, 25),
+  (1, 26);
 
 -- Insert seed data into Qualification table
 INSERT INTO

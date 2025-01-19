@@ -154,6 +154,8 @@ CREATE TABLE
     content TEXT,
     cover_image_url TEXT,
     profile_id INTEGER NOT NULL,
+    published_at TIMESTAMP DEFAULT NOW (),
+    updated_at TIMESTAMP DEFAULT NOW (),
     FOREIGN KEY (profile_id) REFERENCES Profile (id) ON DELETE CASCADE
   );
 

@@ -1,16 +1,17 @@
+import { Dot, ExternalLink } from 'lucide-react'
+
 import { getQualifications } from '@/db/queries/qualification'
+
 import SectionHeading from './section-heading'
 import CompanyProfile from './company-profile'
 import TagList from './tag-list'
 import DateRange from './date-range'
-import RichText from './rich-text'
-import { Dot, ExternalLink } from 'lucide-react'
 
 export default async function Education() {
   const qualifications = await getQualifications()
 
   return (
-    <section className='mt-12 lg:mt-20'>
+    <section className='mt-12 lg:mt-16'>
       <SectionHeading>Education</SectionHeading>
 
       <ul className='relative py-8'>
@@ -24,7 +25,7 @@ export default async function Education() {
             name,
             start_date,
             end_date,
-            description,
+            // description,
             tags,
             achievements
           } = qualification
@@ -42,13 +43,13 @@ export default async function Education() {
               <p className='text-lg font-light'>{major}</p>
               <DateRange from={start_date} to={end_date} />
 
-              {description && (
+              {/* {description && (
                 <RichText text={description} textClassName='font-light' />
-              )}
+              )} */}
 
               <TagList tags={tags} />
 
-              <h5 className='mt-6 text-lg font-bold text-slate-400 underline-offset-2'>
+              <h5 className='font-sem mt-6 text-lg text-gray-300 underline-offset-2'>
                 Achievements
               </h5>
               <ul className='mt-2'>
