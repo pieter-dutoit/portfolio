@@ -1,6 +1,8 @@
-import { formatDate } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+
+import { formatDate } from '@/lib/utils'
+import Image from 'next/image'
 
 /* eslint-disable @next/next/no-img-element */
 interface Props {
@@ -25,9 +27,11 @@ export default function MasonryTile({
   return (
     <li className='mx-auto mb-6 max-w-80 break-inside-avoid rounded-sm border-2 border-emerald-200 transition-transform hover:scale-110'>
       <Link href={href}>
-        <img
-          src={image_url}
+        <Image
+          src={image_url as string}
           alt={image_alt || `${title} cover image`}
+          width={300}
+          height={300}
           className='w-full'
         />
         <div className='relative p-2 pt-4'>

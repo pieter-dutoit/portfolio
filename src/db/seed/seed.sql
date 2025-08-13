@@ -11,11 +11,11 @@ INSERT INTO
 VALUES
   (
     'Pieter du Toit',
-    'https://k3c1kebeprqu2qck.public.blob.vercel-storage.com/portfolio-profile-pic-y0raZkDkwI5lBJcHiPR14EfLyRih6z.jpg',
+    'https://k3c1kebeprqu2qck.public.blob.vercel-storage.com/profile-pic-mEP2GpXEfK4xjKFJvBPqlou5tjr9aZ.jpg',
     'Software Developer',
-    'pdut8901@gmail.com',
-    'Broadbeach, QLD, Australia',
-    'I am a dedicated, dependable and innovate software developer who takes pride in developing high-quality applications. When presented with complex work, I''m skilled at identifying the tasks that need to be performed to deliver a high-caliber product that meets stakeholder requirements, and complete them on time. Furthermore, I always challenge myself to find the most creative and efficient solution to any challenges I face.\n\nMy passion for software development comes from it''s potential to develop unique and create solutions to a variety of problems. Combined with my prior work experience as a web developer, this has motivated me to pursue a related degree. Not only has the university experience provided me with a stronger foundational understanding of software development, it has challenged me to think critically about a wider range of IT concepts and developed the confidence to take on technically challenging roles. My goal is to enable myself to make valuable contributions to meaningful projects. In the future, I hope to look back and take pride in having contributed to the success of such projects.\n\nA unique strength of mine is the ability to develop a good understanding of new concepts in relatively short amount of time, which allows me to find robust solutions to complex problems. Additionally, I am skilled at finding a large variety of possible solutions to problems, comparing them, evaluating their suitability, and selecting the most appropriate solution.'
+    'contact@pieterdutoit.dev',
+    'Launceston, TAS, Australia',
+    'I am a software developer who enjoys building high-quality web applications that creatively solve real-world problems. When presented with complex work, I''m skilled at identifying the tasks needed to deliver a high-quality product that meets client requirements.\n\nOver the course of my career, I have always stayed current with emerging development technologies and continue to utilise them to build more performant and secure applications.\n\nWhile most of my work experience is frontend-related, my 2-year experience at Griffith University has extended my skill set to be well-rounded, including backend development and secure hosting, and has provided me with a stronger foundational understanding of software development.'
   );
 
 -- Insert seed data into SocialLink table
@@ -29,7 +29,7 @@ VALUES
     1
   ),
   (
-    'https://www.linkedin.com/in/pieter-du-toit-8901/',
+    'https://www.linkedin.com/in/pieter-du-toit-dev/',
     'LinkedIn',
     'https://k3c1kebeprqu2qck.public.blob.vercel-storage.com/linkedin-szuSGuHltgpTyW0WHLzAVQdkM61FOk.svg',
     1
@@ -167,21 +167,21 @@ INSERT INTO
 VALUES
   (
     'Senior Front-End Engineer',
-    'Developed new features of the Lesson Desk e-learning platform as part of a front-end development team.\n\nGained valuable development experience with modern web frameworks and libraries such as Next.js, Framer Motion and Styled Components.\n\nCollaborated with marketing and UX teams to deliver engaging, user-friendly websites.\n\nAchieved significant SEO and performance enhancements for the platform''s media-rich public-facing website, as measured by Google Lighthouse. This helped optimise user experience and search engine visibility.',
+    'Built user interfaces for an e-learning platform, translated from UI/UX designs (Figma).\n\nLeveraged data caching and on-demand revalidation (SWR) to reduce the API load, improve page load times, and ensure pages displayed accurate data.\n\nLed development of a public-facing website and headless CMS integration, focusing on SEO and performance optimisation.\n\nDeveloped strong collaboration skills, working closely with UI/UX designers, QA testers, backend, and marketing teams to meet client needs, following Agile methodology.\n\nParticipated in frequent code reviews, analysing code, ensuring compliance with company standards, and providing feedback.',
     '2021-08-01',
     '2023-06-01',
     1
   ),
   (
     'Front-End Engineer',
-    'Contributed to frontend projects within the Lesson Desk e-learning platform, built on a micro-services architecture, which included a custom UI library, and both learner and manager platforms.\n\nIntegrated the frontend with backend services through a REST API.\n\nGained valuable skills in agile sprints, teamwork, and collaboration, and an understanding of the software development lifecycle (SDLC).',
+    'Contributed to the development of a comprehensive custom UI library for reuse across multiple React-based platforms.\n\nDeveloped user-friendly forms for data entry, and validated inputs for accuracy and completeness.\n\nDocumented UI components in Storybook to facilitate collaboration.\n\nIntegrated the frontend with a backend API, using a tailored API client.',
     '2018-06-01',
     '2021-07-01',
     1
   ),
   (
     'IT Dev Intern',
-    'Contributed to frontend development projects using React.js and modern JavaScript techniques.\n\nEnhanced and maintained legacy code using JavaScript, jQuery, HTML & CSS.',
+    'Contributed to frontend development projects using React and JavaScript.',
     '2017-12-01',
     '2018-05-01',
     1
@@ -269,8 +269,8 @@ VALUES
     'https://k3c1kebeprqu2qck.public.blob.vercel-storage.com/griffith-logo%20copy-eKhRkRXuzFsLJjz0H9W8RCF5VLM5qb.jpg', -- Replace with logo URL if available
     'Master of Information Technology; Major in Software Development & Support',
     'Expected Graduation: July 2025',
-    '2023-07-01',
-    NULL,
+    '2023-07-17',
+    '2025-06-24',
     1
   );
 
@@ -286,8 +286,15 @@ INSERT INTO
 VALUES
   (
     'Griffith Award for Academic Excellence – 2023',
-    'Received the award for maintaining a GPA of 7 (on a scale of 1 to 7)',
-    'https://www.credly.com/badges/70c5f56e-a2ea-4c2f-b2a3-56bfe59b310d/linked_in?t=sfptdd',
+    NULL,
+    'https://www.credly.com/badges/70c5f56e-a2ea-4c2f-b2a3-56bfe59b310d',
+    NULL,
+    1
+  ),
+  (
+    'Griffith Award for Academic Excellence – 2024',
+    NULL,
+    'https://www.credly.com/badges/f0aa12b2-fbcf-440d-9f67-dbc30aee20d2',
     NULL,
     1
   );
