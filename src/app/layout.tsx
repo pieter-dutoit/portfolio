@@ -7,7 +7,7 @@ import { workSans } from '@/fonts'
 
 export const metadata: Metadata = {
   title: 'Portfolio | Pieter du Toit',
-  description: 'Porfessional portfolio of Pieter du Toit'
+  description: 'Professional portfolio of Pieter du Toit'
 }
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
           <Navbar />
         </header>
 
-        <main className='bg-gradient-to-b from-gray-950 to-black'>
+        <main className='bg-linear-to-b from-gray-950 to-black'>
           <div className='container mx-auto px-6'>{children}</div>
         </main>
       </body>

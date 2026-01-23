@@ -1,4 +1,4 @@
-import { jobs } from '@/data/placeholder'
+import { jobs } from '@/data/resume'
 
 import CompanyProfile from './company-profile'
 import TagList from './tag-list'
