@@ -1,4 +1,4 @@
-import { aboutMe, profile } from '@/data/placeholder'
+import { aboutMe, profile } from '@/data/resume'
 
 export default function AboutMe() {
   const { full_name, title } = profile

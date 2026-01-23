@@ -1,6 +1,6 @@
 import { Dot, ExternalLink } from 'lucide-react'
 
-import { qualifications } from '@/data/placeholder'
+import { qualifications } from '@/data/resume'
 
 import SectionHeading from './section-heading'
 import CompanyProfile from './company-profile'
@@ -53,14 +53,17 @@ export default function Education() {
                         <h6 className='font-bold'>{name}</h6>
                         <div className='mt-1'>
                           <p>{description}</p>
-                          <a
-                            href={verification_url}
-                            target='_blank'
-                            className='flex items-center underline'
-                          >
-                            Verify on Credly{' '}
-                            <ExternalLink className='ml-1' size={16} />
-                          </a>
+                          {verification_url ? (
+                            <a
+                              href={verification_url}
+                              target='_blank'
+                              rel='noreferrer'
+                              className='flex items-center underline'
+                            >
+                              Verify on Credly{' '}
+                              <ExternalLink className='ml-1' size={16} />
+                            </a>
+                          ) : null}
                         </div>
                       </div>
                     </li>
