@@ -3,7 +3,7 @@ import Education from '@/components/education'
 import ProfileCard from '@/components/profile-card'
 import WorkExperience from '@/components/work-experience'
 
-export default async function Page() {
+export default function Page() {
   return (
     <div className='grid grid-cols-1 gap-16 py-16 lg:grid-cols-3'>
       <aside className='col-span-1'>

@@ -8,10 +8,6 @@ const pageLinks = [
   {
     name: 'Projects',
     path: '/projects'
-  },
-  {
-    name: 'Blog Posts',
-    path: '/blog-posts'
   }
 ]
 

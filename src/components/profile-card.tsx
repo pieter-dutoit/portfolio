@@ -1,11 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { getProfile } from '@/db/queries/profile'
-import { getSocialLinks } from '@/db/queries/social-link'
+import { profile, socialLinks } from '@/data/placeholder'
 
-export default async function ProfileCard() {
-  const profile = await getProfile()
-  const socials = await getSocialLinks()
-
+export default function ProfileCard() {
   const { full_name, title, physical_address, photo_url, email_address } =
     profile
 
@@ -24,7 +20,7 @@ export default async function ProfileCard() {
       </span>
 
       <ul className='mt-6 flex flex-row items-center justify-center gap-4'>
-        {socials.map(({ url, name, photo_url, id }) => (
+        {socialLinks.map(({ url, name, photo_url, id }) => (
           <li key={id}>
             <a
               href={url}

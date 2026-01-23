@@ -1,15 +1,13 @@
 import { Dot, ExternalLink } from 'lucide-react'
 
-import { getQualifications } from '@/db/queries/qualification'
+import { qualifications } from '@/data/placeholder'
 
 import SectionHeading from './section-heading'
 import CompanyProfile from './company-profile'
 import TagList from './tag-list'
 import DateRange from './date-range'
 
-export default async function Education() {
-  const qualifications = await getQualifications()
-
+export default function Education() {
   return (
     <section className='mt-12 lg:mt-16'>
       <SectionHeading>Education</SectionHeading>
@@ -24,12 +22,11 @@ export default async function Education() {
             name,
             start_date,
             end_date,
-            // description,
             tags,
             achievements
           } = qualification
 
-          const [degree, major] = name.split(';')
+          const [degree, major] = name.split(';').map((value) => value.trim())
 
           return (
             <li key={id}>
@@ -42,10 +39,6 @@ export default async function Education() {
               <p className='text-lg font-light'>{major}</p>
               <DateRange from={start_date} to={end_date} />
 
-              {/* {description && (
-                <RichText text={description} textClassName='font-light' />
-              )} */}
-
               <TagList tags={tags} />
 
               <h5 className='font-sem mt-6 text-lg text-gray-300 underline-offset-2'>
@@ -53,8 +46,8 @@ export default async function Education() {
               </h5>
               <ul className='mt-2'>
                 {achievements.map(
-                  ({ id, name, description, verification_url }) => (
-                    <li key={id} className='flex'>
+                  ({ id: achievementId, name, description, verification_url }) => (
+                    <li key={achievementId} className='flex'>
                       <Dot />
                       <div>
                         <h6 className='font-bold'>{name}</h6>

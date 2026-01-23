@@ -1,12 +1,10 @@
-import { getProjects } from '@/db/queries/project'
+import { projects } from '@/data/placeholder'
 import MasonryList from './masonry-list'
 import MasonryTile from './masonry-tile'
 
-export default async function ProjectList() {
-  const projects = await getProjects()
-
+export default function ProjectList() {
   return (
-    <MasonryList sectionName='Blog posts'>
+    <MasonryList sectionName='Projects'>
       {projects.map(({ id, title, tags, cover_image_url }) => {
         const projectType = tags.find(
           (tag) => tag.category_name === 'project_type'

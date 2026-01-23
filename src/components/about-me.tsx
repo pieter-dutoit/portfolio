@@ -1,11 +1,7 @@
-import { getProfile } from '@/db/queries/profile'
+import { aboutMe, profile } from '@/data/placeholder'
 
-import RichText from './rich-text'
-
-export default async function AboutMe() {
-  const profile = await getProfile()
-
-  const { full_name, title, about_me } = profile
+export default function AboutMe() {
+  const { full_name, title } = profile
 
   return (
     <>
@@ -17,11 +13,13 @@ export default async function AboutMe() {
       <section className='mt-8'>
         <h2 className='text-xl font-bold'>About Me</h2>
 
-        {about_me && (
-          <div className='text-lg font-light'>
-            <RichText text={about_me} textClassName='lg:text-justify' />
-          </div>
-        )}
+        <div className='text-lg font-light'>
+          {aboutMe.map((paragraph) => (
+            <p key={paragraph} className='mt-4 lg:text-justify'>
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </section>
     </>
   )

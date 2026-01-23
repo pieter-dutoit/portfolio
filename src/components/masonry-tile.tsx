@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
 
-/* eslint-disable @next/next/no-img-element */
 interface Props {
   title: string
   image_url?: string

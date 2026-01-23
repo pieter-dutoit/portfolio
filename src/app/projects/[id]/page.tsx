@@ -2,26 +2,23 @@ import { ArrowLeft, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import RichText from '@/components/rich-text'
 import TagList from '@/components/tag-list'
-import { getProjectById, getProjects } from '@/db/queries/project'
 import DateRange from '@/components/date-range'
+import { projects } from '@/data/placeholder'
 
 interface Props {
   params: Promise<{ id: string }>
 }
 
-export async function generateStaticParams() {
-  const projects = await getProjects()
-
+export function generateStaticParams() {
   return projects.map(({ id }) => ({
-    id: '' + id
+    id
   }))
 }
 
-export default async function BlogPost({ params }: Props) {
+export default async function ProjectDetail({ params }: Props) {
   const { id } = await params
-  const project = await getProjectById(id)
+  const project = projects.find((entry) => entry.id === id)
 
   if (!project) notFound()
 
@@ -50,16 +47,18 @@ export default async function BlogPost({ params }: Props) {
       <h1 className='mt-4 text-4xl font-extrabold lg:text-6xl'>{title}</h1>
       <DateRange from={start_date} to={end_date} />
 
-      {repo_url && (
+      {(repo_url || demo_url) && (
         <>
           <div className='mt-6 flex flex-wrap items-center gap-4'>
-            <a
-              href={repo_url}
-              target='_blank'
-              className='flex w-fit items-center gap-2 rounded-sm border-2 border-white px-4 py-1'
-            >
-              View on GitHub
-            </a>
+            {repo_url && (
+              <a
+                href={repo_url}
+                target='_blank'
+                className='flex w-fit items-center gap-2 rounded-sm border-2 border-white px-4 py-1'
+              >
+                View on GitHub
+              </a>
+            )}
             {demo_url && (
               <a
                 href={demo_url}
@@ -77,9 +76,9 @@ export default async function BlogPost({ params }: Props) {
         </>
       )}
 
-      <div className='mt-12'>
-        {description && <RichText text={description} />}
-      </div>
+      {description && (
+        <div className='mt-12 text-base font-light'>{description}</div>
+      )}
 
       <hr className='my-8' />
       <TagList tags={tags} />
