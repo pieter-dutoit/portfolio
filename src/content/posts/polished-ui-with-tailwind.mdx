@@ -1,0 +1,34 @@
+---
+title: "Polished UI with Tailwind"
+slug: "polished-ui-with-tailwind"
+date: "2025-09-02"
+excerpt: "A checklist for adding depth, hierarchy, and restraint to Tailwind-driven interfaces."
+tags:
+  - "UI/UX"
+  - "Design Systems"
+stack:
+  - "Tailwind"
+  - "Radix"
+  - "React"
+thumbnail: "/posts/polished-ui.svg"
+---
+
+# Polished UI with Tailwind
+
+Tailwind gives you raw control over every pixel. The challenge is keeping the UI intentional instead of noisy.
+
+## Dial in hierarchy
+
+- Let typography lead. Set clear size and weight steps.
+- Use spacing tokens to create rhythm.
+- Keep contrast consistent across the surface.
+
+```tsx
+<div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+  <p className="text-xs uppercase tracking-[0.3em] text-white/40">Overview</p>
+  <h2 className="mt-2 text-2xl font-semibold text-white">Intentional layout</h2>
+  <p className="mt-3 text-sm text-white/70">Pick two type scales and stick to them.</p>
+</div>
+```
+
+![Polished layout](/posts/polished-ui.svg)

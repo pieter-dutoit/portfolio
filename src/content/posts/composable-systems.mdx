@@ -1,0 +1,50 @@
+---
+title: "Designing composable systems"
+slug: "composable-systems"
+date: "2025-11-05"
+excerpt: "A practical look at how composable UI primitives help you scale complex product surfaces without losing velocity."
+tags:
+  - "Design Patterns"
+  - "UI/UX"
+stack:
+  - "React"
+  - "TypeScript"
+  - "Design Systems"
+thumbnail: "/posts/composable-systems.svg"
+---
+
+# Designing composable systems
+
+Composable systems turn big, tangled surfaces into smaller, reusable building blocks. That shift makes design and engineering decisions portable, which means you can scale confidently instead of rebuilding the same UI logic in every corner of the app.
+
+## Why composability matters
+
+When each element is designed as a small system with clear inputs and outputs, you can:
+
+- Create new flows by assembling existing patterns.
+- Reduce regressions because components remain predictable.
+- Keep teams aligned on the same set of primitives.
+
+## A quick mental model
+
+Think about each component as a pure function: given a set of props, it renders a consistent output.
+
+```tsx
+function Banner({ title, tone }: { title: string; tone: "info" | "warning" }) {
+  return (
+    <div data-tone={tone} className="rounded-xl border border-white/10 p-4">
+      <h3 className="text-lg font-semibold">{title}</h3>
+    </div>
+  )
+}
+```
+
+## Practical steps
+
+1. Start with primitives (buttons, inputs, layout).
+2. Package higher-level patterns (hero, callout, card).
+3. Capture composition rules in docs so people know how to assemble them.
+
+![Composable UI](/posts/composable-systems.svg)
+
+If you keep the system small and intentional, you can move quickly without losing the aesthetic signal.

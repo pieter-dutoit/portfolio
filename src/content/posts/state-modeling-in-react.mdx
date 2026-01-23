@@ -1,0 +1,48 @@
+---
+title: "State modeling in React"
+slug: "state-modeling-in-react"
+date: "2025-10-18"
+excerpt: "Stop chasing state bugs by modeling transitions explicitly and letting UI derive from the current state."
+tags:
+  - "State Management"
+  - "Design Patterns"
+stack:
+  - "React"
+  - "XState"
+  - "TypeScript"
+thumbnail: "/posts/state-modeling.svg"
+---
+
+# State modeling in React
+
+When the state space becomes complex, modeling your transitions is more effective than stacking `useState` and effects. Think in terms of states and the events that move between them.
+
+## Model the transitions
+
+```ts
+type Status = "idle" | "loading" | "success" | "error"
+
+type Event =
+  | { type: "FETCH" }
+  | { type: "RESOLVE" }
+  | { type: "REJECT" }
+
+function transition(state: Status, event: Event): Status {
+  switch (state) {
+    case "idle":
+      return event.type === "FETCH" ? "loading" : state
+    case "loading":
+      if (event.type === "RESOLVE") return "success"
+      if (event.type === "REJECT") return "error"
+      return state
+    default:
+      return state
+  }
+}
+```
+
+## Use the model in your UI
+
+Render UI based on the active status. Keep side effects in one place and let every component read from the same model.
+
+![State transitions](/posts/state-modeling.svg)

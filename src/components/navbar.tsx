@@ -4,6 +4,10 @@ const pageLinks = [
   {
     name: 'Home',
     path: '/'
+  },
+  {
+    name: 'Posts',
+    path: '/posts'
   }
 ]
 

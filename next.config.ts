@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   experimental: {
     taint: true,
   },
- images: {
+  images: {
     remotePatterns: [
       {
         protocol: "https",
@@ -13,6 +14,23 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  options: {
+    // Turbopack requires serializable plugin references + options.
+    remarkPlugins: ["remark-gfm", "remark-frontmatter", "remark-mdx-frontmatter"],
+    rehypePlugins: [
+      [
+        "rehype-pretty-code",
+        {
+          theme: "github-dark",
+          keepBackground: false,
+        },
+      ],
+    ],
+  },
+});
+
+export default withMDX(nextConfig);
