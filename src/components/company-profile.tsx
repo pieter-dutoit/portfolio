@@ -14,11 +14,11 @@ export default function CompanyProfile({ name, address, logo_url }: Props) {
         alt={name + ' logo'}
         height={48}
         width={48}
-        className='size-12 overflow-hidden rounded-lg border-2 border-gray-300'
+        className='size-12 overflow-hidden rounded-lg border-2 border-border'
       />
       <div>
         <h3 className='text-xl'>{name}</h3>
-        <p className='text-sm'>{address}</p>
+        <p className='text-sm text-muted-foreground'>{address}</p>
       </div>
     </div>
   )

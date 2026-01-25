@@ -23,7 +23,7 @@ const components: MDXComponents = {
   },
   img: ({ className, ...props }) => (
     <img
-      className={cn("rounded-lg border border-white/10", className)}
+      className={cn("rounded-lg border border-border", className)}
       {...props}
     />
   ),

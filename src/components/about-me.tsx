@@ -5,9 +5,9 @@ export default function AboutMe() {
 
   return (
     <>
-      <h1 className='text-center text-5xl font-extrabold text-slate-400 lg:text-left lg:text-6xl'>
+      <h1 className='text-center text-5xl font-extrabold text-foreground lg:text-left lg:text-6xl'>
         {full_name} <br />
-        <span className='text-[0.5em]'>{title}</span>
+        <span className='text-[0.5em] text-muted-foreground'>{title}</span>
       </h1>
 
       <section className='mt-8'>

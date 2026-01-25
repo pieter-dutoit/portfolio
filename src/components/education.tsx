@@ -41,7 +41,7 @@ export default function Education() {
 
               <TagList tags={tags} />
 
-              <h5 className='font-sem mt-6 text-lg text-gray-300 underline-offset-2'>
+              <h5 className='font-sem mt-6 text-lg text-muted-foreground underline-offset-2'>
                 Achievements
               </h5>
               <ul className='mt-2'>

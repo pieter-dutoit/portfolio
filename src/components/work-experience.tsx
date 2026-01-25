@@ -31,11 +31,11 @@ export default function WorkExperience() {
                 {roles.map(({ id: roleId, title, description, start_date, end_date }) => (
                   <li key={roleId} className='relative pl-16'>
                     {/* Bullet */}
-                    <div className='absolute left-5 top-4 size-2 rounded-full bg-white shadow-[0_0_12px_5px_rgba(16,185,129,0.4)]' />
+                    <div className='absolute left-5 top-4 size-2 rounded-full bg-foreground shadow-[0_0_12px_5px_rgba(16,185,129,0.4)]' />
 
                     {/* Role and years */}
                     <div className='flex flex-col items-start'>
-                      <h3 className='text-lg font-bold text-slate-300'>{title}</h3>
+                      <h3 className='text-lg font-bold text-foreground'>{title}</h3>
                       <DateRange from={start_date} to={end_date} />
                     </div>
 
