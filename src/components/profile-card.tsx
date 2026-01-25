@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import { profile, socialLinks } from '@/data/resume'
 
 export default function ProfileCard() {
@@ -13,11 +13,14 @@ export default function ProfileCard() {
 
   return (
     <div className='top-16 flex flex-col items-center overflow-hidden rounded-3xl border border-border/60 bg-card px-[10%] py-6 text-center shadow-2xl shadow-black/30 ring-1 ring-border/40 lg:sticky'>
-      <img
+      <Image
         className='aspect-square w-full max-w-80 overflow-hidden rounded-2xl border border-border bg-emerald-500 object-cover object-center shadow-lg shadow-black/30'
         src={photo_url}
         alt='Profile picture'
-        loading='eager'
+        width={320}
+        height={320}
+        sizes='(min-width: 1024px) 320px, 80vw'
+        priority
       />
 
       <span className='mt-6 text-3xl font-bold'>{full_name}</span>
@@ -40,7 +43,7 @@ export default function ProfileCard() {
               target='_blank'
               rel='noreferrer'
             >
-              <img
+              <Image
                 src={photo_url}
                 height={40}
                 width={40}
