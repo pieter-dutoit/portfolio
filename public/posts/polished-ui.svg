@@ -1,0 +1,16 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#0A0A0F"/>
+  <rect x="120" y="110" width="960" height="220" rx="32" fill="#111827" stroke="#1F2937"/>
+  <rect x="180" y="160" width="360" height="24" rx="12" fill="#1F2937"/>
+  <rect x="180" y="210" width="520" height="18" rx="9" fill="#334155"/>
+  <rect x="180" y="250" width="280" height="18" rx="9" fill="#334155"/>
+  <circle cx="860" cy="470" r="150" fill="url(#paint0_linear)"/>
+  <text x="120" y="590" fill="#F8FAFC" font-family="Inter, ui-sans-serif" font-size="42" font-weight="600">Polished UI with Tailwind</text>
+  <text x="120" y="630" fill="#94A3B8" font-family="Inter, ui-sans-serif" font-size="22">Crafting depth and hierarchy</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="740" y1="360" x2="1010" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A855F7"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+</svg>

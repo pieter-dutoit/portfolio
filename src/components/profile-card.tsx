@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image'
 import { profile, socialLinks } from '@/data/resume'
 
 export default function ProfileCard() {
@@ -12,16 +12,19 @@ export default function ProfileCard() {
   } = profile
 
   return (
-    <div className='top-16 flex flex-col items-center overflow-hidden rounded-3xl bg-white/10 px-[10%] py-6 text-center shadow-lg shadow-slate-950/20 lg:sticky'>
-      <img
-        className='aspect-square w-full max-w-80 overflow-hidden rounded-2xl border-white bg-emerald-500 object-cover object-center shadow-lg shadow-slate-700/50'
+    <div className='top-16 flex flex-col items-center overflow-hidden rounded-3xl border border-border/60 bg-card px-[10%] py-6 text-center shadow-2xl shadow-black/30 ring-1 ring-border/40 lg:sticky'>
+      <Image
+        className='aspect-square w-full max-w-80 overflow-hidden rounded-2xl border border-border bg-emerald-500 object-cover object-center shadow-lg shadow-black/30'
         src={photo_url}
         alt='Profile picture'
-        loading='eager'
+        width={320}
+        height={320}
+        sizes='(min-width: 1024px) 320px, 80vw'
+        priority
       />
 
       <span className='mt-6 text-3xl font-bold'>{full_name}</span>
-      <span className='mt-2 text-lg text-gray-300'>
+      <span className='mt-2 text-lg text-muted-foreground'>
         {title} <br /> {physical_address}
         {phone_number ? (
           <>
@@ -40,12 +43,12 @@ export default function ProfileCard() {
               target='_blank'
               rel='noreferrer'
             >
-              <img
+              <Image
                 src={photo_url}
                 height={40}
                 width={40}
                 alt={name + ' icon'}
-                className='rounded-xl bg-emerald-50 object-cover object-center p-2'
+                className='rounded-xl bg-white object-cover object-center p-2 shadow-sm ring-1 ring-black/5 dark:ring-white/10'
               />
               <span className='text-xs'>{name}</span>
             </a>
@@ -55,7 +58,7 @@ export default function ProfileCard() {
 
       <a
         href={`mailto:${email_address}`}
-        className='mt-8 max-w-full min-w-40 rounded-md bg-emerald-600 px-6 py-2 text-lg font-extrabold'
+        className='mt-8 max-w-full min-w-40 rounded-md bg-emerald-600 px-6 py-2 text-lg font-extrabold text-white transition hover:bg-emerald-500'
       >
         Email me
       </a>
