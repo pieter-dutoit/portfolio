@@ -12,9 +12,9 @@ export default function ProfileCard() {
   } = profile
 
   return (
-    <div className='top-16 flex flex-col items-center overflow-hidden rounded-3xl border border-border/60 bg-card px-[10%] py-6 text-center shadow-2xl shadow-black/30 ring-1 ring-border/40 lg:sticky'>
+    <div className='border-border/60 bg-card ring-border/40 flex flex-col items-center overflow-hidden rounded-3xl border px-[10%] py-8 text-center shadow-2xl ring-1 shadow-black/30 lg:sticky lg:top-24'>
       <Image
-        className='aspect-square w-full max-w-80 overflow-hidden rounded-2xl border border-border bg-emerald-500 object-cover object-center shadow-lg shadow-black/30'
+        className='border-border aspect-square w-full max-w-80 overflow-hidden rounded-2xl border bg-emerald-500 object-cover object-center shadow-lg shadow-black/30'
         src={photo_url}
         alt='Profile picture'
         width={320}
@@ -24,7 +24,7 @@ export default function ProfileCard() {
       />
 
       <span className='mt-6 text-3xl font-bold'>{full_name}</span>
-      <span className='mt-2 text-lg text-muted-foreground'>
+      <span className='text-muted-foreground mt-2 text-lg'>
         {title} <br /> {physical_address}
         {phone_number ? (
           <>

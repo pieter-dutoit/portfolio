@@ -50,9 +50,9 @@ const components: MDXComponents = {
         : DEFAULT_MDX_ASPECT_RATIO;
 
     return (
-      <div
+      <span
         className={cn(
-          "relative my-8 w-full overflow-hidden rounded-lg border border-border",
+          "relative my-8 block w-full overflow-hidden rounded-lg border border-border",
           className
         )}
         style={{ aspectRatio }}
@@ -64,7 +64,7 @@ const components: MDXComponents = {
           sizes="(max-width: 768px) 100vw, 768px"
           className="object-contain"
         />
-      </div>
+      </span>
     );
   },
 };

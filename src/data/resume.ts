@@ -50,7 +50,7 @@ export interface Job {
 export const profile = {
   full_name: 'Pieter du Toit',
   title: 'Frontend Software Developer (React/TypeScript)',
-  physical_address: 'Launceston, TAS, Australia',
+  physical_address: 'South Africa',
   phone_number: '0432 316 018',
   photo_url: '/images/profile-pic.jpg',
   email_address: 'contact@pieterdutoit.dev'
