@@ -50,15 +50,14 @@ export interface Job {
 export const profile = {
   full_name: 'Pieter du Toit',
   title: 'Frontend Software Developer (React/TypeScript)',
-  physical_address: 'Launceston, TAS, Australia',
+  physical_address: 'South Africa',
   phone_number: '0432 316 018',
   photo_url: '/images/profile-pic.jpg',
   email_address: 'contact@pieterdutoit.dev'
 }
 
 export const aboutMe = [
-  'Front-end developer with 5+ years of commercial experience building production web applications using React, TypeScript, and Next.js. Strong in component-driven UI, API integration, and delivering maintainable, scalable frontends in PR-reviewed teams.',
-  'Comfortable improving UI consistency and applying accessibility-minded practices to ship reliable user experiences.'
+  'Software Developer with 5+ years building production apps (React, Next.js/TypeScript), and practical experience with React Native mobile apps. Completed Master of IT (Software development) in 2025, gaining additional backend skills, including relational database design and development (SQL) and secure cloud hosting (Docker, Kubernetes, AWS). Currently working on own projects (see details in CV) to apply and further grow my skills set across full-tack web and mobile development. Open to contract, part-time or full-time roles.'
 ]
 
 export const socialLinks: SocialLink[] = [
@@ -134,24 +133,21 @@ export const jobs: Job[] = [
       {
         id: 1,
         title: 'Senior Frontend Developer',
-        description:
-          'Developed and integrated Strapi CMS in a public-facing Next.js site, enabling marketing updates and SEO metadata (OpenGraph/JSON-LD). Built accessible custom-styled HTML inputs and used SWR with Yup to deliver large, reliable forms with fewer backend queries. Contributed to a shared API layer for consistent frontend integrations.',
+        description: '',
         start_date: '2021-08-01',
         end_date: '2023-06-01'
       },
       {
         id: 2,
         title: 'Frontend Developer',
-        description:
-          'Worked in Agile sprints with planning and daily peer code reviews. Maintained frontend Docker files and debugged deployment issues. Built and integrated LMS (Lesson Desk) learner content management pages for uploads, quizzes, results, and reporting.',
+        description: '',
         start_date: '2018-06-01',
         end_date: '2021-07-01'
       },
       {
         id: 3,
         title: 'IT Dev Intern',
-        description:
-          'Contributed to frontend development projects using React and JavaScript.',
+        description: '',
         start_date: '2017-12-01',
         end_date: '2018-05-01'
       }

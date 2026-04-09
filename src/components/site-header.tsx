@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { ModeToggle } from '@/components/dark-mode-toggle'
 
 const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'Posts', path: '/posts' }
+  { name: 'Home', path: '/' }
+  // { name: 'Posts', path: '/posts' }
 ]
 
 export default function SiteHeader() {

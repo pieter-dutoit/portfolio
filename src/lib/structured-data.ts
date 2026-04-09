@@ -34,6 +34,14 @@ function compact<T extends Record<string, unknown>>(value: T): T {
   ) as T;
 }
 
+function toIsoDateTime(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return value;
+  const parsed = new Date(trimmed);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return parsed.toISOString();
+}
+
 export function buildJsonLdGraph(
   nodes: Array<JsonLdNode | null | undefined>
 ): JsonLdGraph {
@@ -203,7 +211,7 @@ export function buildBlogPostingNode({
     headline: post.title,
     description: post.excerpt,
     image: resolveUrl(post.thumbnail),
-    datePublished: post.date,
+    datePublished: toIsoDateTime(post.date),
     author: { "@id": authorId },
     publisher: { "@id": authorId },
     mainEntityOfPage: { "@id": getWebPageId(pageUrl) },

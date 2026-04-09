@@ -13,7 +13,7 @@ export default function TagList({ tags }: Props) {
       {tags.map(({ id, name }, index) => (
         <li
           key={id + '-' + index}
-          className='rounded-xl bg-muted px-3 py-1 text-sm font-semibold text-foreground'
+          className='rounded-xl bg-muted px-3 py-1 text-sm font-semibold text-foreground dark:bg-muted-foreground/20'
         >
           {name}
         </li>
