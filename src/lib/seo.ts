@@ -6,11 +6,21 @@ export type BreadcrumbItem = {
 const defaultSiteUrl = "http://localhost:3000";
 
 function normalizeSiteUrl(siteUrl: string) {
-  return siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl;
+  const trimmed = siteUrl.trim();
+  const withProtocol = /^https?:\/\//.test(trimmed)
+    ? trimmed
+    : `https://${trimmed}`;
+
+  return withProtocol.replace(/\/+$/, "");
 }
 
 export function getSiteUrl() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || defaultSiteUrl;
+  const siteUrl = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL,
+    process.env.VERCEL_URL,
+  ].find((value) => value?.trim()) ?? defaultSiteUrl;
+
   return normalizeSiteUrl(siteUrl);
 }
 
