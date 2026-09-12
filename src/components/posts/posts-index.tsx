@@ -54,6 +54,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
       .filter((item) => available.has(item.toLowerCase()))
   }, [searchParams, stacks])
   const query = searchParams.get(QUERY_PARAM) || ''
+  const [optimisticQuery, setOptimisticQuery] = React.useOptimistic(query)
 
   const updateParams = React.useCallback(
     (updates: { tag?: string; stack?: string[]; q?: string }) => {
@@ -189,8 +190,14 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
               Search
             </p>
             <Input
-              value={query}
-              onChange={(event) => updateParams({ q: event.target.value })}
+              value={optimisticQuery}
+              onChange={(event) => {
+                const value = event.target.value
+                React.startTransition(() => {
+                  setOptimisticQuery(value)
+                  updateParams({ q: value })
+                })
+              }}
               placeholder='Search by title...'
               className='bg-card'
             />

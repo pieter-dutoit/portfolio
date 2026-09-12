@@ -1,9 +1,17 @@
 import { defineConfig, globalIgnores } from 'eslint/config'
+import { fixupConfigRules } from '@eslint/compat'
+import tsParser from '@typescript-eslint/parser'
 import nextVitals from 'eslint-config-next/core-web-vitals'
 import unusedImports from 'eslint-plugin-unused-imports'
 
 const eslintConfig = defineConfig([
-  ...nextVitals,
+  // Next's bundled plugins still use context methods removed in ESLint 10.
+  ...fixupConfigRules(nextVitals),
+  {
+    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}'],
+    // Next's bundled Babel parser does not implement ESLint 10's scope API.
+    languageOptions: { parser: tsParser }
+  },
   {
     plugins: {
       'unused-imports': unusedImports
@@ -29,7 +37,8 @@ const eslintConfig = defineConfig([
     '.next/**',
     'out/**',
     'build/**',
-    'next-env.d.ts'
+    'next-env.d.ts',
+    '.pnpm-store/**'
   ])
 ])
 

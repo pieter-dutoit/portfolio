@@ -14,13 +14,17 @@ const themeLabels = {
   system: 'System'
 } as const
 
+const subscribe = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
+
 export function ModeToggle() {
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = React.useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot
+  )
 
   if (!mounted) {
     return (

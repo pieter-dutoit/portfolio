@@ -75,11 +75,12 @@ export function MultiSelect({
     }
   }, [defaultValue])
 
-  React.useEffect(() => {
-    if (!isPopoverOpen) {
+  const handleOpenChange = (open: boolean) => {
+    setIsPopoverOpen(open)
+    if (!open) {
       setSearchValue('')
     }
-  }, [isPopoverOpen])
+  }
 
   const filteredOptions = React.useMemo(() => {
     if (!searchable || !searchValue) return options
@@ -124,7 +125,7 @@ export function MultiSelect({
   }
 
   return (
-    <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+    <Popover open={isPopoverOpen} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <div
           {...restTriggerProps}
@@ -148,7 +149,7 @@ export function MultiSelect({
             if (disabled) return
             if (event.key === 'Enter' || event.key === ' ') {
               event.preventDefault()
-              setIsPopoverOpen((prev) => !prev)
+              handleOpenChange(!isPopoverOpen)
             }
           }}
           className={cn(
@@ -313,7 +314,7 @@ export function MultiSelect({
                   </CommandItem>
                 )}
                 <CommandItem
-                  onSelect={() => setIsPopoverOpen(false)}
+                  onSelect={() => handleOpenChange(false)}
                   className='flex-1 cursor-pointer justify-center'
                 >
                   Close
