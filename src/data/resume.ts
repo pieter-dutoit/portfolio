@@ -52,7 +52,7 @@ export const profile = {
   title: 'Frontend Software Developer (React/TypeScript)',
   physical_address: 'South Africa',
   phone_number: '0432 316 018',
-  photo_url: '/images/profile-pic.jpg',
+  photo_url: '/images/profile-pic-aligned.png',
   email_address: 'contact@pieterdutoit.dev'
 }
 
