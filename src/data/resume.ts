@@ -65,13 +65,13 @@ export const socialLinks: SocialLink[] = [
     id: 1,
     name: 'GitHub',
     url: 'https://github.com/pieter-dutoit',
-    photo_url: '/images/github-icon.svg'
+    photo_url: '/images/icons/github-icon.svg'
   },
   {
     id: 2,
     name: 'LinkedIn',
     url: 'https://www.linkedin.com/in/pieter-du-toit-dev/',
-    photo_url: '/images/linkedin-icon.svg'
+    photo_url: '/images/icons/linkedin-icon.svg'
   }
 ]
 
@@ -80,7 +80,7 @@ export const qualifications: Qualification[] = [
     id: 1,
     institution_name: 'Griffith University',
     institution_address: 'Gold Coast, QLD, Australia',
-    institution_logo_url: '/images/griffith-logo.jpg',
+    institution_logo_url: '/images/logos/griffith-logo.jpg',
     name: 'Master of Information Technology; Major in Software Development & Support',
     start_date: '2023-07-01',
     end_date: '2025-06-01',
@@ -119,7 +119,7 @@ export const jobs: Job[] = [
     id: 1,
     company_name: 'Full Facing (Pty) Ltd.',
     company_address: 'Cape Town, South Africa',
-    company_logo_url: '/images/full-facing-pty-ltd-logo.jpg',
+    company_logo_url: '/images/logos/full-facing-pty-ltd-logo.jpg',
     tags: [
       { id: 1, name: 'Next.js' },
       { id: 2, name: 'React' },

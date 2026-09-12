@@ -5,21 +5,19 @@ export default function AboutMe() {
 
   return (
     <>
-      <h1 className='text-center text-5xl font-extrabold text-foreground lg:text-left lg:text-6xl'>
-        {full_name} <br />
-        <span className='text-[0.5em] text-muted-foreground'>{title}</span>
-      </h1>
+      <header className='text-center lg:text-left'>
+        <h1>{full_name}</h1>
+        <p className='text-lead text-muted-foreground mt-2'>{title}</p>
+      </header>
 
       <section className='mt-8'>
-        <h2 className='text-xl font-bold'>About Me</h2>
+        <h2>About Me</h2>
 
-        <div className='text-lg font-light'>
-          {aboutMe.map((paragraph) => (
-            <p key={paragraph} className='mt-4 lg:text-justify'>
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        {aboutMe.map((paragraph) => (
+          <p key={paragraph} className='mt-4 lg:text-justify'>
+            {paragraph}
+          </p>
+        ))}
       </section>
     </>
   )

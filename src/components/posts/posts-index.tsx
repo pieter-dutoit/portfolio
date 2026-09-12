@@ -133,31 +133,32 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
   )
 
   return (
-    <section className='space-y-10 pt-8 pb-16'>
+    <section className='site-copy flex flex-col gap-10 pt-8 pb-16'>
       <div className='border-border/70 bg-card ring-border/40 flex flex-col gap-6 rounded-2xl border p-6 shadow-lg ring-1 shadow-black/5 dark:shadow-black/40'>
         <div>
-          <p className='text-muted-foreground text-xs tracking-wider uppercase'>
+          <p className='text-eyebrow text-muted-foreground tracking-wider uppercase'>
             Browse posts
           </p>
-          <h1 className='text-foreground mt-2 text-3xl font-semibold'>
-            Writing on design and engineering
-          </h1>
-          <p className='text-muted-foreground mt-3 text-sm'>
+          <h1 className='mt-2'>Writing on design and engineering</h1>
+          <p className='text-muted-foreground mt-3'>
             Filter by focus area, stack, or search the title to find what you
             need fast.
           </p>
         </div>
 
         <div className='grid gap-4 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)]'>
-          <div className='space-y-2'>
-            <p className='text-muted-foreground text-xs font-semibold tracking-wider uppercase'>
+          <div className='flex flex-col gap-2'>
+            <label
+              htmlFor='post-tag'
+              className='text-eyebrow text-muted-foreground font-semibold tracking-wider uppercase'
+            >
               Tag
-            </p>
+            </label>
             <Select
               value={selectedTag}
               onValueChange={(value) => updateParams({ tag: value })}
             >
-              <SelectTrigger className='bg-card'>
+              <SelectTrigger id='post-tag' className='bg-card'>
                 <SelectValue placeholder='All' />
               </SelectTrigger>
               <SelectContent>
@@ -171,11 +172,15 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
             </Select>
           </div>
 
-          <div className='space-y-2'>
-            <p className='text-muted-foreground text-xs font-semibold tracking-wider uppercase'>
+          <div className='flex flex-col gap-2'>
+            <p
+              id='post-stack-label'
+              className='text-eyebrow text-muted-foreground font-semibold tracking-wider uppercase'
+            >
               Stack
             </p>
             <MultiSelect
+              aria-labelledby='post-stack-label'
               options={stackOptions}
               placeholder='All stacks'
               defaultValue={selectedStacks}
@@ -185,11 +190,15 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
             />
           </div>
 
-          <div className='space-y-2'>
-            <p className='text-muted-foreground text-xs font-semibold tracking-wider uppercase'>
+          <div className='flex flex-col gap-2'>
+            <label
+              htmlFor='post-search'
+              className='text-eyebrow text-muted-foreground font-semibold tracking-wider uppercase'
+            >
               Search
-            </p>
+            </label>
             <Input
+              id='post-search'
               value={optimisticQuery}
               onChange={(event) => {
                 const value = event.target.value
@@ -206,7 +215,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
       </div>
 
       <div className='flex items-center justify-between'>
-        <p className='text-muted-foreground text-sm'>
+        <p className='text-meta text-muted-foreground'>
           {filteredPosts.length} post
           {filteredPosts.length === 1 ? '' : 's'} found
         </p>
@@ -214,7 +223,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
           <button
             type='button'
             onClick={() => updateParams({ tag: 'All', stack: [], q: '' })}
-            className='text-muted-foreground hover:text-foreground text-xs tracking-wider uppercase transition'
+            className='text-eyebrow text-muted-foreground hover:text-foreground tracking-wider uppercase transition'
           >
             Clear filters
           </button>
@@ -243,14 +252,14 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
                 />
               </div>
 
-              <div className='space-y-3 p-5'>
-                <div className='text-muted-foreground flex items-center justify-between text-xs'>
+              <div className='flex flex-col gap-3 p-5'>
+                <div className='text-meta text-muted-foreground flex items-center justify-between'>
                   <time dateTime={post.date}>{formatDate(post.date)}</time>
                 </div>
-                <h2 className='text-foreground text-lg font-semibold group-hover:underline'>
+                <h2 className='card-title group-hover:underline'>
                   {post.title}
                 </h2>
-                <p className='text-muted-foreground line-clamp-3 text-sm'>
+                <p className='text-meta text-muted-foreground line-clamp-3'>
                   {post.excerpt}
                 </p>
                 <div className='flex flex-wrap gap-2 pt-2'>
@@ -267,7 +276,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
       </div>
 
       {filteredPosts.length === 0 && (
-        <div className='border-border/70 bg-card text-muted-foreground ring-border/40 rounded-2xl border border-dashed p-12 text-center text-sm shadow-lg ring-1 shadow-black/5 dark:shadow-black/40'>
+        <div className='border-border/70 bg-card text-muted-foreground ring-border/40 text-meta rounded-2xl border border-dashed p-12 text-center shadow-lg ring-1 shadow-black/5 dark:shadow-black/40'>
           No posts match these filters yet.
         </div>
       )}

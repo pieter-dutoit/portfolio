@@ -35,9 +35,9 @@ export default function Page() {
   ])
 
   return (
-    <div className='grid grid-cols-1 gap-16 py-16 lg:grid-cols-3'>
+    <div className='site-copy grid grid-cols-1 gap-16 py-16 lg:grid-cols-3'>
       <JsonLd data={jsonLd} />
-      <aside className='col-span-1'>
+      <aside aria-label='Profile and contact details' className='col-span-1'>
         <ProfileCard />
       </aside>
 

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import SiteHeader from '@/components/site-header'
 
 import './globals.css'
-import { workSans } from '@/fonts'
+import { googleSans, ptSerifCaption } from '@/fonts'
 import { ThemeProvider } from '@/components/theme-provider'
 
 export const metadata: Metadata = {
@@ -17,19 +17,31 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${workSans.className} min-h-screen bg-background text-foreground antialiased`}
-      >
+    <html
+      lang='en'
+      className={`${googleSans.variable} ${ptSerifCaption.variable}`}
+      suppressHydrationWarning
+    >
+      <body className='bg-background text-foreground min-h-screen font-sans antialiased'>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange
         >
+          <a
+            href='#main-content'
+            className='focus:bg-background focus:text-foreground focus:outline-ring sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:px-4 focus:py-2 focus:outline-2'
+          >
+            Skip to main content
+          </a>
           <SiteHeader />
 
-          <main className='bg-linear-to-b from-background to-card'>
+          <main
+            id='main-content'
+            tabIndex={-1}
+            className='from-background to-card scroll-mt-20 bg-linear-to-b'
+          >
             <div className='container mx-auto px-6'>{children}</div>
           </main>
         </ThemeProvider>

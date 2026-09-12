@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@plugin "tailwindcss-animate";
-@plugin "@tailwindcss/typography";
+@plugin 'tailwindcss-animate';
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -16,6 +16,8 @@ html {
 }
 
 @theme inline {
+  --font-sans: var(--font-google-sans), Arial, sans-serif;
+  --font-serif: var(--font-pt-serif-caption), Georgia, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -132,6 +134,137 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-normal;
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer components {
+  /* Keep site UI and Markdown typography in separate scopes. */
+  .site-copy {
+    @apply font-sans text-base;
+    line-height: 1.625;
+  }
+
+  .article-copy {
+    @apply font-sans text-base;
+    line-height: 1.75;
+  }
+
+  .site-copy :where(h1) {
+    @apply text-4xl;
+  }
+  .site-copy :where(h2) {
+    @apply text-2xl;
+  }
+  .site-copy :where(h3) {
+    @apply text-xl;
+  }
+  .site-copy :where(h4) {
+    @apply text-lg;
+  }
+  .site-copy :where(h5) {
+    @apply text-base;
+  }
+  .site-copy :where(h6) {
+    @apply text-sm;
+  }
+
+  .article-copy :where(h1) {
+    @apply text-4xl;
+  }
+
+  @variant lg {
+    .site-copy :where(h1) {
+      @apply text-5xl;
+    }
+    .site-copy :where(h2) {
+      @apply text-3xl;
+    }
+    .article-copy :where(h1) {
+      @apply text-5xl;
+    }
+  }
+
+  .site-copy :where(h1, h2, h3, h4, h5, h6),
+  .article-copy :where(h1, h2, h3, h4, h5, h6) {
+    @apply font-serif font-normal text-balance;
+    line-height: 1.35;
+  }
+
+  .site-copy :where(h1, h2),
+  .article-copy :where(h1, h2) {
+    line-height: 1.2;
+  }
+
+  .site-copy :where(h1, h2, h3, h4, h5, h6) {
+    /* PT Serif Caption has no native bold face; use browser-synthesized bold. */
+    @apply font-bold;
+  }
+
+  .text-lead {
+    @apply text-xl leading-7;
+  }
+  .text-meta {
+    @apply text-sm leading-5;
+  }
+  .text-eyebrow {
+    @apply text-xs leading-4;
+  }
+  .card-title {
+    @apply font-serif text-lg leading-6 font-normal;
+  }
+  .profile-name {
+    @apply font-serif text-2xl leading-8 font-normal;
+  }
+}
+
+/* Typography's generated prose rules live in the utilities layer in Tailwind v4.
+   Keep the article-body overrides together in this shared prose modifier. */
+@utility prose-article {
+  &.prose {
+    :where(h1) {
+      @apply text-4xl;
+    }
+    :where(h2) {
+      @apply text-2xl;
+    }
+    :where(h3) {
+      @apply text-xl;
+    }
+    :where(h4) {
+      @apply text-lg;
+    }
+    :where(h5) {
+      @apply text-base;
+    }
+    :where(h6) {
+      @apply text-sm;
+    }
+
+    @variant lg {
+      :where(h1) {
+        @apply text-5xl;
+      }
+    }
+
+    :where(h1, h2, h3, h4, h5, h6) {
+      @apply font-serif font-normal text-balance;
+      line-height: 1.35;
+    }
+    :where(h1, h2) {
+      line-height: 1.2;
+    }
+    :where(h1, h2, h3, h4, h5, h6) :where(strong, a) {
+      font-weight: inherit;
+    }
+  }
 }
 
 @layer utilities {
@@ -146,7 +279,7 @@ html {
   }
 
   pre[data-theme] {
-    @apply overflow-x-auto rounded-xl border border-border bg-card p-4 text-sm leading-relaxed;
+    @apply border-border bg-card overflow-x-auto rounded-xl border p-4 text-sm leading-relaxed;
   }
 
   pre[data-theme] code {
@@ -154,15 +287,15 @@ html {
   }
 
   :not(pre) > code {
-    @apply rounded bg-muted px-1.5 py-0.5 text-[0.85em];
+    @apply bg-muted rounded px-1.5 py-0.5 text-[0.85em];
   }
 
   .line--highlighted {
-    @apply block bg-muted/50;
+    @apply bg-muted/50 block;
   }
 
   .word--highlighted {
-    @apply rounded bg-muted px-1;
+    @apply bg-muted rounded px-1;
   }
 
   .line-clamp-3 {

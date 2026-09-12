@@ -8,8 +8,10 @@ interface Props {
 export default function DateRange({ from, to }: Props) {
   if (!from) return <></>
   return (
-    <div className='overflow-hidden text-sm font-semibold italic'>
-      {formatDate(from)} - {to ? formatDate(to) : 'Present'}
-    </div>
+    <p className='text-meta overflow-hidden italic'>
+      <time dateTime={from}>{formatDate(from)}</time>
+      {' - '}
+      {to ? <time dateTime={to}>{formatDate(to)}</time> : 'Present'}
+    </p>
   )
 }

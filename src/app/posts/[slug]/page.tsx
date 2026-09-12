@@ -91,21 +91,17 @@ export default async function PostPage({
   ])
 
   return (
-    <article className='w-full max-w-3xl py-12'>
+    <article className='article-copy w-full max-w-3xl py-12'>
       <Breadcrumbs items={breadcrumbItems} />
       <JsonLd data={jsonLd} />
 
-      <header className='mt-6 space-y-6'>
-        <div className='space-y-2'>
-          <p className='text-muted-foreground text-xs tracking-widest uppercase'>
-            {formatDate(post.date)}
+      <header className='mt-6 flex flex-col gap-6'>
+        <div className='flex flex-col gap-2'>
+          <p className='text-meta text-muted-foreground'>
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
           </p>
-          <h1 className='text-foreground text-4xl font-semibold md:text-5xl'>
-            {post.title}
-          </h1>
-          <p className='text-muted-foreground max-w-2xl text-base'>
-            {post.excerpt}
-          </p>
+          <h1>{post.title}</h1>
+          <p className='text-muted-foreground max-w-2xl'>{post.excerpt}</p>
         </div>
 
         <div className='flex flex-wrap gap-2'>
@@ -137,7 +133,7 @@ export default async function PostPage({
       </header>
 
       <div className='mt-10'>
-        <div className='prose prose-headings:font-semibold prose-a:text-sky-600 dark:prose-invert dark:prose-a:text-sky-300 max-w-none'>
+        <div className='prose prose-article prose-a:text-sky-600 dark:prose-invert dark:prose-a:text-sky-300 max-w-none'>
           <Post />
         </div>
       </div>

@@ -12,21 +12,23 @@ export default function CompanyProfile({ name, address, logo_url }: Props) {
       {logo_url ? (
         <Image
           src={logo_url}
-          alt={name + ' logo'}
+          alt=''
           height={48}
           width={48}
           sizes='48px'
-          className='size-12 overflow-hidden rounded-lg border-2 border-border'
+          className='border-border size-12 overflow-hidden rounded-lg border-2'
         />
       ) : (
         <div
           aria-hidden='true'
-          className='size-12 rounded-lg border-2 border-border bg-muted'
+          className='border-border bg-muted size-12 rounded-lg border-2'
         />
       )}
       <div>
-        <h3 className='text-xl'>{name}</h3>
-        <p className='text-sm text-muted-foreground'>{address}</p>
+        <h3>{name}</h3>
+        {address ? (
+          <p className='text-meta text-muted-foreground'>{address}</p>
+        ) : null}
       </div>
     </div>
   )
