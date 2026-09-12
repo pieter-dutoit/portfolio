@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/),
+for example `feat: add a project page` or `fix: correct post filtering`.
+Installing dependencies sets up Husky's `commit-msg` hook, which validates each
+new commit with Commitlint.
+
 Use Node.js 22.13+ (22.x) or Node.js 24+ and the pnpm version pinned in
 `package.json`. Install dependencies with `pnpm install --frozen-lockfile`.
 
