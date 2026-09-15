@@ -5,16 +5,16 @@ export default function ProfileCard() {
   const {
     full_name,
     title,
-    physical_address,
-    phone_number,
+    qualification,
+    qualification_detail,
     photo_url,
     email_address
   } = profile
 
   return (
-    <div className='border-border/60 bg-card ring-border/40 flex flex-col items-center overflow-hidden rounded-xl border px-[10%] py-8 text-center shadow-2xl ring-1 shadow-black/30 lg:sticky lg:top-24'>
+    <div className='bg-card border-border flex flex-col items-center overflow-hidden rounded-xl border px-[10%] py-8 text-center shadow-[5px_5px_0_0] lg:sticky lg:top-24'>
       <Image
-        className='border-border aspect-square w-full max-w-80 overflow-hidden rounded-lg border bg-emerald-500 object-cover object-center shadow-lg shadow-black/30'
+        className='border-border aspect-square w-full max-w-80 overflow-hidden rounded-lg border bg-emerald-500 bg-clip-padding object-cover object-center shadow-[3px_3px_0_0]'
         src={photo_url}
         alt={`Portrait of ${full_name}`}
         width={320}
@@ -24,12 +24,14 @@ export default function ProfileCard() {
       />
 
       <p className='profile-name mt-6'>{full_name}</p>
-      <div className='text-muted-foreground mt-2'>
-        <p>{title}</p>
-        {physical_address ? (
-          <p className='text-meta'>{physical_address}</p>
-        ) : null}
-        {phone_number ? <p className='text-meta'>{phone_number}</p> : null}
+      <div className='text-muted-foreground @container mt-2 w-full'>
+        <p className='text-[min(0.875rem,4.8cqi)] font-semibold whitespace-nowrap'>
+          {title}
+        </p>
+        <div className='my-4'>
+          <p className='text-card-foreground font-semibold'>{qualification}</p>
+          <p className='text-meta mt-1'>{qualification_detail}</p>
+        </div>
       </div>
 
       <ul className='mt-6 flex flex-row items-center justify-center gap-4'>
@@ -46,7 +48,7 @@ export default function ProfileCard() {
                 height={40}
                 width={40}
                 alt=''
-                className='rounded-xl bg-white object-cover object-center p-2 shadow-sm ring-1 ring-black/5 dark:ring-white/10'
+                className='border-border rounded-md border bg-white bg-clip-padding object-cover object-center p-2 shadow-[3px_3px_0_0]'
               />
               <span className='text-eyebrow'>{name}</span>
             </a>

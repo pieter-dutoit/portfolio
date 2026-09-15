@@ -16,12 +16,12 @@ export default function CompanyProfile({ name, address, logo_url }: Props) {
           height={48}
           width={48}
           sizes='48px'
-          className='border-border size-12 overflow-hidden rounded-lg border-2'
+          className='border-border size-12 overflow-hidden rounded-md border bg-clip-padding shadow-[2px_2px_0_0]'
         />
       ) : (
         <div
           aria-hidden='true'
-          className='border-border bg-muted size-12 rounded-lg border-2'
+          className='bg-muted border-border size-12 rounded-md border bg-clip-padding shadow-[2px_2px_0_0]'
         />
       )}
       <div>

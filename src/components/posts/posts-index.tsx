@@ -134,7 +134,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
 
   return (
     <section className='site-copy flex flex-col gap-10 pt-8 pb-16'>
-      <div className='border-border/70 bg-card ring-border/40 flex flex-col gap-6 rounded-2xl border p-6 shadow-lg ring-1 shadow-black/5 dark:shadow-black/40'>
+      <div className='border-border bg-card ring-border flex flex-col gap-6 rounded-2xl border p-6 shadow-lg ring-1'>
         <div>
           <p className='text-eyebrow text-muted-foreground tracking-wider uppercase'>
             Browse posts
@@ -239,7 +239,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
             <Link
               href={`/posts/${post.slug}`}
               className={cn(
-                'group border-border/70 bg-card hover:border-border ring-border/40 block overflow-hidden rounded-2xl border shadow-lg ring-1 shadow-black/5 transition hover:shadow-xl hover:shadow-black/10 dark:shadow-black/40'
+                'group border-border bg-card hover:border-border ring-border block overflow-hidden rounded-2xl border shadow-lg ring-1 transition hover:shadow-xl'
               )}
             >
               <div className='relative aspect-[16/10] overflow-hidden'>
@@ -276,7 +276,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
       </div>
 
       {filteredPosts.length === 0 && (
-        <div className='border-border/70 bg-card text-muted-foreground ring-border/40 text-meta rounded-2xl border border-dashed p-12 text-center shadow-lg ring-1 shadow-black/5 dark:shadow-black/40'>
+        <div className='border-border bg-card text-muted-foreground ring-border text-meta rounded-2xl border border-dashed p-12 text-center shadow-lg ring-1'>
           No posts match these filters yet.
         </div>
       )}

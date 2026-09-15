@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Dot, ExternalLink } from 'lucide-react'
 
 import { qualifications } from '@/data/resume'
@@ -5,6 +6,7 @@ import { qualifications } from '@/data/resume'
 import CompanyProfile from './company-profile'
 import TagList from './tag-list'
 import DateRange from './date-range'
+import AwardPreview from './award-preview'
 
 export default function Education() {
   return (
@@ -52,9 +54,11 @@ export default function Education() {
                     {achievements.map(
                       ({
                         id: achievementId,
+                        slug,
                         name,
                         description,
-                        verification_url
+                        verification_url,
+                        pdf_url
                       }) => (
                         <li key={achievementId} className='flex'>
                           <Dot aria-hidden='true' className='shrink-0' />
@@ -69,15 +73,24 @@ export default function Education() {
                                   href={verification_url}
                                   target='_blank'
                                   rel='noreferrer'
-                                  className='flex items-center underline'
+                                  className='flex items-center underline underline-offset-4'
                                 >
                                   Verify on Credly{' '}
                                   <ExternalLink
                                     aria-hidden='true'
-                                    className='ml-1'
+                                    className='ml-2'
                                     size={16}
                                   />
                                 </a>
+                              ) : null}
+                              {pdf_url ? (
+                                <Suspense fallback={null}>
+                                  <AwardPreview
+                                    slug={slug}
+                                    src={pdf_url}
+                                    title={name}
+                                  />
+                                </Suspense>
                               ) : null}
                             </div>
                           </div>

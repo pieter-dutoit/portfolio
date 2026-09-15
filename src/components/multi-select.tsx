@@ -255,7 +255,7 @@ export function MultiSelect({
                 >
                   <div
                     className={cn(
-                      'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border',
+                      'border-border mr-2 flex h-4 w-4 items-center justify-center rounded-sm border',
                       selectedValues.length ===
                         options.filter((option) => !option.disabled).length
                         ? 'bg-primary text-primary-foreground'
@@ -288,7 +288,7 @@ export function MultiSelect({
                   >
                     <div
                       className={cn(
-                        'border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border',
+                        'border-border mr-2 flex h-4 w-4 items-center justify-center rounded-sm border',
                         isSelected
                           ? 'bg-primary text-primary-foreground'
                           : 'opacity-50 [&_svg]:invisible'

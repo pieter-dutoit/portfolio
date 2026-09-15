@@ -31,7 +31,7 @@ export default function WorkExperience() {
               <TagList tags={tags} />
 
               {/* Roles */}
-              <ul className='relative mt-8 flex flex-col gap-8 before:absolute before:top-0 before:left-6 before:h-full before:w-0 before:shadow-[0_0_6px_1px_rgba(255,255,255,0.1)] before:content-[""]'>
+              <ul className='relative mt-8 flex flex-col gap-8 before:absolute before:top-0 before:left-6 before:h-full before:w-0 before:shadow-[0_0_6px_1px] before:content-[""]'>
                 {roles.map(
                   ({
                     id: roleId,
@@ -44,7 +44,7 @@ export default function WorkExperience() {
                       {/* Bullet */}
                       <div
                         aria-hidden='true'
-                        className='bg-foreground absolute top-4 left-5 size-2 rounded-full shadow-[0_0_8px_2px_rgba(255,255,255,0.2)]'
+                        className='bg-foreground absolute top-4 left-5 size-2 rounded-full shadow-[0_0_8px_2px]'
                       />
 
                       {/* Role and years */}

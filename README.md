@@ -1,5 +1,27 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Files and visibility
+
+- `README.md` contains the project documentation and is versioned with the
+  repository.
+- `public/` contains assets served by the website. Only put material intended for
+  publication here.
+- `private/` contains local research and personal working documents. It is ignored
+  by Git and is not served by the website.
+
+CV working files are organised as follows:
+
+```text
+private/cv/
+├── aus/base-cv.md       # Australian draft
+├── evidence-notes.md   # Shared facts, sources and maintenance notes
+└── sources/            # Previous CV and original contribution notes
+```
+
+Keep future country variants alongside `aus/`, such as `za/`, and generated drafts
+in the corresponding country folder. Keep private documents out of application
+imports and `public/`.
+
 ## Getting Started
 
 Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/),

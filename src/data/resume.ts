@@ -13,9 +13,11 @@ export interface SocialLink {
 
 export interface QualificationAchievement {
   id: number | string
+  slug?: string
   name: string
-  description: string
+  description?: string
   verification_url?: string
+  pdf_url?: string
 }
 
 export interface Qualification {
@@ -49,10 +51,13 @@ export interface Job {
 
 export const profile = {
   full_name: 'Pieter du Toit',
-  title: 'Frontend Software Developer (React/TypeScript)',
+  title: 'Frontend Developer (React & TypeScript)',
+  experience_summary: '5 years, 7 months building production apps',
+  qualification: 'Master of IT · Distinction',
+  qualification_detail: 'Software Development. Griffith University',
   physical_address: 'South Africa',
   phone_number: '0432 316 018',
-  photo_url: '/images/profile-pic-aligned.png',
+  photo_url: '/images/profile-pic-background-blur.png',
   email_address: 'contact@pieterdutoit.dev'
 }
 
@@ -92,23 +97,25 @@ export const qualifications: Qualification[] = [
     ],
     achievements: [
       {
-        id: 1,
-        name: 'Graduated with distinction',
-        description: 'GPA 6.88.'
-      },
-      {
-        id: 2,
-        name: 'Award for Academic Excellence (2023)',
-        description: 'Recognized for academic excellence.',
-        verification_url:
-          'https://www.credly.com/badges/70c5f56e-a2ea-4c2f-b2a3-56bfe59b310d/linked_in?t=sfptdd'
+        id: 4,
+        slug: 'griffith-ict-prize-2026',
+        name: 'School of ICT Postgraduate Programs Prize — Gold Coast (2026)',
+        description:
+          'Graduated with distinction (GPA 6.88). Awarded for the highest graduating GPA in an ICT master’s degree.',
+        pdf_url:
+          '/images/awards/pieter-du-toit-griffith-university-ict-postgraduate-programs-prize-2026.pdf'
       },
       {
         id: 3,
         name: 'Award for Academic Excellence (2024)',
-        description: 'Recognized for academic excellence.',
         verification_url:
           'https://www.credly.com/badges/f0aa12b2-fbcf-440d-9f67-dbc30aee20d2/public_url'
+      },
+      {
+        id: 2,
+        name: 'Award for Academic Excellence (2023)',
+        verification_url:
+          'https://www.credly.com/badges/70c5f56e-a2ea-4c2f-b2a3-56bfe59b310d/linked_in?t=sfptdd'
       }
     ]
   }

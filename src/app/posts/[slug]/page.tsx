@@ -121,7 +121,7 @@ export default async function PostPage({
           ))}
         </div>
 
-        <div className='border-border/60 relative aspect-video overflow-hidden rounded-2xl border'>
+        <div className='border-border relative aspect-video overflow-hidden rounded-2xl border'>
           <Image
             src={post.thumbnail}
             alt={post.title}

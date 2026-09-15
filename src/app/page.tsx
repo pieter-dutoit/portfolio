@@ -35,16 +35,28 @@ export default function Page() {
   ])
 
   return (
-    <div className='site-copy grid grid-cols-1 gap-16 py-16 lg:grid-cols-3'>
+    <div className='site-copy grid grid-cols-1 gap-16 py-16 lg:grid-cols-3 lg:grid-rows-[auto_1fr] lg:gap-y-12'>
       <JsonLd data={jsonLd} />
-      <aside aria-label='Profile and contact details' className='col-span-1'>
+      <header className='text-center lg:col-span-2 lg:col-start-2 lg:text-left'>
+        <h1 className='flex flex-col gap-3'>
+          <span>{profile.full_name}</span>{' '}
+          <span className='text-muted-foreground font-sans text-base leading-relaxed font-bold text-balance sm:text-lg'>
+            {profile.title}
+          </span>
+        </h1>
+      </header>
+
+      <aside
+        aria-label='Profile and contact details'
+        className='col-span-1 lg:col-start-1 lg:row-span-2 lg:row-start-1'
+      >
         <ProfileCard />
       </aside>
 
-      <div className='col-span-1 lg:col-span-2'>
+      <div className='col-span-1 lg:col-span-2 lg:col-start-2'>
         <AboutMe />
-        <Education />
         <WorkExperience />
+        <Education />
       </div>
     </div>
   )
