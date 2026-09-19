@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
+
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,7 +17,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { MultiSelect } from '@/components/multi-select'
-import { cn, formatDate } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
 import type { PostListItem } from '@/lib/posts'
 
 type PostsIndexProps = {
@@ -158,7 +160,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
               value={selectedTag}
               onValueChange={(value) => updateParams({ tag: value })}
             >
-              <SelectTrigger id='post-tag' className='bg-card'>
+              <SelectTrigger id='post-tag'>
                 <SelectValue placeholder='All' />
               </SelectTrigger>
               <SelectContent>
@@ -186,7 +188,6 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
               defaultValue={selectedStacks}
               onValueChange={(value) => updateParams({ stack: value })}
               searchable
-              className='bg-card'
             />
           </div>
 
@@ -208,7 +209,6 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
                 })
               }}
               placeholder='Search by title...'
-              className='bg-card'
             />
           </div>
         </div>
@@ -220,13 +220,14 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
           {filteredPosts.length === 1 ? '' : 's'} found
         </p>
         {(selectedTag !== 'All' || selectedStacks.length > 0 || query) && (
-          <button
+          <Button
             type='button'
             onClick={() => updateParams({ tag: 'All', stack: [], q: '' })}
-            className='text-eyebrow text-muted-foreground hover:text-foreground tracking-wider uppercase transition'
+            variant='ghost'
+            size='sm'
           >
             Clear filters
-          </button>
+          </Button>
         )}
       </div>
 
@@ -236,41 +237,38 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
             key={post.slug}
             className='masonry-item mb-6 break-inside-avoid'
           >
-            <Link
-              href={`/posts/${post.slug}`}
-              className={cn(
-                'group border-border bg-card hover:border-border ring-border block overflow-hidden rounded-2xl border shadow-lg ring-1 transition hover:shadow-xl'
-              )}
-            >
-              <div className='relative aspect-[16/10] overflow-hidden'>
-                <Image
-                  src={post.thumbnail}
-                  alt={post.title}
-                  fill
-                  sizes='(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw'
-                  className='object-cover transition duration-500 group-hover:scale-105'
-                />
-              </div>
+            <Button asChild variant='card' size='content'>
+              <Link href={`/posts/${post.slug}`}>
+                <div className='relative aspect-[16/10] overflow-hidden'>
+                  <Image
+                    src={post.thumbnail}
+                    alt={post.title}
+                    fill
+                    sizes='(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw'
+                    className='object-cover transition duration-500 group-hover:scale-105'
+                  />
+                </div>
 
-              <div className='flex flex-col gap-3 p-5'>
-                <div className='text-meta text-muted-foreground flex items-center justify-between'>
-                  <time dateTime={post.date}>{formatDate(post.date)}</time>
+                <div className='flex flex-col gap-3 p-5'>
+                  <div className='text-meta text-muted-foreground flex items-center justify-between'>
+                    <time dateTime={post.date}>{formatDate(post.date)}</time>
+                  </div>
+                  <h2 className='card-title group-hover:underline'>
+                    {post.title}
+                  </h2>
+                  <p className='text-meta text-muted-foreground line-clamp-3'>
+                    {post.excerpt}
+                  </p>
+                  <div className='flex flex-wrap gap-2 pt-2'>
+                    {post.tags.map((tag) => (
+                      <Badge key={`${post.slug}-${tag}`} variant='secondary'>
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-                <h2 className='card-title group-hover:underline'>
-                  {post.title}
-                </h2>
-                <p className='text-meta text-muted-foreground line-clamp-3'>
-                  {post.excerpt}
-                </p>
-                <div className='flex flex-wrap gap-2 pt-2'>
-                  {post.tags.map((tag) => (
-                    <Badge key={`${post.slug}-${tag}`} variant='secondary'>
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </Button>
           </article>
         ))}
       </div>

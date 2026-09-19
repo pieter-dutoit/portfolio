@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import type { Metadata } from 'next'
 
 import SiteHeader from '@/components/site-header'
@@ -29,12 +30,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <a
-            href='#main-content'
-            className='focus:bg-background focus:text-foreground focus:outline-ring sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:px-4 focus:py-2 focus:outline-2'
+          <Button
+            asChild
+            className='sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50'
           >
-            Skip to main content
-          </a>
+            <a href='#main-content'>Skip to main content</a>
+          </Button>
           <SiteHeader />
 
           <main

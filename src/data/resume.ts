@@ -36,6 +36,7 @@ export interface JobRole {
   id: number | string
   title: string
   description: string
+  achievements: string[]
   start_date: string
   end_date?: string
 }
@@ -43,7 +44,7 @@ export interface JobRole {
 export interface Job {
   id: number | string
   company_name: string
-  company_address: string
+  company_address?: string
   company_logo_url: string
   tags: Tag[]
   roles: JobRole[]
@@ -62,7 +63,8 @@ export const profile = {
 }
 
 export const aboutMe = [
-  'Software Developer with 5+ years building production apps (React, Next.js/TypeScript), and practical experience with React Native mobile apps. Completed Master of IT (Software development) in 2025, gaining additional backend skills, including relational database design and development (SQL) and secure cloud hosting (Docker, Kubernetes, AWS). Currently working on own projects (see details in CV) to apply and further grow my skills set across full-tack web and mobile development. Open to contract, part-time or full-time roles.'
+  'I’m a frontend software engineer with 5+ years of commercial experience building customer-facing applications with React, TypeScript and Next.js. My work includes API integration, complex forms, CMS-driven publishing and resolving production reliability issues.',
+  'I currently work at Fourfifty and previously worked as a Senior Frontend Developer at Full Facing. I completed a Master of Information Technology at Griffith University with distinction, and have gained additional full-stack experience through client and university projects.'
 ]
 
 export const socialLinks: SocialLink[] = [
@@ -123,6 +125,32 @@ export const qualifications: Qualification[] = [
 
 export const jobs: Job[] = [
   {
+    id: 2,
+    company_name: 'Fourfifty',
+    company_logo_url: '/images/logos/fourfifty-logo.jpeg',
+    tags: [
+      { id: 1, name: 'React' },
+      { id: 2, name: 'TypeScript' },
+      { id: 3, name: 'Next.js' },
+      { id: 4, name: 'Directus' }
+    ],
+    roles: [
+      {
+        id: 4,
+        title: 'Software Engineer (Frontend)',
+        description:
+          'I build customer-facing frontend features at Fourfifty, including verification flows, CMS-managed content and embedded game experiences.',
+        achievements: [
+          'Implemented SMS verification across gameplay, profile updates and communication preferences, including API integration, resend cooldowns, error recovery and marketing consent handling.',
+          'Built CMS-controlled scratchcard theming, allowing content editors to change artwork, colours and messaging across claim, game and result screens without frontend code changes.',
+          'Resolved animation and embedded-game lifecycle issues involving Lottie, WebAssembly and Unity WebGL, and preserved user sessions during temporary backend network failures.',
+          'Built CMS-driven article publishing with pagination, dynamic XML sitemaps, crawl controls and JSON-LD structured metadata.'
+        ],
+        start_date: '2026-06-01'
+      }
+    ]
+  },
+  {
     id: 1,
     company_name: 'Full Facing (Pty) Ltd.',
     company_address: 'Cape Town, South Africa',
@@ -140,21 +168,36 @@ export const jobs: Job[] = [
       {
         id: 1,
         title: 'Senior Frontend Developer',
-        description: '',
+        description:
+          'I built frontend features and contributed to shared integrations, with a focus on complex forms and content publishing.',
+        achievements: [
+          'Built complex forms using SWR and Yup, combining data fetching, form state and input validation to keep the interface responsive and reduce unnecessary backend requests.',
+          'Helped develop and maintain a shared API layer for consistent integration across frontend applications.',
+          'Integrated Strapi into a Next.js website so the marketing team could publish articles and manage Open Graph and structured metadata.',
+          'Built custom-styled form fields using native HTML inputs to retain their built-in behaviour.'
+        ],
         start_date: '2021-08-01',
         end_date: '2023-06-01'
       },
       {
         id: 2,
         title: 'Frontend Developer',
-        description: '',
+        description:
+          'I worked on Lesson Desk’s learning management features and contributed to the team’s development and deployment process.',
+        achievements: [
+          'Built and integrated Lesson Desk learning management features for content uploads, quiz scheduling, viewing results and exporting reports.',
+          'Contributed to sprint planning and daily peer code reviews, and helped resolve deployment issues by maintaining frontend Dockerfiles.'
+        ],
         start_date: '2018-06-01',
         end_date: '2021-07-01'
       },
       {
         id: 3,
         title: 'IT Dev Intern',
-        description: '',
+        description: 'I joined Full Facing as an IT Dev Intern.',
+        achievements: [
+          'Contributed to frontend development using React and JavaScript.'
+        ],
         start_date: '2017-12-01',
         end_date: '2018-05-01'
       }

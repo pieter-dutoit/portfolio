@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import * as React from 'react'
 import { CheckIcon, ChevronDown, XCircle, XIcon } from 'lucide-react'
 
@@ -7,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import {
   Popover,
   PopoverContent,
+  PopoverAnchor,
   PopoverTrigger
 } from '@/components/ui/popover'
 import {
@@ -15,8 +17,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
-  CommandSeparator
+  CommandList
 } from '@/components/ui/command'
 
 interface MultiSelectOption {
@@ -25,7 +26,7 @@ interface MultiSelectOption {
   disabled?: boolean
 }
 
-interface MultiSelectProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MultiSelectProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   options: MultiSelectOption[]
   onValueChange: (value: string[]) => void
   defaultValue?: string[]
@@ -56,11 +57,8 @@ export function MultiSelect({
   disabled = false,
   ...triggerProps
 }: MultiSelectProps) {
-  const {
-    onClick: onTriggerClick,
-    onKeyDown: onTriggerKeyDown,
-    ...restTriggerProps
-  } = triggerProps
+  const triggerRef = React.useRef<HTMLButtonElement>(null)
+  const closeRef = React.useRef<HTMLButtonElement>(null)
   const [selectedValues, setSelectedValues] =
     React.useState<string[]>(defaultValue)
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false)
@@ -126,107 +124,69 @@ export function MultiSelect({
 
   return (
     <Popover open={isPopoverOpen} onOpenChange={handleOpenChange}>
-      <PopoverTrigger asChild>
-        <div
-          {...restTriggerProps}
-          role='button'
-          tabIndex={disabled ? -1 : 0}
-          aria-haspopup='listbox'
-          aria-expanded={isPopoverOpen}
-          aria-disabled={disabled}
-          onClick={(event) => {
-            if (disabled) {
-              event.preventDefault()
-              event.stopPropagation()
-              return
-            }
-            onTriggerClick?.(event)
-            if (event.defaultPrevented) return
-          }}
-          onKeyDown={(event) => {
-            onTriggerKeyDown?.(event)
-            if (event.defaultPrevented) return
-            if (disabled) return
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault()
-              handleOpenChange(!isPopoverOpen)
-            }
-          }}
-          className={cn(
-            'bg-card hover:bg-card/80 flex min-h-11 w-full items-center justify-between rounded-md border px-3',
-            disabled && 'cursor-not-allowed opacity-50',
-            className
-          )}
-        >
-          {selectedValues.length > 0 ? (
-            <div className='flex w-full items-center gap-3'>
-              <div className='flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap'>
+      <PopoverAnchor asChild>
+        <div className={cn('flex w-full flex-col gap-2', className)}>
+          <PopoverTrigger asChild>
+            <Button
+              {...triggerProps}
+              ref={triggerRef}
+              variant='field'
+              disabled={disabled}
+              aria-haspopup='dialog'
+              aria-expanded={isPopoverOpen}
+            >
+              <span>
+                {selectedValues.length > 0
+                  ? `${selectedValues.length} selected`
+                  : placeholder}
+              </span>
+              <ChevronDown aria-hidden='true' />
+            </Button>
+          </PopoverTrigger>
+          {selectedValues.length > 0 && (
+            <div className='flex items-center gap-2'>
+              <div className='flex min-w-0 flex-1 flex-wrap gap-2'>
                 {selectedValues.map((value) => {
                   const option = options.find((item) => item.value === value)
                   if (!option) return null
                   return (
-                    <Badge
-                      key={value}
-                      className='flex items-center gap-2 px-1.5 whitespace-nowrap'
-                    >
-                      <span className='text-xs'>{option.label}</span>
-                      <button
-                        type='button'
+                    <Badge key={value} variant='secondary' className='gap-1'>
+                      <span>{option.label}</span>
+                      <Button
+                        variant='ghost'
+                        size='icon-sm'
+                        disabled={disabled || option.disabled}
                         aria-label={`Remove ${option.label}`}
-                        className='text-muted-foreground hover:text-foreground inline-flex size-4 items-center justify-center'
-                        onClick={(event) => {
-                          event.stopPropagation()
-                          if (disabled) return
+                        onClick={() => {
                           toggleOption(value)
-                        }}
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter' || event.key === ' ') {
-                            event.stopPropagation()
-                          }
+                          triggerRef.current?.focus()
                         }}
                       >
-                        <XCircle className='size-4' />
-                      </button>
+                        <XCircle aria-hidden='true' />
+                      </Button>
                     </Badge>
                   )
                 })}
               </div>
-              <div className='flex items-center gap-2'>
-                <button
-                  type='button'
-                  aria-label='Clear selected options'
-                  className='text-muted-foreground hover:text-foreground inline-flex h-8 w-8 items-center justify-center'
-                  onClick={(event) => {
-                    event.stopPropagation()
-                    if (disabled) return
-                    handleClear()
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.stopPropagation()
-                    }
-                  }}
-                >
-                  <XIcon className='h-4 w-4' />
-                </button>
-                <Separator orientation='vertical' className='h-6' />
-                <ChevronDown className='text-muted-foreground h-4 w-4' />
-              </div>
-            </div>
-          ) : (
-            <div className='flex w-full items-center justify-between gap-2'>
-              <span className='text-muted-foreground text-sm'>
-                {placeholder}
-              </span>
-              <ChevronDown className='text-muted-foreground h-4 w-4' />
+              <Button
+                variant='ghost'
+                size='icon-sm'
+                disabled={disabled}
+                aria-label='Clear selected options'
+                onClick={() => {
+                  handleClear()
+                  triggerRef.current?.focus()
+                }}
+              >
+                <XIcon aria-hidden='true' />
+              </Button>
             </div>
           )}
         </div>
-      </PopoverTrigger>
+      </PopoverAnchor>
 
       <PopoverContent
-        role='listbox'
-        aria-multiselectable='true'
+        aria-label={triggerProps['aria-label'] ?? placeholder}
         className='w-[320px] p-0'
         align='start'
       >
@@ -239,12 +199,16 @@ export function MultiSelect({
               aria-label='Search options'
             />
           )}
-          <CommandList className='max-h-64 overflow-y-auto'>
+          <CommandList
+            aria-multiselectable='true'
+            className='max-h-64 overflow-y-auto'
+          >
             <CommandEmpty>{emptyIndicator || 'No results found.'}</CommandEmpty>
             {!hideSelectAll && !searchValue && (
               <CommandGroup>
                 <CommandItem
                   key='all'
+                  disabled={disabled}
                   onSelect={toggleAll}
                   role='option'
                   aria-selected={
@@ -279,12 +243,12 @@ export function MultiSelect({
                     onSelect={() => toggleOption(option.value)}
                     role='option'
                     aria-selected={isSelected}
-                    aria-disabled={option.disabled}
+                    aria-disabled={disabled || option.disabled}
                     className={cn(
                       'cursor-pointer',
                       option.disabled && 'cursor-not-allowed opacity-50'
                     )}
-                    disabled={option.disabled}
+                    disabled={disabled || option.disabled}
                   >
                     <div
                       className={cn(
@@ -302,27 +266,34 @@ export function MultiSelect({
                 )
               })}
             </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup>
-              <div className='flex items-center justify-between'>
-                {selectedValues.length > 0 && (
-                  <CommandItem
-                    onSelect={handleClear}
-                    className='flex-1 cursor-pointer justify-center'
-                  >
-                    Clear
-                  </CommandItem>
-                )}
-                <CommandItem
-                  onSelect={() => handleOpenChange(false)}
-                  className='flex-1 cursor-pointer justify-center'
-                >
-                  Close
-                </CommandItem>
-              </div>
-            </CommandGroup>
           </CommandList>
         </Command>
+        <Separator />
+        <div className='flex items-center justify-between gap-2 p-1'>
+          {selectedValues.length > 0 && (
+            <Button
+              variant='ghost'
+              size='sm'
+              disabled={disabled}
+              onClick={() => {
+                handleClear()
+                closeRef.current?.focus()
+              }}
+              className='flex-1'
+            >
+              Clear
+            </Button>
+          )}
+          <Button
+            variant='ghost'
+            size='sm'
+            ref={closeRef}
+            onClick={() => handleOpenChange(false)}
+            className='flex-1'
+          >
+            Close
+          </Button>
+        </div>
       </PopoverContent>
     </Popover>
   )

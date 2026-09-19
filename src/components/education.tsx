@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { Suspense } from 'react'
 import { Dot, ExternalLink } from 'lucide-react'
 
@@ -69,19 +70,19 @@ export default function Education() {
                             <div className='mt-1'>
                               {description ? <p>{description}</p> : null}
                               {verification_url ? (
-                                <a
-                                  href={verification_url}
-                                  target='_blank'
-                                  rel='noreferrer'
-                                  className='flex items-center underline underline-offset-4'
-                                >
-                                  Verify on Credly{' '}
-                                  <ExternalLink
-                                    aria-hidden='true'
-                                    className='ml-2'
-                                    size={16}
-                                  />
-                                </a>
+                                <Button asChild variant='link' size='inline'>
+                                  <a
+                                    href={verification_url}
+                                    target='_blank'
+                                    rel='noreferrer'
+                                  >
+                                    Verify on Credly{' '}
+                                    <ExternalLink
+                                      aria-hidden='true'
+                                      data-icon='inline-end'
+                                    />
+                                  </a>
+                                </Button>
                               ) : null}
                               {pdf_url ? (
                                 <Suspense fallback={null}>

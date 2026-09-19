@@ -8,7 +8,7 @@ export default function WorkExperience() {
   return (
     <section className='mt-12 lg:mt-16'>
       <h2>Work Experience</h2>
-      <ul className='relative py-8'>
+      <ul className='relative flex flex-col gap-12 py-8'>
         {/* Job Listings */}
         {jobs.map(
           ({
@@ -31,20 +31,21 @@ export default function WorkExperience() {
               <TagList tags={tags} />
 
               {/* Roles */}
-              <ul className='relative mt-8 flex flex-col gap-8 before:absolute before:top-0 before:left-6 before:h-full before:w-0 before:shadow-[0_0_6px_1px] before:content-[""]'>
+              <ul className='relative mt-8 flex flex-col gap-8'>
                 {roles.map(
                   ({
                     id: roleId,
                     title,
                     description,
+                    achievements,
                     start_date,
                     end_date
                   }) => (
-                    <li key={roleId} className='relative pl-16'>
+                    <li key={roleId} className='relative sm:pl-16'>
                       {/* Bullet */}
                       <div
                         aria-hidden='true'
-                        className='bg-foreground absolute top-4 left-5 size-2 rounded-full shadow-[0_0_8px_2px]'
+                        className='bg-foreground absolute top-4 left-5 hidden size-2 rounded-full sm:block'
                       />
 
                       {/* Role and years */}
@@ -55,7 +56,15 @@ export default function WorkExperience() {
 
                       {/* Role Description */}
                       {description ? (
-                        <p className='ml-4'>{description}</p>
+                        <p className='mt-4'>{description}</p>
+                      ) : null}
+
+                      {achievements.length > 0 ? (
+                        <ul className='mt-4 flex list-disc flex-col gap-3 pl-5'>
+                          {achievements.map((achievement) => (
+                            <li key={achievement}>{achievement}</li>
+                          ))}
+                        </ul>
                       ) : null}
                     </li>
                   )

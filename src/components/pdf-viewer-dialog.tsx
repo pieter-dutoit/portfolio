@@ -1,6 +1,8 @@
 'use client'
 
-import type { ReactElement } from 'react'
+import { Button } from '@/components/ui/button'
+
+import { useRef, type ReactElement } from 'react'
 import { FileText } from 'lucide-react'
 
 import {
@@ -27,25 +29,34 @@ export default function PdfViewerDialog({
   open,
   onOpenChange
 }: PdfViewerDialogProps) {
+  const titleRef = useRef<HTMLHeadingElement>(null)
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         {trigger ?? (
-          <button
+          <Button
             type='button'
-            className='flex cursor-pointer items-center underline underline-offset-4'
+            variant='link'
+            size='inline'
             aria-label={`${triggerLabel}: ${title}`}
           >
             {triggerLabel}
-            <FileText aria-hidden='true' className='ml-2' size={16} />
-          </button>
+            <FileText aria-hidden='true' data-icon='inline-end' />
+          </Button>
         )}
       </DialogTrigger>
       <DialogContent
+        onOpenAutoFocus={(event) => {
+          event.preventDefault()
+          titleRef.current?.focus()
+        }}
         aria-describedby={undefined}
         className='flex h-[90dvh] w-[calc(100%-2rem)] max-w-5xl flex-col gap-0 overflow-hidden rounded-lg p-4 pt-12'
       >
-        <DialogTitle className='sr-only'>{title}</DialogTitle>
+        <DialogTitle ref={titleRef} tabIndex={-1} className='sr-only'>
+          {title}
+        </DialogTitle>
         <iframe
           src={`${src}${src.includes('#') ? '&' : '#'}toolbar=0&navpanes=0`}
           title={title}

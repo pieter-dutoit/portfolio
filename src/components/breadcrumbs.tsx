@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
@@ -36,12 +37,9 @@ export default function Breadcrumbs({ items, className }: BreadcrumbsProps) {
                   {item.label}
                 </span>
               ) : (
-                <Link
-                  href={item.href}
-                  className='hover:text-foreground transition'
-                >
-                  {item.label}
-                </Link>
+                <Button asChild variant='link' size='inline'>
+                  <Link href={item.href}>{item.label}</Link>
+                </Button>
               )}
             </li>
           )

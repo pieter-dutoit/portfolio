@@ -8,11 +8,7 @@ import { Button } from '@/components/ui/button'
 
 const themeOrder = ['light', 'dark', 'system'] as const
 type ThemeOption = (typeof themeOrder)[number]
-const themeLabels = {
-  light: 'Light',
-  dark: 'Dark',
-  system: 'System'
-} as const
+const themeLabels = { light: 'Light', dark: 'Dark', system: 'System' } as const
 
 const subscribe = () => () => {}
 const getClientSnapshot = () => true
@@ -29,10 +25,9 @@ export function ModeToggle() {
   if (!mounted) {
     return (
       <Button
-        variant='outline'
-        size='icon'
+        size='icon-sm'
         aria-hidden='true'
-        className='opacity-0'
+        className='invisible'
         disabled
       />
     )
@@ -46,21 +41,16 @@ export function ModeToggle() {
     themeOrder[(currentIndex + 1) % themeOrder.length] ?? 'system'
 
   const Icon =
-    currentTheme === 'light'
-      ? Sun
-      : currentTheme === 'dark'
-        ? Moon
-        : Laptop
+    currentTheme === 'light' ? Sun : currentTheme === 'dark' ? Moon : Laptop
 
   return (
     <Button
-      variant='outline'
-      size='icon'
+      size='icon-sm'
       onClick={() => setTheme(nextTheme)}
       aria-label={`Switch to ${themeLabels[nextTheme]} theme`}
       title={`Theme: ${themeLabels[currentTheme]}`}
     >
-      <Icon className='h-4 w-4' />
+      <Icon />
       <span className='sr-only'>Switch theme</span>
     </Button>
   )
