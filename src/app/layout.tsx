@@ -23,7 +23,7 @@ export default function RootLayout({
       className={`${googleSans.variable} ${ptSerifCaption.variable}`}
       suppressHydrationWarning
     >
-      <body className='bg-background text-foreground min-h-screen font-sans antialiased'>
+      <body className='bg-background from-background to-background-end text-foreground min-h-dvh bg-linear-to-b font-sans antialiased'>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
@@ -41,7 +41,7 @@ export default function RootLayout({
           <main
             id='main-content'
             tabIndex={-1}
-            className='from-background to-card @container scroll-mt-20 bg-linear-to-b'
+            className='@container scroll-mt-20'
           >
             <div className='container mx-auto px-6'>{children}</div>
           </main>

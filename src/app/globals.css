@@ -28,6 +28,7 @@ html {
   --color-button: var(--button);
   --color-button-foreground: var(--button-foreground);
   --color-background: var(--background);
+  --color-background-end: var(--background-end);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -65,6 +66,7 @@ html {
   --button-foreground: #182332;
   --radius: 0.625rem;
   --background: #f7f9fb;
+  --background-end: var(--card);
   --foreground: #182332;
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
@@ -99,6 +101,7 @@ html {
 
 .dark {
   --background: oklch(0.08 0.03 255);
+  --background-end: oklch(0.1 0.02 255);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.16 0.02 255);
   --card-foreground: oklch(0.98 0 0);

@@ -50,6 +50,35 @@ require redesigning shared components.
 - Inspect screenshots for irrelevant or private content before publication.
   Keep the detail needed to support the claim when cropping or redacting.
 
+## Tables and supporting content
+
+Keep supporting material with the explanation it supports. A table or figure
+belonging to a labelled bullet should be indented as part of that same list item,
+along with its interpretation. Use ordinary section-level placement when it
+supports the whole section. Preserve blank lines around Markdown tables inside
+JSX wrappers so MDX parses them as tables.
+
+Short factor and comparison tables should take their natural content width,
+constrained by the article on smaller screens. Scope the sizing to the table's
+wrapper rather than changing all site tables:
+
+```mdx
+<div className='max-w-full [&_table]:w-auto'>
+
+| Factor | Effect on ranking |
+| --- | --- |
+| Relevant experience | Higher priority |
+
+</div>
+```
+
+This is a layout example, not project evidence. For a table inside a list item,
+indent the wrapper and every table line to the item's content level. Keep the
+table and its interpretation aligned with that content. Let cells wrap on mobile.
+If a larger table needs horizontal scrolling, contain it in a labelled,
+keyboard-focusable region rather than allowing the page to overflow. Verify the
+rendered width and grouping at both mobile and desktop sizes.
+
 ## Media alignment and sizing
 
 Left-align figures, their media, and their captions with the surrounding text.
@@ -70,6 +99,11 @@ Keep diagrams at their readable intrinsic dimensions in the existing `w-fit
 max-w-full overflow-x-auto` wrapper. Let that wrapper scroll on narrow screens,
 keeping both its left edge and the caption aligned with the surrounding text.
 Do not stretch small diagrams to fill the article column.
+
+Internal diagram alignment is separate from figure alignment. Centre text within
+nodes and balance related nodes around a clear reading direction. A simple
+vertical flow can share a centre line, with return paths to the side. Keep the
+outer figure and caption on the article's left edge.
 
 ## Screenshots and captions
 
@@ -156,10 +190,18 @@ the existing Mermaid files in `public/images/projects/the-grand-collection/`:
 - `mermaid-config.json` establishes a base theme with `htmlLabels: false`, 14px
   Arial labels, restrained slate colours, a light background, and linear edges.
 
-Adapt the pattern to the new project's real architecture. Label edge meanings,
-distinguish phases when useful, and include Mermaid `accTitle` and `accDescr`.
-Prefer a compact flow with readable labels to a comprehensive architecture map.
-An explanatory architecture diagram is not evidence of measured performance.
+Adapt the pattern to the new project's real architecture. Use a Mermaid
+`flowchart` for an overview of logic with processing steps, decision diamonds
+and labelled branches. Label edge meanings, distinguish phases when useful,
+and include Mermaid `accTitle` and `accDescr`.
+
+Show the logic needed for the explanation at the intended disclosure level.
+Combine steps when their internal distinction adds little value, while preserving
+meaningful decisions, loops and stopping conditions. Avoid publishing detailed
+weights, thresholds or selection rules merely because they were available during
+research. The editable `.mmd` source is public too. Prefer a compact flow with
+readable labels to a comprehensive architecture map. An explanatory diagram is
+not evidence of measured performance.
 
 The source-file comments record the existing render command, pinned to Mermaid
 CLI 11.12.0. For example, from the repository root:
@@ -218,11 +260,13 @@ For changes to project MDX or its assets:
    The build already runs `pnpm typecheck`. If a check cannot run, state the exact
    limitation and complete independent checks.
 3. Preview changed project pages at a narrow mobile width and a desktop width.
-   Check that every figure's media and caption start at the surrounding text's
-   left edge, including within lists. Check portrait width limits, thumbnail
-   cropping, full-size image links, diagram scrolling and labels, and light/dark
-   readability. For changed video figures, inspect playback, poster, and
-   reduced-motion behaviour.
+   Check that tables, figures and interpretations remain grouped with their
+   parent explanation, including indentation within lists. Short tables should
+   use natural width and remain readable without page overflow. Check that every
+   figure's media and caption start at the surrounding text's left edge. Check
+   portrait width limits, thumbnail cropping, full-size image links, diagram
+   scrolling, centred node labels, balanced flow and light/dark readability.
+   For changed video figures, inspect playback, poster, and reduced-motion behaviour.
 
 A change only to this skill's Markdown does not require an application build.
 Validate the skill and its local references instead.
