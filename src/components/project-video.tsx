@@ -12,6 +12,7 @@ type ProjectVideoProps = {
   height: number
   label: string
   describedBy?: string
+  playback?: 'auto' | 'manual'
 }
 
 function requestPlayback(video: HTMLVideoElement) {
@@ -26,7 +27,8 @@ export function ProjectVideo({
   width,
   height,
   label,
-  describedBy
+  describedBy,
+  playback = 'auto'
 }: ProjectVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const videoId = useId()
@@ -35,6 +37,12 @@ export function ProjectVideo({
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
+
+    if (playback === 'manual') {
+      video.autoplay = false
+      video.pause()
+      return
+    }
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     const syncPlayback = () => {
@@ -54,7 +62,7 @@ export function ProjectVideo({
       reducedMotion.removeEventListener('change', syncPlayback)
       video.pause()
     }
-  }, [src])
+  }, [src, playback])
 
   return (
     <div className='not-prose relative'>
@@ -66,9 +74,9 @@ export function ProjectVideo({
         width={width}
         height={height}
         muted
-        loop
+        loop={playback === 'auto'}
         playsInline
-        controls={false}
+        controls={playback === 'manual'}
         preload='none'
         aria-label={label}
         aria-describedby={describedBy}
@@ -78,7 +86,7 @@ export function ProjectVideo({
       >
         <a href={src}>Download the video</a>
       </video>
-      {!isPlaying ? (
+      {playback === 'auto' && !isPlaying ? (
         <div className='absolute inset-0 flex items-center justify-center'>
           <Button
             type='button'

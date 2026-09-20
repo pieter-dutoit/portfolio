@@ -1,0 +1,302 @@
+{
+  "title": "Academic Workload Manager: local planner comparison",
+  "recordedAt": "2026-09-20T15:30:40.119Z",
+  "environment": {
+    "date": "2026-09-20T15:30:40.119Z",
+    "browser": "Chrome/153.0.8010.48",
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) i9-9880H CPU @ 2.30GHz",
+    "logicalCpus": 16,
+    "memoryGiB": 16,
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "deviceScaleFactor": 1
+    },
+    "frontend": "Next.js 15.2.4 production build",
+    "backend": "PHP 8.4.8 / Laravel 12, local SQLite fixture",
+    "columns": "3 trimesters, 2 campuses (6 offering columns)",
+    "readiness": "Navigation start to settled course and offering queries followed by two animation frames",
+    "scroll": "40 programmatic 320px steps, 100ms spacing, 6400px down and back",
+    "warmups": 1,
+    "measuredRepeats": 5
+  },
+  "datasets": [
+    {
+      "courses": 500,
+      "offerings": 794,
+      "educators": 13,
+      "campuses": 4,
+      "allocations": 0
+    },
+    {
+      "courses": 2000,
+      "offerings": 3047,
+      "educators": 13,
+      "campuses": 4,
+      "allocations": 0
+    }
+  ],
+  "method": {
+    "repetitions": "One warm-up plus five measured runs per configuration and dataset. Alternating configuration order.",
+    "cache": "New browser context and client query cache each run; warmed backend/database.",
+    "virtualisationComparison": "Same fully loaded course dataset, three trimesters and two campuses; pagination disabled in both modes. Deferred popups and map lookups enabled in both.",
+    "paginationComparison": "Virtualisation enabled in both modes; 40-course pages (normal prefetch loaded 80 initially) compared with fetching all courses. Measures usable initial viewport, not the complete dataset download.",
+    "readyMs": "Browser navigation start until course data and all six offering columns have settled successfully, followed by two animation frames. Application-specific readiness, not a Core Web Vital.",
+    "renderedElements": "Descendant HTML/SVG elements inside the planner at initial readiness.",
+    "scroll": "40 programmatic 320px steps spaced at 100ms, 6400px down and back. Total long-task time counts browser tasks over 50ms.",
+    "limitations": "Synthetic data on localhost with a production Next.js frontend and SQLite test backend. Not measurements of the handed-over MySQL deployment, university use, or end-user time savings."
+  },
+  "results": [
+    {
+      "courses": 500,
+      "configuration": "virtualised",
+      "measuredRuns": 5,
+      "successfulRuns": 5,
+      "timeouts": 0,
+      "errors": 0,
+      "readyMs": {
+        "median": 1172.4,
+        "min": 1148.3,
+        "max": 1210.8
+      },
+      "coursesLoaded": {
+        "median": 500,
+        "min": 500,
+        "max": 500
+      },
+      "renderedElements": {
+        "median": 1443,
+        "min": 1443,
+        "max": 1443
+      },
+      "renderedCourseRows": {
+        "median": 31,
+        "min": 31,
+        "max": 31
+      },
+      "scrollElapsedMs": {
+        "median": 4349.7,
+        "min": 4348,
+        "max": 4358.9
+      },
+      "scrollLongTaskMs": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "scrollLongTaskCount": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "scrollMaxLongTaskMs": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    {
+      "courses": 500,
+      "configuration": "non-virtualised",
+      "measuredRuns": 5,
+      "successfulRuns": 5,
+      "timeouts": 0,
+      "errors": 0,
+      "readyMs": {
+        "median": 2285.3,
+        "min": 2238.4,
+        "max": 2569.6
+      },
+      "coursesLoaded": {
+        "median": 500,
+        "min": 500,
+        "max": 500
+      },
+      "renderedElements": {
+        "median": 18554,
+        "min": 18554,
+        "max": 18554
+      },
+      "renderedCourseRows": {
+        "median": 500,
+        "min": 500,
+        "max": 500
+      },
+      "scrollElapsedMs": {
+        "median": 4356.8,
+        "min": 4354.2,
+        "max": 4488.4
+      },
+      "scrollLongTaskMs": {
+        "median": 190,
+        "min": 180,
+        "max": 440
+      },
+      "scrollLongTaskCount": {
+        "median": 2,
+        "min": 2,
+        "max": 4
+      },
+      "scrollMaxLongTaskMs": {
+        "median": 104,
+        "min": 101,
+        "max": 147
+      }
+    },
+    {
+      "courses": 500,
+      "configuration": "paginated",
+      "measuredRuns": 5,
+      "successfulRuns": 5,
+      "timeouts": 0,
+      "errors": 0,
+      "readyMs": {
+        "median": 737.7,
+        "min": 578.9,
+        "max": 771.9
+      },
+      "coursesLoaded": {
+        "median": 80,
+        "min": 80,
+        "max": 80
+      },
+      "renderedElements": {
+        "median": 1443,
+        "min": 1443,
+        "max": 1443
+      },
+      "renderedCourseRows": {
+        "median": 31,
+        "min": 31,
+        "max": 31
+      }
+    },
+    {
+      "courses": 2000,
+      "configuration": "virtualised",
+      "measuredRuns": 5,
+      "successfulRuns": 5,
+      "timeouts": 0,
+      "errors": 0,
+      "readyMs": {
+        "median": 3357.7,
+        "min": 3000.2,
+        "max": 5104.9
+      },
+      "coursesLoaded": {
+        "median": 2000,
+        "min": 2000,
+        "max": 2000
+      },
+      "renderedElements": {
+        "median": 1423,
+        "min": 1423,
+        "max": 1423
+      },
+      "renderedCourseRows": {
+        "median": 31,
+        "min": 31,
+        "max": 31
+      },
+      "scrollElapsedMs": {
+        "median": 4354,
+        "min": 4347,
+        "max": 4359
+      },
+      "scrollLongTaskMs": {
+        "median": 0,
+        "min": 0,
+        "max": 248
+      },
+      "scrollLongTaskCount": {
+        "median": 0,
+        "min": 0,
+        "max": 4
+      },
+      "scrollMaxLongTaskMs": {
+        "median": 0,
+        "min": 0,
+        "max": 88
+      }
+    },
+    {
+      "courses": 2000,
+      "configuration": "non-virtualised",
+      "measuredRuns": 5,
+      "successfulRuns": 5,
+      "timeouts": 0,
+      "errors": 0,
+      "readyMs": {
+        "median": 18148.5,
+        "min": 15971.3,
+        "max": 20382.5
+      },
+      "coursesLoaded": {
+        "median": 2000,
+        "min": 2000,
+        "max": 2000
+      },
+      "renderedElements": {
+        "median": 74330,
+        "min": 74330,
+        "max": 74330
+      },
+      "renderedCourseRows": {
+        "median": 2000,
+        "min": 2000,
+        "max": 2000
+      },
+      "scrollElapsedMs": {
+        "median": 19784.4,
+        "min": 15945.5,
+        "max": 20776.7
+      },
+      "scrollLongTaskMs": {
+        "median": 19732,
+        "min": 15891,
+        "max": 20686
+      },
+      "scrollLongTaskCount": {
+        "median": 52,
+        "min": 50,
+        "max": 55
+      },
+      "scrollMaxLongTaskMs": {
+        "median": 474,
+        "min": 397,
+        "max": 859
+      }
+    },
+    {
+      "courses": 2000,
+      "configuration": "paginated",
+      "measuredRuns": 5,
+      "successfulRuns": 5,
+      "timeouts": 0,
+      "errors": 0,
+      "readyMs": {
+        "median": 733,
+        "min": 573.1,
+        "max": 861.4
+      },
+      "coursesLoaded": {
+        "median": 80,
+        "min": 80,
+        "max": 80
+      },
+      "renderedElements": {
+        "median": 1423,
+        "min": 1423,
+        "max": 1423
+      },
+      "renderedCourseRows": {
+        "median": 31,
+        "min": 31,
+        "max": 31
+      }
+    }
+  ]
+}

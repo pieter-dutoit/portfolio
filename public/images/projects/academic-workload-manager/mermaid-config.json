@@ -1,0 +1,22 @@
+{
+  "theme": "base",
+  "htmlLabels": false,
+  "fontFamily": "Arial, sans-serif",
+  "themeCSS": ".edgeLabel rect { fill: #f8fafc; opacity: 1; }",
+  "themeVariables": {
+    "fontFamily": "Arial, sans-serif",
+    "fontSize": "14px",
+    "primaryColor": "#ffffff",
+    "primaryTextColor": "#1e293b",
+    "primaryBorderColor": "#64748b",
+    "lineColor": "#475569"
+  },
+  "flowchart": {
+    "htmlLabels": false,
+    "curve": "linear",
+    "nodeSpacing": 24,
+    "rankSpacing": 28,
+    "padding": 12,
+    "diagramPadding": 16
+  }
+}
