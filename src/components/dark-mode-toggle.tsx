@@ -49,6 +49,7 @@ export function ModeToggle() {
       onClick={() => setTheme(nextTheme)}
       aria-label={`Switch to ${themeLabels[nextTheme]} theme`}
       title={`Theme: ${themeLabels[currentTheme]}`}
+      variant='ghost'
     >
       <Icon />
       <span className='sr-only'>Switch theme</span>

@@ -8,6 +8,14 @@ import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -136,8 +144,8 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
 
   return (
     <section className='site-copy flex flex-col gap-10 pt-8 pb-16'>
-      <div className='border-border bg-card ring-border flex flex-col gap-6 rounded-2xl border p-6 shadow-lg ring-1'>
-        <div>
+      <Card className='flex flex-col gap-6 p-6'>
+        <CardHeader className='gap-0 p-0'>
           <p className='text-eyebrow text-muted-foreground tracking-wider uppercase'>
             Browse posts
           </p>
@@ -146,9 +154,9 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
             Filter by focus area, stack, or search the title to find what you
             need fast.
           </p>
-        </div>
+        </CardHeader>
 
-        <div className='grid gap-4 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)]'>
+        <CardContent className='grid gap-4 p-0 md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)]'>
           <div className='flex flex-col gap-2'>
             <label
               htmlFor='post-tag'
@@ -211,8 +219,8 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
               placeholder='Search by title...'
             />
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       <div className='flex items-center justify-between'>
         <p className='text-meta text-muted-foreground'>
@@ -237,7 +245,7 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
             key={post.slug}
             className='masonry-item mb-6 break-inside-avoid'
           >
-            <Button asChild variant='card' size='content'>
+            <Card asChild>
               <Link href={`/posts/${post.slug}`}>
                 <div className='relative aspect-[16/10] overflow-hidden'>
                   <Image
@@ -245,38 +253,42 @@ export default function PostsIndex({ posts, tags, stacks }: PostsIndexProps) {
                     alt={post.title}
                     fill
                     sizes='(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw'
-                    className='object-cover transition duration-500 group-hover:scale-105'
+                    className='object-cover transition duration-500 group-hover/card:scale-105'
                   />
                 </div>
 
                 <div className='flex flex-col gap-3 p-5'>
-                  <div className='text-meta text-muted-foreground flex items-center justify-between'>
-                    <time dateTime={post.date}>{formatDate(post.date)}</time>
-                  </div>
-                  <h2 className='card-title group-hover:underline'>
-                    {post.title}
-                  </h2>
-                  <p className='text-meta text-muted-foreground line-clamp-3'>
-                    {post.excerpt}
-                  </p>
-                  <div className='flex flex-wrap gap-2 pt-2'>
+                  <CardHeader className='gap-3 p-0'>
+                    <div className='text-meta text-muted-foreground flex items-center justify-between'>
+                      <time dateTime={post.date}>{formatDate(post.date)}</time>
+                    </div>
+                    <CardTitle asChild>
+                      <h2>{post.title}</h2>
+                    </CardTitle>
+                    <CardDescription className='line-clamp-3'>
+                      {post.excerpt}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter className='flex-wrap gap-2 p-0 pt-2'>
                     {post.tags.map((tag) => (
                       <Badge key={`${post.slug}-${tag}`} variant='secondary'>
                         {tag}
                       </Badge>
                     ))}
-                  </div>
+                  </CardFooter>
                 </div>
               </Link>
-            </Button>
+            </Card>
           </article>
         ))}
       </div>
 
       {filteredPosts.length === 0 && (
-        <div className='border-border bg-card text-muted-foreground ring-border text-meta rounded-2xl border border-dashed p-12 text-center shadow-lg ring-1'>
-          No posts match these filters yet.
-        </div>
+        <Card className='p-12 text-center'>
+          <CardContent className='p-0'>
+            <CardDescription>No posts match these filters yet.</CardDescription>
+          </CardContent>
+        </Card>
       )}
     </section>
   )

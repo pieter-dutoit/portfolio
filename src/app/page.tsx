@@ -3,13 +3,12 @@ import Education from '@/components/education'
 import JsonLd from '@/components/json-ld'
 import ProfileCard from '@/components/profile-card'
 import WorkExperience from '@/components/work-experience'
-import { profile, socialLinks } from '@/data/resume'
+import { profile } from '@/data/resume'
 import { getSiteUrl } from '@/lib/seo'
 import {
   buildJsonLdGraph,
-  buildPersonNode,
   buildProfilePageNode,
-  buildWebSiteNode,
+  buildSiteNodes,
   getPersonId,
   getWebSiteId
 } from '@/lib/structured-data'
@@ -20,11 +19,7 @@ export default function Page() {
   const webSiteId = getWebSiteId(siteUrl)
 
   const jsonLd = buildJsonLdGraph([
-    buildWebSiteNode({
-      siteUrl,
-      name: `${profile.full_name} Portfolio`
-    }),
-    buildPersonNode({ profile, socialLinks, siteUrl }),
+    ...buildSiteNodes(siteUrl),
     buildProfilePageNode({
       siteUrl,
       name: `Profile of ${profile.full_name}`,

@@ -8,10 +8,27 @@ export type ProjectMeta = {
   excerpt: string
   stack: string[]
   thumbnail?: string
+  thumbnailAlt?: string
+  websiteUrl?: string
+  repositoryUrls?: string[]
   fileName: string
 }
 
 const projectsDirectory = path.join(process.cwd(), 'src/content/projects')
+
+function parseExternalUrl(value: unknown, field: string, fileName: string) {
+  if (typeof value === 'string' && /^https?:\/\//.test(value.trim())) {
+    try {
+      const url = new URL(value.trim())
+      if (url.hostname && !url.username && !url.password) return url.href
+    } catch {
+      // Report malformed links with the same content error as other invalid values.
+    }
+  }
+  throw new Error(
+    `Project ${fileName} requires a valid HTTP(S) URL for ${field}.`
+  )
+}
 
 function parseProjectFile(fileName: string): ProjectMeta {
   const source = fs.readFileSync(path.join(projectsDirectory, fileName), 'utf8')
@@ -55,12 +72,47 @@ function parseProjectFile(fileName: string): ProjectMeta {
     )
   }
 
+  if (
+    data.thumbnailAlt !== undefined &&
+    (typeof data.thumbnailAlt !== 'string' || !data.thumbnailAlt.trim())
+  ) {
+    throw new Error(
+      `Project ${fileName} thumbnailAlt must be a non-empty string.`
+    )
+  }
+
+  const websiteUrl =
+    data.websiteUrl === undefined
+      ? undefined
+      : parseExternalUrl(data.websiteUrl, 'websiteUrl', fileName)
+  if (
+    data.repositoryUrls !== undefined &&
+    !Array.isArray(data.repositoryUrls)
+  ) {
+    throw new Error(
+      `Project ${fileName} repositoryUrls must be an array of URLs.`
+    )
+  }
+  const repositoryUrls =
+    data.repositoryUrls === undefined
+      ? undefined
+      : [
+          ...new Set<string>(
+            data.repositoryUrls.map((url: unknown) =>
+              parseExternalUrl(url, 'repositoryUrls', fileName)
+            )
+          )
+        ]
+
   return {
     title: data.title.trim(),
     slug,
     excerpt: data.excerpt.trim(),
     stack: [...new Set(stack.map((item: string) => item.trim()))],
     thumbnail: data.thumbnail?.trim(),
+    thumbnailAlt: data.thumbnailAlt?.trim(),
+    websiteUrl,
+    repositoryUrls,
     fileName
   }
 }

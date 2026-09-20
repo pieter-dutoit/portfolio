@@ -23,6 +23,8 @@ export interface QualificationAchievement {
 export interface Qualification {
   id: number | string
   institution_name: string
+  institution_url?: string
+  institution_same_as?: string[]
   institution_address: string
   institution_logo_url: string
   name: string
@@ -44,6 +46,8 @@ export interface JobRole {
 export interface Job {
   id: number | string
   company_name: string
+  company_url?: string
+  company_same_as?: string[]
   company_address?: string
   company_logo_url: string
   tags: Tag[]
@@ -63,8 +67,8 @@ export const profile = {
 }
 
 export const aboutMe = [
-  'I’m a frontend software engineer with 5+ years of commercial experience building customer-facing applications with React, TypeScript and Next.js. My work includes API integration, complex forms, CMS-driven publishing and resolving production reliability issues.',
-  'I currently work at Fourfifty and previously worked as a Senior Frontend Developer at Full Facing. I completed a Master of Information Technology at Griffith University with distinction, and have gained additional full-stack experience through client and university projects.'
+  'I’m a frontend software engineer with 5+ years of commercial experience using React, TypeScript and Next.js. My work spans learning management platforms and CMS-backed websites, with additional experience in server-side development and relational database design.',
+  'In my current role at Fourfifty, I develop customer-facing features for user verification and CMS-managed content, and resolve production reliability issues. I completed a Master of Information Technology with distinction at Griffith University, receiving its Gold Coast postgraduate ICT prize for the highest graduating GPA in an ICT master’s degree.'
 ]
 
 export const socialLinks: SocialLink[] = [
@@ -86,6 +90,10 @@ export const qualifications: Qualification[] = [
   {
     id: 1,
     institution_name: 'Griffith University',
+    institution_url: 'https://www.griffith.edu.au/',
+    institution_same_as: [
+      'https://www.linkedin.com/school/griffith-university/'
+    ],
     institution_address: 'Gold Coast, QLD, Australia',
     institution_logo_url: '/images/logos/griffith-logo.jpg',
     name: 'Master of Information Technology; Major in Software Development & Support',
@@ -127,6 +135,8 @@ export const jobs: Job[] = [
   {
     id: 2,
     company_name: 'Fourfifty',
+    company_url: 'https://www.fourfifty.io/',
+    company_same_as: ['https://www.linkedin.com/company/fourfifty/'],
     company_logo_url: '/images/logos/fourfifty-logo.jpeg',
     tags: [
       { id: 1, name: 'React' },

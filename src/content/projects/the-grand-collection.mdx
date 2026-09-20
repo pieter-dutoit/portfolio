@@ -1,12 +1,171 @@
 ---
 title: 'The Grand Collection'
-excerpt: 'A brief project overview. Full write-up to follow.'
+websiteUrl: 'https://www.thegrandcollection.co.za/'
+thumbnail: '/images/projects/the-grand-collection/thumbnail.webp'
+thumbnailAlt: 'The Grand Collection homepage showing its logo and booking introduction above a swimming pool.'
+excerpt: 'A hospitality website connecting guesthouses, local guides and booking links, with tools for managing content.'
+stack:
+  - Next.js
+  - TypeScript
+  - Payload CMS
+  - MongoDB
+  - Cloudflare R2
 ---
+
+import Image from 'next/image'
+import { ProjectVideo } from '@/components/project-video'
 
 ## Overview
 
-This is an initial draft of my write-up for The Grand Collection.
+The Grand Collection is a hospitality website for exploring guesthouses and the places around them. I developed the site and its content-management tools so guests can compare accommodation and continue to booking, while the business can update property information and publish articles.
 
-## My contribution
+- **Role:** Freelance web developer.
+- **Dates:** November 2024–March 2025 (initial build).
+- **Context:** Freelance client project, with ongoing maintenance and occasional updates.
 
-Details of my role, the work involved, and the outcome will follow.
+<figure>
+  <Image
+    src='/images/projects/the-grand-collection/rooms-and-rates.png'
+    alt='The Paarl Grand room listing showing the Mountain View Room, amenities, photographs and a Check availability button.'
+    width={3584}
+    height={2066}
+    sizes='(max-width: 768px) 100vw, 768px'
+    className='border-border h-auto w-full rounded-lg border'
+  />
+  <figcaption>
+    Guests can compare room details and amenities, then check availability
+    through NightsBridge.
+  </figcaption>
+</figure>
+
+## Technical contributions
+
+### Designing the site around the business structure
+
+With guesthouses in multiple locations, the site needed to help visitors find the right property and help search engines identify content relevant to each area.
+
+- **Content management:** Linked properties, rooms, destinations and articles in Payload CMS so pages can be composed dynamically with content relevant to each property or destination.
+
+  <figure>
+    <Image
+      src='/images/projects/the-grand-collection/cms-property-article-editor.png'
+      alt='Payload CMS article editor showing a published expansion update linked to The Paarl Grand and the Stories section.'
+      width={2620}
+      height={2064}
+      sizes='(max-width: 768px) 100vw, 768px'
+      className='border-border h-auto w-full rounded-lg border'
+    />
+    <figcaption>
+      Assigning [this
+      post](https://www.thegrandcollection.co.za/guesthouses/the-paarl-grand/articles/exciting-expansion-underway-at-the-paarl-grand)
+      to The Paarl Grand and the Stories section determines where it appears on
+      the public site.
+    </figcaption>
+  </figure>
+
+- **Visitor navigation:** Connected destination pages, guides and accommodation with links and breadcrumbs so visitors can see where they are and explore related content. For example, they can browse Paarl, read a local guide and find The Paarl Grand.
+
+  <figure>
+    <div
+      className='not-prose border-border focus-visible:outline-ring w-fit max-w-full overflow-x-auto rounded-md border bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2'
+      role='region'
+      aria-label='Business and site hierarchy diagram'
+      tabIndex={0}
+    >
+      <Image
+        src='/images/projects/the-grand-collection/site-structure.svg'
+        alt='The Grand Collection branches into guesthouses and destinations. Guesthouses have property posts under their articles URL path, while destinations have guides under their guides path. Solid lines show the hierarchy. A dotted line connects guesthouses and destination guides in both directions.'
+        width={322}
+        height={222}
+        unoptimized
+        className='m-0 block h-auto max-w-none'
+      />
+    </div>
+    <figcaption>
+      Solid lines show the URL hierarchy. Dotted lines link guesthouses and
+      destination guides.
+    </figcaption>
+  </figure>
+
+- **Structured data:** Aligned the CMS relationships, site URLs and JSON-LD around the business structure. The markup connects The Grand Collection to its guesthouses and rooms, giving search engines details such as property locations, amenities, bed types and occupancy.
+
+Together, the content, navigation and structured data give Google context about each guesthouse and its location, helping it identify property pages relevant to accommodation searches in that area. The recording below shows The Kathu Grand on the first results page for “luxury accommodation kathu”.
+
+<figure>
+  <ProjectVideo
+    src='/videos/projects/the-grand-collection/kathu-google-search.mp4'
+    poster='/images/projects/the-grand-collection/kathu-google-search-poster.jpg'
+    width={656}
+    height={656}
+    label='Google search result for The Kathu Grand'
+    describedBy='kathu-search-caption'
+  />
+  <figcaption id='kathu-search-caption'>
+    The search result opens directly onto The Kathu Grand’s property page.
+    Recorded on 19 September 2026 with personalisation off.
+  </figcaption>
+</figure>
+
+### Image optimisation
+
+The site was exhausting its Vercel image optimisation allowance, and the previous image setup lost cached versions on rebuilds. I addressed both by generating image variants during CMS upload and storing them independently of site deployments.
+
+- **Upload processing:** Replaced the image-processing API with WebP variants generated during CMS upload, bypassing Vercel’s image optimisation service.
+- **Persistent images:** Stored variants in Cloudflare R2 so site rebuilds can reuse them without regenerating each size.
+- **Responsive delivery:** Connected the prepared sizes to responsive rendering, so browsers can load a suitable image without waiting for conversion.
+- **Delivery trade-off:** Accepted additional upload processing and storage to simplify image delivery.
+
+<figure>
+  <div
+    className='not-prose border-border focus-visible:outline-ring w-fit max-w-full overflow-x-auto rounded-md border bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2'
+    role='region'
+    aria-label='Image processing and cached delivery diagram'
+    tabIndex={0}
+  >
+    <Image
+      src='/images/projects/the-grand-collection/image-delivery.svg'
+      alt='On upload, the CMS resizes images into WebP variants and stores them in Cloudflare R2. When viewed, Cloudflare delivers the selected size to the browser from its CDN cache, fetching from R2 only on a cache miss.'
+      width={235}
+      height={434}
+      unoptimized
+      className='m-0 block h-auto max-w-none'
+    />
+  </div>
+  <figcaption>
+    Images are processed on upload, stored in R2 and served through Cloudflare’s
+    cache.
+  </figcaption>
+</figure>
+
+<figure>
+  <a
+    href='/images/projects/the-grand-collection/hero-image-cache-headers.png'
+    aria-label='Open the image response headers screenshot at full size'
+    className='block rounded-lg'
+  >
+    <Image
+      src='/images/projects/the-grand-collection/hero-image-cache-headers.png'
+      alt='DevTools response headers for the homepage hero image showing status 200, Cf-Cache-Status HIT, Content-Length 102912 and Cache-Control max-age=31536000.'
+      width={1486}
+      height={528}
+      sizes='(max-width: 768px) 100vw, 768px'
+      className='border-border h-auto w-full rounded-lg border'
+    />
+  </a>
+  <figcaption>
+    A production hero-image request returned a 103 kB response from Cloudflare’s
+    cache, with browser caching allowed for one year.
+  </figcaption>
+</figure>
+
+### Long-lived caching and targeted revalidation
+
+Property information and articles can be served repeatedly between content updates. I used long-lived caching to make these visits faster and reduce server demand, with CMS changes triggering revalidation of the affected content.
+
+- **Cache reuse:** Reused cached content across public requests, reducing repeated database queries while the content remains unchanged.
+- **Targeted revalidation:** Connected CMS updates to revalidation of the affected pages or sections, allowing unrelated content to remain cached.
+- **Visitor experience:** Allowed cached content to be served while updates refresh on subsequent requests, keeping the site responsive and limiting server work to the content that needs updating.
+
+## Outcome
+
+I delivered a hospitality website with tools for managing property information and articles, resolved its image optimisation limits, and reduced repeated database queries through caching.

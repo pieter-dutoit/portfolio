@@ -4,7 +4,8 @@ export const googleSans = Google_Sans({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   variable: '--font-google-sans',
-  // Next.js does not provide fallback sizing metrics for Google Sans.
+  // An explicit fallback prevents Turbopack looking up missing Google Sans metrics.
+  fallback: ['Arial', 'sans-serif'],
   adjustFontFallback: false,
   display: 'swap'
 })

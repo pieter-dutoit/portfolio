@@ -4,15 +4,15 @@ import { notFound } from 'next/navigation'
 
 import Breadcrumbs from '@/components/breadcrumbs'
 import JsonLd from '@/components/json-ld'
-import { profile, socialLinks } from '@/data/resume'
 import { getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
   buildBlogPostingNode,
   buildBreadcrumbNode,
   buildJsonLdGraph,
-  buildPersonNode,
+  buildSiteNodes,
   buildWebPageNode,
-  buildWebSiteNode,
+  getBlogPostingId,
+  getBreadcrumbId,
   getPersonId,
   getWebSiteId
 } from '@/lib/structured-data'
@@ -70,16 +70,14 @@ export default async function PostPage({
     { label: post.title, href: `/posts/${post.slug}` }
   ]
   const jsonLd = buildJsonLdGraph([
-    buildWebSiteNode({
-      siteUrl,
-      name: `${profile.full_name} Portfolio`
-    }),
-    buildPersonNode({ profile, socialLinks, siteUrl }),
+    ...buildSiteNodes(siteUrl),
     buildWebPageNode({
       url: pageUrl,
       name: post.title,
       description: post.excerpt,
-      websiteId: webSiteId
+      websiteId: webSiteId,
+      mainEntityId: getBlogPostingId(pageUrl),
+      breadcrumbId: getBreadcrumbId(pageUrl)
     }),
     buildBlogPostingNode({
       post,

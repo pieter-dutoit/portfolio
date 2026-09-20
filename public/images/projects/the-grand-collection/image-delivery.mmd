@@ -1,0 +1,18 @@
+%% Regenerate from the repository root with Mermaid CLI 11.12.0:
+%% npx --yes --package @mermaid-js/mermaid-cli@11.12.0 mmdc -c public/images/projects/the-grand-collection/mermaid-config.json -i public/images/projects/the-grand-collection/image-delivery.mmd -o public/images/projects/the-grand-collection/image-delivery.svg -b '#f8fafc'
+flowchart TB
+  accTitle: Image processing and cached delivery
+  accDescr: On upload, the CMS resizes the image, converts it to WebP variants and stores them in Cloudflare R2. When viewed, Cloudflare serves the selected image to the browser from its CDN cache, fetching from R2 only on a cache miss.
+
+  subgraph Upload["On upload"]
+    CMS["CMS image upload"] --> Resize["Resize and convert<br/>to WebP"]
+    Resize --> R2["Store image variants<br/>in Cloudflare R2"]
+  end
+
+  subgraph Delivery["When viewed"]
+    CDN["Cloudflare CDN cache"] --> Browser["Browser displays<br/>selected image size"]
+  end
+
+  R2 -.->|"Fetch only on a cache miss"| CDN
+
+  style CDN fill:#e2e8f0,stroke:#475569,stroke-width:1px

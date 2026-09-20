@@ -19,7 +19,6 @@ const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline underline-offset-4 hover:opacity-80',
-        card: 'group overflow-hidden rounded-2xl bg-card text-card-foreground',
         field:
           'h-11 w-full justify-between bg-card text-foreground hover:bg-card/80 data-[placeholder]:text-muted-foreground [&>span]:line-clamp-1'
       },
@@ -30,21 +29,12 @@ const buttonVariants = cva(
         icon: 'size-10',
         'icon-sm': 'size-8',
         inline:
-          'inline h-auto whitespace-normal p-0 text-[length:inherit] leading-[inherit] font-[weight:inherit] [&_[data-icon]]:inline-block [&_[data-icon=inline-start]]:mr-2 [&_[data-icon=inline-end]]:ml-2',
-        content:
-          'block h-auto whitespace-normal p-0 text-left text-[length:inherit] font-[weight:inherit]'
+          'inline h-auto whitespace-normal p-0 text-[length:inherit] leading-[inherit] font-[weight:inherit] [&_[data-icon]]:inline-block [&_[data-icon=inline-start]]:mr-2 [&_[data-icon=inline-end]]:ml-2'
       }
     },
     compoundVariants: [
       {
-        variant: [
-          'default',
-          'destructive',
-          'outline',
-          'secondary',
-          'card',
-          'field'
-        ],
+        variant: ['default', 'destructive', 'outline', 'secondary', 'field'],
         className:
           'border border-border bg-clip-padding shadow-[3px_3px_0_0_var(--foreground)]'
       },
