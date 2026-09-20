@@ -1,0 +1,117 @@
+---
+title: 'GB Chiropractic'
+addedAt: '2026-09-20'
+websiteUrl: 'https://gbchiropractic.com.au/'
+repositoryUrls:
+  - 'https://github.com/pieter-dutoit/gb-chiro'
+thumbnail: '/images/projects/gb-chiropractic/thumbnail.jpg'
+thumbnailAlt: 'The GB Chiropractic homepage showing its green branding, a photograph of the chiropractor and prominent booking and contact options.'
+excerpt: 'A chiropractic practice website helping patients explore services, prepare for their first visit and book through PracSuite.'
+stack:
+  - Next.js
+  - TypeScript
+  - Tailwind CSS
+  - MDX
+---
+
+import Image from 'next/image'
+
+## Overview
+
+GB Chiropractic is a chiropractic practice in Griffith, New South Wales. I designed and built its website to help prospective patients understand the services, know what to expect at their first visit and find a suitable way to contact the practice or book an appointment.
+
+- **Role:** Freelance web designer and developer.
+- **Dates:** September 2025 (initial build), with subsequent simplification during June–August 2026.
+- **Context:** A client website, followed by maintenance and a review of its content-management needs.
+
+## Technical contributions
+
+### Designing around patient needs
+
+I organised the site around the questions someone might have before contacting the practice: what care is available, who they will see, how appointments work and where to go. Service information and a first-visit guide sit alongside the practitioner introduction and photographs of the clinic.
+
+The responsive layouts keep booking, telephone, email, opening hours and directions prominent. Booking links take visitors to the practice’s PracSuite booking service. This gives the website a clear role in explaining the practice and helping patients take the next step, while appointments are handled through PracSuite.
+
+<figure className='w-full max-w-xs'>
+  <a
+    href='/images/projects/gb-chiropractic/mobile-homepage.png'
+    aria-label='Open the mobile homepage screenshot at full size'
+    className='block rounded-lg'
+  >
+    <Image
+      src='/images/projects/gb-chiropractic/mobile-homepage.png'
+      alt='The mobile homepage showing Book an Appointment, telephone and email buttons, followed by opening hours and the Griffith address.'
+      width={390}
+      height={844}
+      sizes='(max-width: 352px) 100vw, 320px'
+      className='border-border h-auto w-full rounded-lg border'
+    />
+  </a>
+  <figcaption>
+    Booking and contact options remain prominent on a narrow screen, with hours
+    and directions available in the same section.
+  </figcaption>
+</figure>
+
+### Supporting local discovery
+
+The site needed to describe both the practice’s services and its location. I carried that information through the page content and metadata, added a sitemap and breadcrumbs, and connected the clinic, website and pages through structured data.
+
+The visible contact details and clinic structured data use the same business data for the address, telephone number and opening hours. This keeps the information consistent across the site and gives search engines explicit details about the practice and its location.
+
+<figure className='w-full max-w-lg'>
+  <a
+    href='/images/projects/gb-chiropractic/griffith-google-search.png'
+    aria-label='Open the Google search results screenshot at full size'
+    className='block rounded-lg'
+  >
+    <Image
+      src='/images/projects/gb-chiropractic/griffith-google-search.png'
+      alt='Google results for chiropractor griffith nsw, with a notice that results are not personalised and Griffith NSW as the search area. GB Chiropractic appears in the three-business Places section and as the first visible organic website result.'
+      width={1280}
+      height={1928}
+      sizes='(max-width: 544px) 100vw, 512px'
+      className='border-border h-auto w-full rounded-lg border'
+    />
+  </a>
+  <figcaption>
+    Results for “chiropractor griffith nsw”, with personalisation disabled and
+    Griffith NSW displayed as the search area. GB Chiropractic is the first
+    organic website result visible in this capture and also appears in Places.
+  </figcaption>
+</figure>
+
+The selected 12-month Google Search Console report recorded approximately **1,050 search clicks and 8,410 impressions**. Its query breakdown includes searches for the service and town: “chiropractor griffith” recorded 152 clicks and 1,248 impressions, “griffith chiropractor” recorded 67 clicks and 782 impressions, and “chiropractor griffith nsw” recorded 32 clicks and 265 impressions. These figures document people reaching the site through relevant local searches during the reported period.
+
+<figure className='w-full max-w-md'>
+  <a
+    href='/images/projects/gb-chiropractic/search-console-queries.png'
+    aria-label='Open the Search Console query report at full size'
+    className='block rounded-lg'
+  >
+    <Image
+      src='/images/projects/gb-chiropractic/search-console-queries.png'
+      alt='Google Search Console with the 12-month period selected, showing clicks and impressions for queries including chiropractor griffith, griffith chiropractor and chiropractor griffith nsw.'
+      width={996}
+      height={1894}
+      sizes='(max-width: 480px) 100vw, 448px'
+      className='border-border h-auto w-full rounded-lg border'
+    />
+  </a>
+  <figcaption>
+    The query report shows clicks from local service searches alongside searches
+    for the practice by name, within the selected 12-month view.
+  </figcaption>
+</figure>
+
+### Simplifying ongoing maintenance
+
+I initially built the site with Payload CMS, but the client did not use its editing tools. That left a CMS and database to maintain without a useful editing workflow for the practice. I decided the site was over-engineered for how it was being used and simplified it during later maintenance.
+
+I moved practice and page information into typed TypeScript data and article content into local MDX, then removed the CMS and database dependencies. I also kept prepared WebP image sizes with the site and used responsive image markup so browsers can select a suitable size without an image-processing service.
+
+The trade-off is that content changes now require a repository update and deployment. For this practice, that was a better fit than retaining an unused CMS. It reduced the infrastructure involved in serving and maintaining the website while retaining its patient-facing pages and booking links.
+
+## Outcome
+
+I delivered a website that helps prospective patients understand the practice and continue to booking, with recorded traffic from relevant local searches. Reviewing how the client used the site also led to a simpler implementation with fewer infrastructure dependencies to maintain.

@@ -156,6 +156,13 @@ html {
 }
 
 @layer components {
+  /* The main container supplies the scrollbar-safe viewport width (100cqw). */
+  .project-carousel-viewport {
+    margin-inline-start: -0.5rem;
+    width: calc(50% + 50cqw + 0.5rem);
+    padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+  }
+
   /* Keep site UI and Markdown typography in separate scopes. */
   .site-copy {
     @apply font-sans text-base;
@@ -245,6 +252,12 @@ html {
     --tw-prose-invert-quote-borders: var(--border);
     --tw-prose-invert-th-borders: var(--border);
     --tw-prose-invert-td-borders: var(--border);
+
+    /* Keep supporting media and captions on the surrounding text's reading edge. */
+    :where(figure) {
+      margin-inline: 0;
+      text-align: start;
+    }
 
     :where(h1) {
       @apply text-4xl;

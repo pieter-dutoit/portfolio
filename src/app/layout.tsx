@@ -41,7 +41,7 @@ export default function RootLayout({
           <main
             id='main-content'
             tabIndex={-1}
-            className='from-background to-card scroll-mt-20 bg-linear-to-b'
+            className='from-background to-card @container scroll-mt-20 bg-linear-to-b'
           >
             <div className='container mx-auto px-6'>{children}</div>
           </main>

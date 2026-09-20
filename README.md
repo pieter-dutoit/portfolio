@@ -24,6 +24,16 @@ imports and `public/`.
 
 ## Getting Started
 
+### Project dates
+
+Every project in `src/content/projects` requires a quoted `addedAt` frontmatter
+date, for example `addedAt: '2026-09-19'`. Use the date the case study was first
+added to the portfolio, and keep it unchanged when editing the project. The home
+page shows up to five projects ordered by this date, newest first; the projects
+page remains alphabetical.
+
+### Development
+
 Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org/),
 for example `feat: add a project page` or `fix: correct post filtering`.
 Installing dependencies sets up Husky's `commit-msg` hook, which validates each

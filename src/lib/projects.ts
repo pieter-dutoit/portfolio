@@ -6,6 +6,7 @@ export type ProjectMeta = {
   title: string
   slug: string
   excerpt: string
+  addedAt: string
   stack: string[]
   thumbnail?: string
   thumbnailAlt?: string
@@ -15,6 +16,22 @@ export type ProjectMeta = {
 }
 
 const projectsDirectory = path.join(process.cwd(), 'src/content/projects')
+
+function parseAddedAt(value: unknown, fileName: string): string {
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const date = new Date(`${value}T00:00:00.000Z`)
+    if (
+      !Number.isNaN(date.getTime()) &&
+      date.toISOString().slice(0, 10) === value
+    ) {
+      return value
+    }
+  }
+
+  throw new Error(
+    `Project ${fileName} requires addedAt to be a quoted YYYY-MM-DD calendar date.`
+  )
+}
 
 function parseExternalUrl(value: unknown, field: string, fileName: string) {
   if (typeof value === 'string' && /^https?:\/\//.test(value.trim())) {
@@ -108,6 +125,7 @@ function parseProjectFile(fileName: string): ProjectMeta {
     title: data.title.trim(),
     slug,
     excerpt: data.excerpt.trim(),
+    addedAt: parseAddedAt(data.addedAt, fileName),
     stack: [...new Set(stack.map((item: string) => item.trim()))],
     thumbnail: data.thumbnail?.trim(),
     thumbnailAlt: data.thumbnailAlt?.trim(),
@@ -129,4 +147,19 @@ export function getAllProjects(): ProjectMeta[] {
 
 export function getProjectBySlug(slug: string): ProjectMeta | null {
   return getAllProjects().find((project) => project.slug === slug) ?? null
+}
+
+export function getRecentProjects(
+  limit = 5,
+  excludeSlug?: string
+): ProjectMeta[] {
+  return getAllProjects()
+    .filter((project) => project.slug !== excludeSlug)
+    .sort(
+      (a, b) =>
+        b.addedAt.localeCompare(a.addedAt) ||
+        a.title.localeCompare(b.title) ||
+        a.slug.localeCompare(b.slug)
+    )
+    .slice(0, limit)
 }

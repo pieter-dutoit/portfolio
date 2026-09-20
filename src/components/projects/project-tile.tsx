@@ -11,11 +11,17 @@ import {
 } from '@/components/ui/card'
 import type { ProjectMeta } from '@/lib/projects'
 
-export default function ProjectTile({ project }: { project: ProjectMeta }) {
+export default function ProjectTile({
+  project,
+  headingLevel: Heading = 'h2'
+}: {
+  project: ProjectMeta
+  headingLevel?: 'h2' | 'h3'
+}) {
   const remainingTechnologies = project.stack.length - 2
 
   return (
-    <article className='min-w-0'>
+    <article className='h-full min-w-0'>
       <Card asChild className='flex h-full items-start justify-start gap-3 p-3'>
         <Link href={`/projects/${project.slug}`}>
           {project.thumbnail ? (
@@ -32,7 +38,7 @@ export default function ProjectTile({ project }: { project: ProjectMeta }) {
           <div className='flex min-w-0 flex-1 flex-col gap-2 wrap-anywhere'>
             <CardHeader className='gap-2 p-0'>
               <CardTitle asChild size='sm'>
-                <h2>{project.title}</h2>
+                <Heading>{project.title}</Heading>
               </CardTitle>
               <CardDescription className='line-clamp-2'>
                 {project.excerpt}

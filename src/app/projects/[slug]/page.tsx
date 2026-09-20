@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
 import JsonLd from '@/components/json-ld'
+import RecentProjects from '@/components/projects/recent-projects'
 import { getAllProjects, getProjectBySlug } from '@/lib/projects'
 import { getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
@@ -80,51 +81,54 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   ])
 
   return (
-    <article className='article-copy w-full max-w-3xl'>
-      <JsonLd data={jsonLd} />
-      <header className='flex flex-col gap-6'>
-        <div className='flex flex-col gap-4'>
-          <h1>{project.title}</h1>
-          <p className='text-lead text-muted-foreground'>{project.excerpt}</p>
+    <div className='flex min-w-0 flex-col gap-16'>
+      <article className='article-copy w-full max-w-3xl'>
+        <JsonLd data={jsonLd} />
+        <header className='flex flex-col gap-6'>
+          <div className='flex flex-col gap-4'>
+            <h1>{project.title}</h1>
+            <p className='text-lead text-muted-foreground'>{project.excerpt}</p>
+          </div>
+          {project.stack.length > 0 ? (
+            <div className='flex flex-wrap gap-2'>
+              {project.stack.map((item) => (
+                <Badge key={item} variant='secondary'>
+                  {item}
+                </Badge>
+              ))}
+            </div>
+          ) : null}
+          {project.thumbnail ? (
+            <div className='border-border relative aspect-video overflow-hidden rounded-2xl border'>
+              <Image
+                src={project.thumbnail}
+                alt={project.thumbnailAlt ?? project.title}
+                fill
+                loading='eager'
+                sizes='(max-width: 768px) 100vw, 768px'
+                className='object-cover'
+              />
+            </div>
+          ) : null}
+        </header>
+        <div className='prose prose-article dark:prose-invert mt-10 max-w-none'>
+          <Project />
+          {project.websiteUrl ? (
+            <p>
+              <a href={project.websiteUrl}>Visit {project.title}</a>
+            </p>
+          ) : null}
+          {repositoryUrls.map((url, index) => (
+            <p key={url}>
+              <a href={url}>
+                View source code
+                {repositoryUrls.length > 1 ? ` (${index + 1})` : ''}
+              </a>
+            </p>
+          ))}
         </div>
-        {project.stack.length > 0 ? (
-          <div className='flex flex-wrap gap-2'>
-            {project.stack.map((item) => (
-              <Badge key={item} variant='secondary'>
-                {item}
-              </Badge>
-            ))}
-          </div>
-        ) : null}
-        {project.thumbnail ? (
-          <div className='border-border relative aspect-video overflow-hidden rounded-2xl border'>
-            <Image
-              src={project.thumbnail}
-              alt={project.thumbnailAlt ?? project.title}
-              fill
-              loading='eager'
-              sizes='(max-width: 768px) 100vw, 768px'
-              className='object-cover'
-            />
-          </div>
-        ) : null}
-      </header>
-      <div className='prose prose-article dark:prose-invert mt-10 max-w-none'>
-        <Project />
-        {project.websiteUrl ? (
-          <p>
-            <a href={project.websiteUrl}>Visit {project.title}</a>
-          </p>
-        ) : null}
-        {repositoryUrls.map((url, index) => (
-          <p key={url}>
-            <a href={url}>
-              View source code
-              {repositoryUrls.length > 1 ? ` (${index + 1})` : ''}
-            </a>
-          </p>
-        ))}
-      </div>
-    </article>
+      </article>
+      <RecentProjects excludeSlug={project.slug} />
+    </div>
   )
 }

@@ -18,6 +18,8 @@ const buttonVariants = cva(
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
+        muted:
+          'border border-border/50 bg-transparent bg-clip-padding text-muted-foreground shadow-[3px_3px_0_0] shadow-border/50 hover:bg-muted/50',
         link: 'text-primary underline underline-offset-4 hover:opacity-80',
         field:
           'h-11 w-full justify-between bg-card text-foreground hover:bg-card/80 data-[placeholder]:text-muted-foreground [&>span]:line-clamp-1'
