@@ -184,11 +184,23 @@ SEO, image delivery, or caching topics into unrelated work.
 ## Link to supporting implementation
 
 - Add one useful source link per relevant technical section or subsection when
-  public code supports the explanation. Choose the specific file or focused
+  public code supports the explanation and lets readers inspect a meaningful
+  implementation decision, such as image processing, caching or a content model.
+  Skip links for general background, outcomes or sections without a useful public
+  implementation reference. Choose the specific file or focused
   directory that best demonstrates the contribution, without redundant links
   at both parent and subsection levels.
 - Verify public accessibility and inspect the implementation before linking.
-  Pin the URL to the inspected commit so later changes do not invalidate it.
+  Confirm the public code at the chosen commit matches the claim, rather than
+  relying on a filename or a potentially different local checkout. If the code
+  contradicts the explanation, flag the discrepancy instead of presenting it as
+  supporting evidence. Do not silently change another repository to fit the prose.
+- Pin the URL to the full inspected commit SHA so later changes do not invalidate
+  it. Use `https://github.com/<owner>/<repo>/blob/<sha>/<path>` for a file and
+  `https://github.com/<owner>/<repo>/tree/<sha>/<path>` for a focused directory.
+  Encode special path characters, including parentheses and square brackets.
+  Add `#Lx-Ly` only when a small line range makes a large file easier to navigate.
+  Check the final URL without authentication so visitors can access it too.
 - Place an ordinary Markdown link after the implementation explanation and before
   supporting media. Use a descriptive label matching what the target shows, such
   as “View image-variant generation”, rather than implying one file demonstrates
@@ -197,6 +209,9 @@ SEO, image delivery, or caching topics into unrelated work.
 - Keep the explanation understandable without opening the link. Source links are
   optional supporting detail, not a requirement for every section. Do not link
   private repositories or imply that code proves performance or business outcomes.
+- Keep the public repository root in the project's `repositoryUrls` metadata for
+  general browsing. Section links supplement that project-level link with specific
+  evidence; they do not replace it or repeat the repository root in every section.
 
 ## Use media to explain and substantiate
 
