@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import JsonLd from '@/components/json-ld'
 import RecentProjects from '@/components/projects/recent-projects'
+import { ProjectLink } from '@/components/projects/project-link'
 import { getAllProjects, getProjectBySlug } from '@/lib/projects'
 import { getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
@@ -112,18 +113,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ) : null}
         </header>
         <div className='prose prose-article dark:prose-invert mt-10 max-w-none'>
-          <Project />
+          <Project components={{ a: ProjectLink }} />
           {project.websiteUrl ? (
             <p>
-              <a href={project.websiteUrl}>Visit {project.title}</a>
+              <ProjectLink href={project.websiteUrl}>
+                Visit {project.title}
+              </ProjectLink>
             </p>
           ) : null}
           {repositoryUrls.map((url, index) => (
             <p key={url}>
-              <a href={url}>
+              <ProjectLink href={url}>
                 View source code
                 {repositoryUrls.length > 1 ? ` (${index + 1})` : ''}
-              </a>
+              </ProjectLink>
             </p>
           ))}
         </div>

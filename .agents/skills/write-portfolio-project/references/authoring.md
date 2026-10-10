@@ -172,12 +172,12 @@ Use distinct caption IDs if there are multiple recordings. Provide a useful
 poster. Watch the actual clip before claiming what it demonstrates, and do not
 treat a poster or filename as proof of the whole sequence.
 
-The current component loops muted video inline, attempts playback when reduced
-motion is not requested, and offers a play button while paused. Reduced-motion
-preferences pause automatic playback. It has no native timeline controls, so
-keep this use to concise visual demonstrations whose point is also explained
-in text. Narrated or long-form recordings need an appropriate accessible player
-and text alternatives rather than being forced into this component.
+Always keep native video controls available, including during autoplay, so readers
+can pause, seek and replay. The component defaults to muted, looping inline playback
+and attempts autoplay only when reduced motion is not requested. Reduced-motion
+preferences pause automatic playback. Use `playback='manual'` to disable autoplay
+and looping while retaining controls. Explain the demonstration's point in text;
+narrated recordings also need appropriate captions and text alternatives.
 
 ## Diagrams and graphs
 

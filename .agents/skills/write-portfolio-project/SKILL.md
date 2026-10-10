@@ -9,7 +9,11 @@ Write a clear account of what the project does, Pieter's contribution, why the
 decisions mattered, and the supported outcome. Give readers enough context to
 understand the work and enough technical detail to assess the reasoning. Preserve
 useful depth while reducing the effort needed to find the structure, connect the
-evidence and understand the result. Improve organisation before cutting substance.
+evidence and understand the result. Prefer the lowest reading effort that preserves
+the useful meaning and evidence. Improve organisation and trim detail that does
+not help readers understand the contribution or assess the claim.
+Always provide the context needed to understand a claim or decision. Brevity
+should remove reading effort, not the background that makes the work meaningful.
 
 Paths below are relative to the repository root. Supporting references are
 relative to this skill directory.
@@ -33,6 +37,18 @@ relative to this skill directory.
   and the user's intended disclosure level. Access to source code is not a reason
   to publish every weight, threshold or decision rule. Apply the same selection
   to diagram sources and supporting public files.
+- Include relevant, accurate client context when it helps explain the problem or
+  an engineering decision. Present it respectfully, without implying incompetence,
+  embarrassing the client or unnecessarily criticising their existing methods.
+  Prefer fair framing over removing useful facts. Exclude sensitive or confidential
+  information from public copy.
+
+  For example, a spreadsheet-based workflow can provide useful context when
+  explaining the difficulty of coordinating allocations across campuses. Describe
+  that complexity without portraying the university as outdated. Similarly,
+  explaining that a client was not using a CMS can support a maintenance decision:
+  focus on matching the implementation to actual editing needs, without blaming
+  the client.
 - Include stakeholder names, titles and external links when they help explain
   the work or provide relevant attribution. The organisation or department may
   be sufficient context. Neither naming nor omitting individuals is a blanket rule.
@@ -48,10 +64,16 @@ Apply `write-like-pieter` when available, using its professional and technical
 register. These core rules keep this repository skill usable on its own:
 
 - State the purpose early. Explain the real user or business need before the
-  implementation details.
+  implementation details. An excerpt should describe what users can accomplish
+  without requiring project knowledge. For example, “helping planners decide
+  who teaches each class across campuses” communicates the purpose of “educator
+  suitability ranking and automatic allocation”. Save the mechanism for the
+  technical contribution where it adds value.
 - Use direct, practical, considered language. Prefer specific actions and their
   effects over claims such as “seamless”, “cutting-edge”, or “highly scalable”.
 - Use “I” for Pieter's actions and judgement, and “we” for supported shared work.
+  Establish who “we” refers to first, such as “our team of five students”, when
+  that context is known. Then distinguish Pieter's contribution from the team's.
   Make ownership and delivery explicit without understating or overstating them.
   For example, use “designed and built” when both are supported, and distinguish
   a prototype, a complete deployable application, and a live deployment.
@@ -78,9 +100,19 @@ Use the existing shape as a starting point, adapting it to the actual project:
 1. **Page metadata:** A factual, concise excerpt explaining the product and its
    purpose, plus the relevant stack and available links. The page renders the
    title, excerpt, stack badges, and optional thumbnail before the MDX body.
-2. **Overview:** Explain what the product does, who uses it, and what Pieter
-   contributed. Add short Role, Dates, and Context bullets when known. An early
-   product screenshot can make the explanation concrete.
+2. **Overview:** Orient a reader who knows nothing about the project: explain
+   the client or organisation, the intended users, what they needed to accomplish,
+   what the product does, and what Pieter contributed. Include the circumstances
+   that make the need understandable, using supported facts rather than invented
+   background. For example, “a hospitality business with guesthouses in several
+   towns needed visitors to find and compare its properties” provides more useful
+   context than “the client needed a website”. Make the difficulty or unmet need
+   explicit, then connect the
+   application to that problem. For example, follow a description of difficult
+   allocation decisions with “To address this, our team developed…”. Use short
+   Role and Result bullets when useful. Include dates and context where they add
+   information, without repeating the team description in a separate Context
+   line. An early product screenshot can make the explanation concrete.
 3. **Technical contributions:** Organise subsections around meaningful problems
    or decisions. Keep each concern, response and supporting evidence together.
    Split a broad topic when it contains distinct explanations readers would
@@ -88,6 +120,11 @@ Use the existing shape as a starting point, adapting it to the actual project:
 4. **Outcome:** Close with what was delivered or resolved. Include a lesson,
    limitation, or next step when the project material supports it. A short
    outcome is sufficient, and should introduce no new unsupported claims.
+   State the practical result before academic recognition. For example, describe
+   the working application and the task it supports, then give “High Distinction
+   (7/7)” if verified. Explain unfamiliar grading scales, and distinguish a
+   project or course grade from an overall GPA. A grade alone does not establish
+   deployment or measured improvement for the client.
 
 Do not prescribe a fixed number of sections, words, or images. A small project
 may need only a few paragraphs. Team or research projects may need a different
@@ -96,6 +133,26 @@ SEO, image delivery, or caching topics into unrelated work.
 
 ## Make reasoning and evidence easy to follow
 
+- For articles with several technical contributions, prefer numbering those
+  headings and their meaningful subsections, while leaving Overview, Technical
+  contributions and Outcome unnumbered. For example, use “2. Allocation”,
+  “2.1 Suitability ranking” and “2.2 Automatic allocation”. Use actual nested
+  headings rather than bold paragraphs for these subsections. Two numbering
+  levels within the contribution hierarchy are usually enough. Omit numbering
+  when a short article has no useful grouping to express.
+- Demonstrate technical judgement with the approach and its purpose, without
+  narrating every implementation step. For example, “I used virtualisation to
+  render only nearby course rows, loaded heavier popups on demand and reduced
+  repeated lookups during rendering” can replace separate explanations of the
+  row buffer, deferred popup content and lookup map. Keep deeper detail when it
+  explains a consequential trade-off or is itself the contribution.
+- Summarise measurement methods at the level needed to interpret the evidence:
+  what was compared, what stayed constant and what the metric means. For example,
+  “I compared initial loading with all courses fetched at once versus pagination,
+  keeping virtualisation enabled in both. This measured initial-view readiness,
+  rather than the full dataset download.” Omit query lifecycle and animation-frame
+  details unless needed to assess the result. Brevity must preserve the comparison's
+  scope and limitations.
 - Give each substantive explanation a clear relationship between the problem,
   Pieter's response, the supporting evidence where available, and its significance.
   Use descriptive headings or labels such as **Problem**, **Solution** and
@@ -123,6 +180,23 @@ SEO, image delivery, or caching topics into unrelated work.
   belong to a list item. Let short tables take their natural width. Follow the
   [authoring conventions](references/authoring.md#tables-and-supporting-content)
   for MDX grouping and sizing.
+
+## Link to supporting implementation
+
+- Add one useful source link per relevant technical section or subsection when
+  public code supports the explanation. Choose the specific file or focused
+  directory that best demonstrates the contribution, without redundant links
+  at both parent and subsection levels.
+- Verify public accessibility and inspect the implementation before linking.
+  Pin the URL to the inspected commit so later changes do not invalidate it.
+- Place an ordinary Markdown link after the implementation explanation and before
+  supporting media. Use a descriptive label matching what the target shows, such
+  as “View image-variant generation”, rather than implying one file demonstrates
+  every part of a larger system. Project pages automatically add a decorative
+  GitHub icon to GitHub links, so do not insert icons in individual MDX entries.
+- Keep the explanation understandable without opening the link. Source links are
+  optional supporting detail, not a requirement for every section. Do not link
+  private repositories or imply that code proves performance or business outcomes.
 
 ## Use media to explain and substantiate
 
@@ -163,6 +237,8 @@ for publication in `public/`, as required by the repository README.
 
 - Read the prose as someone unfamiliar with the project. Can they identify the
   purpose, Pieter's work, the reason for each main decision, and the result?
+  Does the overview establish who the project serves, what they needed and why
+  the work mattered, without relying on later technical sections to explain it?
   Then scan only headings, labels, tables and captions. Can they see how the
   concerns, responses and evidence relate without reconstructing the argument?
 - Check claims against their sources, including ownership, dates, technical

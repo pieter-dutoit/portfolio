@@ -1,9 +1,6 @@
 'use client'
 
-import { Play } from 'lucide-react'
-import { useEffect, useId, useRef, useState } from 'react'
-
-import { Button } from '@/components/ui/button'
+import { useEffect, useRef } from 'react'
 
 type ProjectVideoProps = {
   src: string
@@ -17,7 +14,7 @@ type ProjectVideoProps = {
 
 function requestPlayback(video: HTMLVideoElement) {
   void video.play().catch(() => {
-    // Keep the play button available when the browser blocks playback.
+    // Native controls remain available when the browser blocks playback.
   })
 }
 
@@ -31,8 +28,6 @@ export function ProjectVideo({
   playback = 'auto'
 }: ProjectVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const videoId = useId()
-  const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current
@@ -68,7 +63,6 @@ export function ProjectVideo({
     <div className='not-prose relative'>
       <video
         ref={videoRef}
-        id={videoId}
         src={src}
         poster={poster}
         width={width}
@@ -76,33 +70,14 @@ export function ProjectVideo({
         muted
         loop={playback === 'auto'}
         playsInline
-        controls={playback === 'manual'}
+        controls
         preload='none'
         aria-label={label}
         aria-describedby={describedBy}
         className='border-border block h-auto w-full rounded-lg border'
-        onPlaying={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
       >
         <a href={src}>Download the video</a>
       </video>
-      {playback === 'auto' && !isPlaying ? (
-        <div className='absolute inset-0 flex items-center justify-center'>
-          <Button
-            type='button'
-            variant='secondary'
-            size='icon'
-            className='size-14 rounded-full'
-            aria-label={`Play ${label}`}
-            aria-controls={videoId}
-            onClick={() => {
-              if (videoRef.current) requestPlayback(videoRef.current)
-            }}
-          >
-            <Play data-icon aria-hidden='true' />
-          </Button>
-        </div>
-      ) : null}
     </div>
   )
 }

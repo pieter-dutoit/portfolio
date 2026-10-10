@@ -3,7 +3,7 @@ title: 'Academic Workload Manager'
 addedAt: '2026-09-20'
 thumbnail: '/images/projects/academic-workload-manager/thumbnail.webp'
 thumbnailAlt: 'The workload planner showing courses alongside campus and trimester columns, with educators assigned to teaching offerings.'
-excerpt: 'An academic workload planner developed for Griffith University, with educator suitability ranking and automatic allocation across trimesters and campuses.'
+excerpt: 'An academic workload planner developed for Griffith University, helping planners decide who teaches each class throughout the academic year, across campuses.'
 stack:
   - Next.js
   - TypeScript
@@ -18,17 +18,16 @@ import { ProjectVideo } from '@/components/project-video'
 
 ## Overview
 
-Griffith University’s ICT department was using a spreadsheet to allocate academics to courses. Planning across trimesters and campuses was time-consuming, with workload, subject knowledge and travel between campuses making suitable allocations difficult.
+Griffith University’s ICT department faced a complex, time-consuming task allocating academics to courses across multiple trimesters and campuses. Each assignment had to balance workloads, subject knowledge and travel between campuses, making it difficult to find suitable allocations.
 
-We developed a complete, deployable application for the ICT department. I led frontend development and built the backend services for workload calculation, suitability ranking and automatic allocation.
+To solve this problem, our team of five students developed a complete, deployable application for the ICT department. I led frontend development and built the backend services for workload calculation, suitability ranking and automatic allocation.
 
 - **Role:** Lead frontend engineer, with substantial backend contributions.
-- **Context:** Five-person capstone team, 2025.
-- **Result:** Final grade of **7/7**.
+- **Result:** A working application that helped planners allocate academics to courses across trimesters and campuses. Awarded a **High Distinction (7/7)**.
 
 ## Technical contributions
 
-### An interactive workload planner
+### 1. An interactive workload planner
 
 I designed and built the planner around the allocation workflow, connecting courses, campuses and trimesters in one view. Users can compare suitable educators, assign them manually and inspect workload and suitability warnings before continuing with their plan.
 
@@ -42,7 +41,7 @@ Campus filtering and trimester navigation help users focus on the relevant offer
     height={900}
     label='Academic workload planner demonstration'
     describedBy='workload-planner-caption'
-    playback='manual'
+    playback='auto'
   />
   <figcaption id='workload-planner-caption'>
     Comparing candidates, making a manual allocation, reviewing workload
@@ -51,9 +50,9 @@ Campus filtering and trimester navigation help users focus on the relevant offer
   </figcaption>
 </figure>
 
-### Suitability ranking and automatic allocation
+### 2. Suitability ranking and automatic allocation
 
-**Suitability ranking**
+#### 2.1 Suitability ranking
 
 I implemented a weighted ranking algorithm to help planners compare educators for each teaching offering. Example factors include:
 
@@ -69,7 +68,7 @@ I implemented a weighted ranking algorithm to help planners compare educators fo
 
 Several other factors, including campus suitability, availability and workload capacity, also affect the ranking.
 
-**Automatic allocation**
+#### 2.2 Automatic allocation
 
 I built automatic allocation on the same ranking algorithm. It works through unallocated teaching offerings, reassessing educator suitability as workloads change. Existing allocations are retained, and offerings remain unfilled when no suitable educator is available.
 
@@ -94,15 +93,15 @@ I built automatic allocation on the same ranking algorithm. It works through una
   </figcaption>
 </figure>
 
-### Planner performance
+### 3. Planner performance
 
 I addressed the rendering and data-loading costs of viewing courses across multiple campus and trimester columns. Later local tests with **2,000 synthetic courses, three trimesters and two campuses** measured the two improvements below.
 
-#### Rendering fewer planner elements
+#### 3.1 Rendering fewer planner elements
 
 - **Problem:** Rendering every course across campus and trimester columns creates a large number of planner elements, including rows outside the visible area.
 
-- **Solution:** I used virtualisation to limit rendering to the visible course rows and a surrounding buffer. As supporting optimisations, heavier popup content is loaded when needed, and offering lookups use a map to avoid repeatedly searching the same collection during rendering.
+- **Solution:** I used virtualisation to render only nearby course rows, loaded heavier popups on demand and reduced repeated lookups during rendering.
 
 - **Measurement:** I counted HTML and SVG elements inside the planner at initial readiness, comparing the same fully loaded dataset with virtualisation disabled and enabled. Pagination was disabled in both configurations, while deferred popup content and map lookups remained enabled in both.
 
@@ -116,13 +115,13 @@ I addressed the rendering and data-loading costs of viewing courses across multi
 
   Virtualisation resulted in **98% fewer rendered planner elements**.
 
-#### Reducing initial planner loading time
+#### 3.2 Reducing initial planner loading time
 
 - **Problem:** Fetching every course upfront increases the wait before the initial planner view is ready.
 
 - **Solution:** I used pagination to limit initial data fetching. Cached queries and targeted invalidation also refresh planner data after changes without discarding unrelated cached information.
 
-- **Measurement:** I measured the time from navigation until the course and offering queries had settled successfully, followed by two animation frames. The comparison used virtualisation in both configurations, with all courses fetched at once in one and pagination in the other. This measures readiness of the initial planner view, rather than the time to download the complete dataset.
+- **Measurement:** I compared initial planner loading time with all courses fetched at once versus pagination, keeping virtualisation enabled in both. This measured when the initial view was ready, rather than when the full dataset had downloaded.
 
   <div className='max-w-full [&_table]:w-auto'>
 

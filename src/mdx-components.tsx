@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import type { MDXComponents } from 'mdx/types'
+import type { ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -20,21 +21,9 @@ function parseDimension(value?: number | string) {
   return undefined
 }
 
-const components: MDXComponents = {
-  a: ({ href, className, ...props }) => {
-    const isInternal = href?.startsWith('/') || href?.startsWith('#')
-    if (isInternal && href) {
-      return (
-        <Button
-          asChild
-          variant='link'
-          size='inline'
-          className={cn('not-prose', className)}
-        >
-          <Link href={href} {...props} />
-        </Button>
-      )
-    }
+export function MDXLink({ href, className, ...props }: ComponentProps<'a'>) {
+  const isInternal = href?.startsWith('/') || href?.startsWith('#')
+  if (isInternal && href) {
     return (
       <Button
         asChild
@@ -42,10 +31,24 @@ const components: MDXComponents = {
         size='inline'
         className={cn('not-prose', className)}
       >
-        <a href={href} target='_blank' rel='noreferrer' {...props} />
+        <Link href={href} {...props} />
       </Button>
     )
-  },
+  }
+  return (
+    <Button
+      asChild
+      variant='link'
+      size='inline'
+      className={cn('not-prose', className)}
+    >
+      <a href={href} target='_blank' rel='noreferrer' {...props} />
+    </Button>
+  )
+}
+
+const components: MDXComponents = {
+  a: MDXLink,
   img: ({ className, src, alt, width, height }) => {
     if (!src) {
       return null
