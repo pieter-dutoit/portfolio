@@ -119,6 +119,7 @@ function TaskForm() {
   }
 
   const disabled = save.isPending || tasks.isPending || tasks.isError
+  const hasErrors = Object.keys(form.formState.errors).length > 0
 
   return (
     <div className='flex flex-col gap-6'>
@@ -226,7 +227,11 @@ function TaskForm() {
               </Alert>
             )}
             <Button type='submit' disabled={disabled}>
-              {save.isPending ? 'Saving…' : 'Save task'}
+              {save.isPending
+                ? 'Saving…'
+                : hasErrors
+                  ? 'Try again'
+                  : 'Save task'}
             </Button>
           </FieldGroup>
         </form>
