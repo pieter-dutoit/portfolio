@@ -252,10 +252,7 @@ function TaskForm() {
               aria-label='Saved tasks'
             >
               {tasks.data?.map((task) => (
-                <li
-                  key={task.id}
-                  className='pb-4 last:pb-0'
-                >
+                <li key={task.id} className='pb-4 last:pb-0'>
                   <span className='block text-sm leading-relaxed break-words'>
                     {task.title}
                   </span>

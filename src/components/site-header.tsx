@@ -5,8 +5,8 @@ import { ModeToggle } from '@/components/dark-mode-toggle'
 
 const navLinks = [
   { name: 'Home', path: '/' },
-  { name: 'Projects', path: '/projects' }
-  // { name: 'Posts', path: '/posts' }
+  { name: 'Projects', path: '/projects' },
+  { name: 'Blog', path: '/blog' }
 ]
 
 export default function SiteHeader() {

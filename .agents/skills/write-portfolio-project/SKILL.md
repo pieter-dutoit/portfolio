@@ -71,9 +71,17 @@ register. These core rules keep this repository skill usable on its own:
   technical contribution where it adds value.
 - Use direct, practical, considered language. Prefer specific actions and their
   effects over claims such as “seamless”, “cutting-edge”, or “highly scalable”.
-- Use “I” for Pieter's actions and judgement, and “we” for supported shared work.
-  Establish who “we” refers to first, such as “our team of five students”, when
-  that context is known. Then distinguish Pieter's contribution from the team's.
+- Default to second-person, reader-focused writing throughout authored prose,
+  examples, and captions. Reserve first person for explicitly requested
+  reflections. Do not introduce reflections by default.
+- Use “you” and “your” when addressing the reader or describing their actions,
+  such as “You can compare properties before checking availability”. Use concrete
+  product or feature subjects for implementation explanations without forcing
+  “you” into every sentence. Make any user role clear before describing its actions.
+- Preserve attribution through explicit role descriptions and named contributors.
+  Establish the team when known, such as “a team of five students”, then
+  distinguish Pieter's contribution from the team's. Never mechanically change
+  “I built” to “you built” or imply that the reader carried out the project work.
   Make ownership and delivery explicit without understating or overstating them.
   For example, use “designed and built” when both are supported, and distinguish
   a prototype, a complete deployable application, and a live deployment.
@@ -85,7 +93,7 @@ register. These core rules keep this repository skill usable on its own:
   explain the work, then explain its practical role.
 - Use connected prose for explanations, with varied sentence lengths and short
   paragraphs. Choose other formats where they make relationships easier to see,
-  as described below. Avoid accumulating clauses or repeating “I implemented”.
+  as described below. Avoid accumulating clauses or repetitive sentence openings.
 - Retain real uncertainty and trade-offs. Distinguish an intended benefit, an
   implemented mechanism, and a measured result.
 - Use British/Commonwealth spelling, including “optimisation” and “prioritise”.
@@ -107,9 +115,9 @@ Use the existing shape as a starting point, adapting it to the actual project:
    background. For example, “a hospitality business with guesthouses in several
    towns needed visitors to find and compare its properties” provides more useful
    context than “the client needed a website”. Make the difficulty or unmet need
-   explicit, then connect the
-   application to that problem. For example, follow a description of difficult
-   allocation decisions with “To address this, our team developed…”. Use short
+   explicit, then connect the application to that problem. For example, follow
+   a description of difficult allocation decisions with “The team developed an
+   allocation tool to support these decisions”, when supported. Use short
    Role and Result bullets when useful. Include dates and context where they add
    information, without repeating the team description in a separate Context
    line. An early product screenshot can make the explanation concrete.
@@ -117,9 +125,10 @@ Use the existing shape as a starting point, adapting it to the actual project:
    or decisions. Keep each concern, response and supporting evidence together.
    Split a broad topic when it contains distinct explanations readers would
    otherwise have to connect themselves. Avoid a technology-by-technology inventory.
-4. **Outcome:** Close with what was delivered or resolved. Include a lesson,
-   limitation, or next step when the project material supports it. A short
-   outcome is sufficient, and should introduce no new unsupported claims.
+4. **Outcome:** Close with what was delivered or resolved. Include a supported
+   limitation or next step when useful. Add a reflective lesson only when
+   explicitly requested. A short outcome is sufficient, and should introduce
+   no new unsupported claims.
    State the practical result before academic recognition. For example, describe
    the working application and the task it supports, then give “High Distinction
    (7/7)” if verified. Explain unfamiliar grading scales, and distinguish a
@@ -141,18 +150,19 @@ SEO, image delivery, or caching topics into unrelated work.
   levels within the contribution hierarchy are usually enough. Omit numbering
   when a short article has no useful grouping to express.
 - Demonstrate technical judgement with the approach and its purpose, without
-  narrating every implementation step. For example, “I used virtualisation to
-  render only nearby course rows, loaded heavier popups on demand and reduced
-  repeated lookups during rendering” can replace separate explanations of the
-  row buffer, deferred popup content and lookup map. Keep deeper detail when it
-  explains a consequential trade-off or is itself the contribution.
+  narrating every implementation step. For example, “The interface uses
+  virtualisation to render only nearby course rows, loads heavier popups on
+  demand and reduces repeated lookups during rendering” can replace separate
+  explanations of the row buffer, deferred popup content and lookup map. Keep
+  deeper detail when it explains a consequential trade-off or is itself the
+  contribution.
 - Summarise measurement methods at the level needed to interpret the evidence:
   what was compared, what stayed constant and what the metric means. For example,
-  “I compared initial loading with all courses fetched at once versus pagination,
-  keeping virtualisation enabled in both. This measured initial-view readiness,
-  rather than the full dataset download.” Omit query lifecycle and animation-frame
-  details unless needed to assess the result. Brevity must preserve the comparison's
-  scope and limitations.
+  “The comparison covered initial loading with all courses fetched at once versus
+  pagination, with virtualisation enabled in both. It measured initial-view
+  readiness, rather than the full dataset download.” Omit query lifecycle and
+  animation-frame details unless needed to assess the result. Brevity must
+  preserve the comparison's scope and limitations.
 - Give each substantive explanation a clear relationship between the problem,
   Pieter's response, the supporting evidence where available, and its significance.
   Use descriptive headings or labels such as **Problem**, **Solution** and
@@ -264,6 +274,10 @@ for publication in `public/`, as required by the repository README.
   layout. Verify grouping, table widths, diagram readability, and left alignment
   of media and captions at desktop and mobile widths. Keep editable diagram
   sources consistent with their SVGs.
+- Check perspective throughout prose, examples, and captions. Confirm that
+  “you” addresses the intended reader, attribution remains clear, and first-person
+  narration appears only in an explicitly requested reflection. Existing project
+  prose and original writing samples do not override this default.
 - For changed MDX or media, use the validation and visual checks in the authoring
   reference. Do not add application tests for ordinary prose edits.
 - Report the changed files, completed checks, and any specific evidence gaps or

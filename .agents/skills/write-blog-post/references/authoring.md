@@ -7,7 +7,7 @@ metadata rules for project case studies.
 
 ## Content and metadata
 
-Posts live in `src/content/posts/<slug>.mdx` and render at `/posts/<slug>`.
+Posts live in `src/content/posts/<slug>.mdx` and render at `/blog/<slug>`.
 Use descriptive lowercase filenames with hyphens. The contract is implemented
 by `src/lib/posts.ts`:
 
@@ -15,6 +15,7 @@ by `src/lib/posts.ts`:
 | --- | --- |
 | `title` | Required. The page renders it as H1. Name the subject directly. |
 | `date` | Required. Use a quoted `YYYY-MM-DD` date. For a new post use the agreed publication date, or the current client date when none is specified. Preserve existing dates during ordinary revisions. |
+| `updatedAt` | Optional quoted, valid `YYYY-MM-DD` revision date, no earlier than `date`. Omit when unknown. Never generate it automatically from Git or build time. |
 | `excerpt` | Required. A concise description of the approach or value, used in the header, listing, and metadata. |
 | `thumbnail` | Required. A public image URL. Use an appropriate real screenshot when the post has a demo. Body media remain optional. |
 | `tags` | Required with at least one non-empty item. Prefer a YAML array of meaningful topics. |
@@ -26,8 +27,12 @@ arrays are clearer for new content. Do not copy project fields such as `addedAt`
 or assume that the date or thumbnail is optional. A required thumbnail is not a
 reason to build an unnecessary demo.
 
-`src/app/posts/[slug]/page.tsx` renders the title, excerpt, date, tags, stack, and
-thumbnail before the MDX body. Start body headings at H2. Keep Introduction and
+`src/app/blog/[slug]/page.tsx` renders the title, excerpt, date, tags, stack, and
+thumbnail before the MDX body. Publication and optional revision dates are shown
+with “Published” and “Updated” labels and match JSON-LD `datePublished` and
+`dateModified`. The author links to the homepage. Date display uses UTC to keep
+the calendar day consistent. JSON-LD keywords combine visible tags and stack
+without duplicates. Start body headings at H2. Keep Introduction and
 Conclusion unnumbered and number substantial technical sections and appropriate
 H3 subsections. Do not duplicate the page's H1 in the body.
 

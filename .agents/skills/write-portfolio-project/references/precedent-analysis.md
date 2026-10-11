@@ -53,8 +53,15 @@ is text-only. Media density follows the explanation's needs.
 The opening identifies what the product is, followed by “I developed the site and
 its content-management tools” and the reason those tools exist. The image section
 names a concrete problem, then explains “I addressed both by generating image
-variants during CMS upload”. These are examples of ownership and practical
-reasoning, not phrases to repeat mechanically.
+variants during CMS upload”. These historical first-person examples demonstrate
+ownership and practical reasoning. Their grammatical perspective is not the
+default for new writing and does not override the current skill guidance.
+
+Use second person when describing the reader's actions, such as “You can compare
+properties before checking availability”. Use concrete product or feature subjects
+for implementation explanations, while keeping Pieter's role and team ownership
+explicit. Preserve original samples as evidence. First-person narration is reserved
+for explicitly requested reflections.
 
 Technical terms carry meaning: Payload CMS models relationships, R2 stores image
 variants, and revalidation updates affected content. The text connects those
@@ -102,8 +109,9 @@ Otherwise, use the same restrained, qualitative presentation.
 
 Carry forward context, clear attribution, causal explanation, proportionate
 claims, and purposeful media. Choose different technical topics for a different
-project. Include lessons or collaboration when supported, even though this
-particular case study does not have dedicated sections for them.
+project. Describe collaboration when supported, even though this particular case
+study does not have a dedicated section for it. Include a reflective lesson only
+when explicitly requested, and do not add reflections to ordinary case studies.
 
 Recheck source files and assets as they evolve. Do not copy alt text blindly or
 assume a past observation remains current. Existing broad benefit statements

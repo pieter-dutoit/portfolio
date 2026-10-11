@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
 
 import Breadcrumbs from '@/components/breadcrumbs'
+import CollectionIndex from '@/components/collection-index'
 import JsonLd from '@/components/json-ld'
-import PostsIndex from '@/components/posts/posts-index'
+import PostTile from '@/components/posts/post-tile'
+import { Card, CardContent, CardDescription } from '@/components/ui/card'
 import { getAllPosts } from '@/lib/posts'
 import { getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
@@ -17,39 +18,31 @@ import {
   getWebSiteId
 } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
-  title: 'Posts',
-  description: 'Articles and notes on design, engineering, and product craft.'
-}
+const description = 'Technical articles and notes on building web applications.'
 
-function PostsIndexFallback() {
-  return (
-    <section className='text-muted-foreground py-16 text-center text-sm'>
-      Loading posts...
-    </section>
-  )
+export const metadata: Metadata = {
+  title: 'Blog',
+  description
 }
 
 export default function PostsPage() {
   const posts = getAllPosts()
-  const tagSet = new Set(posts.flatMap((post) => post.tags))
-  const stackSet = new Set(posts.flatMap((post) => post.stack))
 
   const siteUrl = getSiteUrl()
-  const pageUrl = resolveUrl('/posts')
+  const pageUrl = resolveUrl('/blog')
   const webSiteId = getWebSiteId(siteUrl)
   const itemListId = getItemListId(pageUrl)
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'Posts', href: '/posts' }
+    { label: 'Blog', href: '/blog' }
   ]
 
   const jsonLd = buildJsonLdGraph([
     ...buildSiteNodes(siteUrl),
     buildWebPageNode({
       url: pageUrl,
-      name: 'Posts',
+      name: 'Blog',
       description: metadata.description ?? undefined,
       type: 'CollectionPage',
       websiteId: webSiteId,
@@ -60,24 +53,28 @@ export default function PostsPage() {
       pageUrl,
       items: posts.map((post) => ({
         name: post.title,
-        url: resolveUrl(`/posts/${post.slug}`)
+        url: resolveUrl(`/blog/${post.slug}`)
       }))
     }),
     buildBreadcrumbNode({ items: breadcrumbItems, pageUrl })
   ])
 
   return (
-    <div className='py-12'>
+    <div className='flex flex-col gap-6 py-12'>
       <Breadcrumbs items={breadcrumbItems} />
       <JsonLd data={jsonLd} />
 
-      <Suspense fallback={<PostsIndexFallback />}>
-        <PostsIndex
-          posts={posts.map(({ fileName: _fileName, ...rest }) => rest)}
-          tags={[...tagSet].sort()}
-          stacks={[...stackSet].sort()}
-        />
-      </Suspense>
+      <CollectionIndex title='Blog' description={description}>
+        {posts.length > 0 ? (
+          posts.map((post) => <PostTile key={post.slug} post={post} />)
+        ) : (
+          <Card className='col-span-full p-12 text-center'>
+            <CardContent className='p-0'>
+              <CardDescription>No posts yet.</CardDescription>
+            </CardContent>
+          </Card>
+        )}
+      </CollectionIndex>
     </div>
   )
 }

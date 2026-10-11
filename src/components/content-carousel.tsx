@@ -20,7 +20,7 @@ const carouselOptions = {
   }
 }
 
-function ProjectCarouselControls() {
+function ContentCarouselControls() {
   const { canScrollPrev, canScrollNext } = useCarousel()
 
   return (
@@ -39,17 +39,27 @@ function ProjectCarouselControls() {
   )
 }
 
-export default function ProjectCarousel({ children }: { children: ReactNode }) {
+type ContentCarouselProps = {
+  title: string
+  headingId: string
+  children: ReactNode
+}
+
+export default function ContentCarousel({
+  title,
+  headingId,
+  children
+}: ContentCarouselProps) {
   const slideCount = Children.count(children)
 
   return (
-    <Carousel opts={carouselOptions} aria-labelledby='recent-projects-heading'>
+    <Carousel opts={carouselOptions} aria-labelledby={headingId}>
       <div className='mb-4 flex min-h-10 items-center justify-between gap-4'>
-        <h2 id='recent-projects-heading'>Recent projects</h2>
-        <ProjectCarouselControls />
+        <h2 id={headingId}>{title}</h2>
+        <ContentCarouselControls />
       </div>
       <CarouselContent
-        viewportClassName='project-carousel-viewport'
+        viewportClassName='content-carousel-viewport'
         className='touch-pan-y touch-pinch-zoom'
       >
         {Children.map(children, (slide, index) => (

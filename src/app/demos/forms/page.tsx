@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { FormsDemo } from '@/features/demos/forms/forms-demo'
 
 export const metadata: Metadata = {
-  title: 'Form flow demo | Pieter du Toit',
+  title: 'Form flow demo',
   description:
     'Try a form with shared Zod validation, a Next.js Server Action, local browser persistence and TanStack Query.'
 }
@@ -21,7 +21,7 @@ export default function FormsDemoPage() {
         Query.
       </p>
       <Button asChild variant='link' size='inline' className='mt-3'>
-        <Link href='/posts/forms-zod-rhf-tanstack-query'>
+        <Link href='/blog/forms-zod-rhf-tanstack-query'>
           Read the walkthrough
         </Link>
       </Button>

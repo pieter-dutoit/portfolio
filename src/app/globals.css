@@ -65,8 +65,8 @@ html {
   --button: #ffffff;
   --button-foreground: #182332;
   --radius: 0.625rem;
-  --background: #f7f9fb;
-  --background-end: var(--card);
+  --background: #edf1f5;
+  --background-end: #f1f4f7;
   --foreground: #182332;
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
@@ -103,7 +103,7 @@ html {
   --background: oklch(0.08 0.03 255);
   --background-end: oklch(0.1 0.02 255);
   --foreground: oklch(0.98 0 0);
-  --card: oklch(0.16 0.02 255);
+  --card: oklch(0.24 0.02 255);
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.16 0.02 255);
   --popover-foreground: oklch(0.98 0 0);
@@ -160,7 +160,7 @@ html {
 
 @layer components {
   /* The main container supplies the scrollbar-safe viewport width (100cqw). */
-  .project-carousel-viewport {
+  .content-carousel-viewport {
     margin-inline-start: -0.5rem;
     width: calc(50% + 50cqw + 0.5rem);
     padding: 0.5rem 1.5rem 0.5rem 0.5rem;
@@ -237,9 +237,6 @@ html {
   }
   .text-meta {
     @apply text-sm leading-5;
-  }
-  .text-eyebrow {
-    @apply text-xs leading-4;
   }
 }
 
@@ -318,16 +315,6 @@ html {
 }
 
 @layer utilities {
-  .masonry-grid {
-    column-fill: balance;
-    column-gap: 1.5rem;
-  }
-
-  .masonry-item {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
   pre[data-theme] {
     @apply border-border bg-card overflow-x-auto rounded-xl border p-4 text-sm leading-relaxed;
   }
@@ -357,12 +344,5 @@ html {
 
   .word--highlighted {
     @apply bg-muted rounded px-1;
-  }
-
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 }

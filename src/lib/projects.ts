@@ -1,12 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
+import { parseContentDate, parseUpdatedAt } from '@/lib/content-dates'
 
 export type ProjectMeta = {
   title: string
   slug: string
   excerpt: string
   addedAt: string
+  updatedAt?: string
   stack: string[]
   thumbnail?: string
   thumbnailAlt?: string
@@ -16,22 +18,6 @@ export type ProjectMeta = {
 }
 
 const projectsDirectory = path.join(process.cwd(), 'src/content/projects')
-
-function parseAddedAt(value: unknown, fileName: string): string {
-  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    const date = new Date(`${value}T00:00:00.000Z`)
-    if (
-      !Number.isNaN(date.getTime()) &&
-      date.toISOString().slice(0, 10) === value
-    ) {
-      return value
-    }
-  }
-
-  throw new Error(
-    `Project ${fileName} requires addedAt to be a quoted YYYY-MM-DD calendar date.`
-  )
-}
 
 function parseExternalUrl(value: unknown, field: string, fileName: string) {
   if (typeof value === 'string' && /^https?:\/\//.test(value.trim())) {
@@ -51,6 +37,8 @@ function parseProjectFile(fileName: string): ProjectMeta {
   const source = fs.readFileSync(path.join(projectsDirectory, fileName), 'utf8')
   const { data } = matter(source)
   const slug = fileName.replace(/\.mdx$/, '')
+  const addedAt = parseContentDate(data.addedAt, 'addedAt', `Project ${fileName}`)
+  const updatedAt = parseUpdatedAt(data.updatedAt, addedAt, `Project ${fileName}`)
 
   for (const field of ['title', 'excerpt'] as const) {
     if (typeof data[field] !== 'string' || !data[field].trim()) {
@@ -125,7 +113,8 @@ function parseProjectFile(fileName: string): ProjectMeta {
     title: data.title.trim(),
     slug,
     excerpt: data.excerpt.trim(),
-    addedAt: parseAddedAt(data.addedAt, fileName),
+    addedAt,
+    updatedAt,
     stack: [...new Set(stack.map((item: string) => item.trim()))],
     thumbnail: data.thumbnail?.trim(),
     thumbnailAlt: data.thumbnailAlt?.trim(),

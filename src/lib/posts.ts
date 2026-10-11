@@ -1,15 +1,24 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { z } from "zod";
+import { parseContentDate, parseUpdatedAt } from '@/lib/content-dates';
+
+const aiAssistanceSchema = z.object({
+  tool: z.string().trim().min(1),
+  disclosure: z.string().trim().min(1),
+});
 
 export type PostFrontmatter = {
   title: string;
   slug: string;
   date: string;
+  updatedAt?: string;
   excerpt: string;
   tags: string[];
   stack: string[];
   thumbnail: string;
+  aiAssistance?: z.infer<typeof aiAssistanceSchema>;
 };
 
 export type PostMeta = PostFrontmatter & {
@@ -43,7 +52,8 @@ function parsePostFile(fileName: string): PostMeta {
 
   const title = data.title ? String(data.title) : null;
   const slug = data.slug ? String(data.slug) : slugFromFile;
-  const date = data.date ? String(data.date) : null;
+  const date = parseContentDate(data.date, 'date', `Post ${fileName}`);
+  const updatedAt = parseUpdatedAt(data.updatedAt, date, `Post ${fileName}`);
   const excerpt = data.excerpt ? String(data.excerpt) : null;
   const thumbnail = data.thumbnail ? String(data.thumbnail) : null;
 
@@ -61,6 +71,13 @@ function parsePostFile(fileName: string): PostMeta {
 
   const tags = normalizeArray(data.tags, "tags", fileName);
   const stack = normalizeArray(data.stack, "stack", fileName);
+  const aiAssistance = aiAssistanceSchema.optional().safeParse(data.aiAssistance);
+
+  if (!aiAssistance.success) {
+    throw new Error(
+      `Post ${fileName} aiAssistance must contain non-empty tool and disclosure strings.`
+    );
+  }
 
   if (tags.length === 0 || stack.length === 0) {
     throw new Error(
@@ -72,10 +89,12 @@ function parsePostFile(fileName: string): PostMeta {
     title,
     slug,
     date,
+    updatedAt,
     excerpt,
     tags,
     stack,
     thumbnail,
+    aiAssistance: aiAssistance.data,
     fileName,
   };
 }

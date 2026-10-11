@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import Breadcrumbs from '@/components/breadcrumbs'
 import JsonLd from '@/components/json-ld'
+import { PostAttribution } from '@/components/posts/post-attribution'
 import { getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
   buildBlogPostingNode,
@@ -16,7 +17,6 @@ import {
   getPersonId,
   getWebSiteId
 } from '@/lib/structured-data'
-import { formatDate } from '@/lib/utils'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { Badge } from '@/components/ui/badge'
 
@@ -60,14 +60,14 @@ export default async function PostPage({
   const { default: Post } = await import(`@/content/posts/${post.fileName}`)
 
   const siteUrl = getSiteUrl()
-  const pageUrl = resolveUrl(`/posts/${post.slug}`)
+  const pageUrl = resolveUrl(`/blog/${post.slug}`)
   const personId = getPersonId(siteUrl)
   const webSiteId = getWebSiteId(siteUrl)
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'Posts', href: '/posts' },
-    { label: post.title, href: `/posts/${post.slug}` }
+    { label: 'Blog', href: '/blog' },
+    { label: post.title, href: `/blog/${post.slug}` }
   ]
   const jsonLd = buildJsonLdGraph([
     ...buildSiteNodes(siteUrl),
@@ -95,9 +95,11 @@ export default async function PostPage({
 
       <header className='mt-6 flex flex-col gap-6'>
         <div className='flex flex-col gap-2'>
-          <p className='text-meta text-muted-foreground'>
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
-          </p>
+          <PostAttribution
+            date={post.date}
+            updatedAt={post.updatedAt}
+            aiAssistance={post.aiAssistance}
+          />
           <h1>{post.title}</h1>
           <p className='text-muted-foreground max-w-2xl'>{post.excerpt}</p>
         </div>

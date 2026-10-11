@@ -1,76 +1,22 @@
-import Image from 'next/image'
-import Link from 'next/link'
-
-import { Badge } from '@/components/ui/badge'
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import ContentTile from '@/components/content-tile'
 import type { ProjectMeta } from '@/lib/projects'
 
 export default function ProjectTile({
   project,
-  headingLevel: Heading = 'h2'
+  headingLevel = 'h2'
 }: {
   project: ProjectMeta
   headingLevel?: 'h2' | 'h3'
 }) {
-  const remainingTechnologies = project.stack.length - 2
-
   return (
-    <article className='h-full min-w-0'>
-      <Card asChild className='flex h-full items-start justify-start gap-3 p-3'>
-        <Link href={`/projects/${project.slug}`}>
-          {project.thumbnail ? (
-            <div className='relative size-20 shrink-0 overflow-hidden rounded-lg'>
-              <Image
-                src={project.thumbnail}
-                alt=''
-                fill
-                sizes='80px'
-                className='object-cover'
-              />
-            </div>
-          ) : null}
-          <div className='flex min-w-0 flex-1 flex-col gap-2 wrap-anywhere'>
-            <CardHeader className='gap-2 p-0'>
-              <CardTitle asChild size='sm'>
-                <Heading>{project.title}</Heading>
-              </CardTitle>
-              <CardDescription className='line-clamp-2'>
-                {project.excerpt}
-              </CardDescription>
-            </CardHeader>
-            {project.stack.length > 0 ? (
-              <CardFooter className='flex-wrap gap-1 p-0'>
-                {project.stack.slice(0, 2).map((item) => (
-                  <Badge
-                    key={item}
-                    variant='secondary'
-                    className='max-w-full min-w-0'
-                  >
-                    {item}
-                  </Badge>
-                ))}
-                {remainingTechnologies > 0 ? (
-                  <Badge variant='secondary'>
-                    <span aria-hidden='true'>+{remainingTechnologies}</span>
-                    <span className='sr-only'>
-                      {remainingTechnologies} more{' '}
-                      {remainingTechnologies === 1
-                        ? 'technology'
-                        : 'technologies'}
-                    </span>
-                  </Badge>
-                ) : null}
-              </CardFooter>
-            ) : null}
-          </div>
-        </Link>
-      </Card>
-    </article>
+    <ContentTile
+      href={`/projects/${project.slug}`}
+      title={project.title}
+      excerpt={project.excerpt}
+      thumbnail={project.thumbnail}
+      badges={project.stack}
+      badgeLabels={{ singular: 'technology', plural: 'technologies' }}
+      headingLevel={headingLevel}
+    />
   )
 }

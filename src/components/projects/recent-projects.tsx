@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-import ProjectCarousel from '@/components/projects/project-carousel'
+import ContentCarousel from '@/components/content-carousel'
 import ProjectTile from '@/components/projects/project-tile'
 import { Button } from '@/components/ui/button'
 import { getRecentProjects } from '@/lib/projects'
@@ -17,7 +17,10 @@ export default function RecentProjects({
 
   return (
     <section className='site-copy min-w-0 lg:col-span-3'>
-      <ProjectCarousel>
+      <ContentCarousel
+        title='Recent projects'
+        headingId='recent-projects-heading'
+      >
         {projects.map((project) => (
           <ProjectTile key={project.slug} project={project} headingLevel='h3' />
         ))}
@@ -32,7 +35,7 @@ export default function RecentProjects({
             <ArrowRight aria-hidden='true' data-icon='inline-end' />
           </Link>
         </Button>
-      </ProjectCarousel>
+      </ContentCarousel>
     </section>
   )
 }

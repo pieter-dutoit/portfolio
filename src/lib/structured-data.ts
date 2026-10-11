@@ -154,6 +154,23 @@ export function buildPersonNode({
 }
 
 export function buildSiteNodes(siteUrl = getSiteUrl()): JsonLdNode[] {
+  return [
+    buildWebSiteNode({
+      siteUrl,
+      name: `${profile.full_name} Portfolio`,
+      description: `Professional portfolio of ${profile.full_name}`
+    }),
+    {
+      '@id': getPersonId(siteUrl),
+      '@type': 'Person',
+      name: profile.full_name,
+      url: siteUrl,
+      sameAs: socialLinks.map((link) => link.url).filter(Boolean)
+    }
+  ]
+}
+
+export function buildProfileSiteNodes(siteUrl = getSiteUrl()): JsonLdNode[] {
   const employers = jobs
     .filter((job) => job.roles.some((role) => !role.end_date))
     .map((job) =>
@@ -308,11 +325,13 @@ export function buildBlogPostingNode({
     description: post.excerpt,
     image: resolveUrl(post.thumbnail),
     datePublished: toIsoDateTime(post.date),
+    dateModified: post.updatedAt ? toIsoDateTime(post.updatedAt) : undefined,
+    creditText: post.aiAssistance?.disclosure,
     author: { '@id': authorId },
     publisher: { '@id': authorId },
     mainEntityOfPage: { '@id': getWebPageId(pageUrl) },
     isPartOf: { '@id': websiteId },
-    keywords: post.tags,
+    keywords: [...new Set([...post.tags, ...post.stack])],
     inLanguage: 'en',
     url: pageUrl
   })
@@ -367,6 +386,8 @@ export function buildProjectArticleNodes({
       headline: project.title,
       description: project.excerpt,
       image: project.thumbnail ? resolveUrl(project.thumbnail) : undefined,
+      datePublished: toIsoDateTime(project.addedAt),
+      dateModified: project.updatedAt ? toIsoDateTime(project.updatedAt) : undefined,
       keywords: project.stack,
       inLanguage: 'en',
       url: pageUrl,

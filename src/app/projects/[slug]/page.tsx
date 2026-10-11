@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
 import JsonLd from '@/components/json-ld'
+import { ContentAttribution } from '@/components/content-attribution'
 import RecentProjects from '@/components/projects/recent-projects'
 import { ProjectLink } from '@/components/projects/project-link'
 import { getAllProjects, getProjectBySlug } from '@/lib/projects'
@@ -38,7 +39,7 @@ export async function generateMetadata({
   if (!project) notFound()
 
   return {
-    title: `${project.title} | Pieter du Toit`,
+    title: project.title,
     description: project.excerpt
   }
 }
@@ -87,6 +88,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <JsonLd data={jsonLd} />
         <header className='flex flex-col gap-6'>
           <div className='flex flex-col gap-4'>
+            <ContentAttribution
+              publishedAt={project.addedAt}
+              updatedAt={project.updatedAt}
+            />
             <h1>{project.title}</h1>
             <p className='text-lead text-muted-foreground'>{project.excerpt}</p>
           </div>

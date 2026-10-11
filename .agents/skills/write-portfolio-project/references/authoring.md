@@ -15,6 +15,8 @@ the route at `/projects/<slug>`.
 | Field            | Current behaviour                                                                                                                                                                                           |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `title`          | Required, non-empty string. Rendered as the page's H1.                                                                                                                                                      |
+| `addedAt`        | Required quoted, valid `YYYY-MM-DD` date when the case study was first added to the portfolio. Preserve during revisions. Drives publication attribution, JSON-LD `datePublished` and recent-project ordering. |
+| `updatedAt`      | Optional quoted, valid `YYYY-MM-DD` revision date, no earlier than `addedAt`. Omit when unknown. Drives visible “Updated” attribution and JSON-LD `dateModified`. |
 | `excerpt`        | Required, non-empty string. Used in the page lead, project listing, and metadata. Keep it factual and concise.                                                                                              |
 | `stack`          | Optional array of non-empty strings, defaulting to `[]`. Values are trimmed and deduplicated. List the most representative technologies first, since tiles show the first two and a count of the remainder. |
 | `thumbnail`      | Optional, non-empty image path. Prefer `/images/projects/<slug>/<file>`.                                                                                                                                    |
@@ -23,14 +25,20 @@ the route at `/projects/<slug>`.
 | `repositoryUrls` | Optional array of valid HTTP(S) URLs without embedded credentials. Omit when unavailable.                                                                                                                   |
 | `slug`           | Unnecessary. If supplied, it must match the filename.                                                                                                                                                       |
 
-Project dates and roles belong in the body. The blog-post `date` and `tags` fields
+Project development dates and roles belong in the body and are distinct from
+case-study publication and revision dates. Never generate revision dates from
+Git history, build time or the current date automatically. The blog-post `date` and `tags` fields
 are not part of this project contract. Follow project examples rather than
-`src/content/posts/async-ui-in-nextjs.mdx`.
+blog-post examples.
 
-`src/app/projects/[slug]/page.tsx` renders the H1, excerpt, stack, thumbnail, and
+`src/app/projects/[slug]/page.tsx` renders publication and optional revision dates,
+the author linked to the homepage, the H1, excerpt, stack, thumbnail, and
 final website/source links. Start body headings at H2 and avoid duplicating that
 header or adding a redundant closing link block. The thumbnail is cropped to
 16:9 on the detail page and a small square in the listing, so inspect both crops.
+Attribution dates display in UTC and use the same values as JSON-LD. Keep visible
+content and structured data aligned. Article and listing graphs use compact
+author identity; the homepage retains the full profile graph.
 
 The body uses a `max-w-3xl` article column with shared prose styles and dark-mode
 support. Keep existing typography and layout. Content authoring should not

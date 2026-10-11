@@ -8,7 +8,10 @@ import { googleSans, ptSerifCaption } from '@/fonts'
 import { ThemeProvider } from '@/components/theme-provider'
 
 export const metadata: Metadata = {
-  title: 'Portfolio | Pieter du Toit',
+  title: {
+    default: 'Portfolio | Pieter du Toit',
+    template: '%s | Pieter du Toit'
+  },
   description: 'Professional portfolio of Pieter du Toit'
 }
 

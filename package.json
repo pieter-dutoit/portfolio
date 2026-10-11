@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test:forms-demo": "node --import tsx --test src/features/demos/forms/forms.test.ts",
+    "test:seo": "node --import tsx --test src/lib/seo.test.ts",
     "typecheck": "next typegen && node node_modules/@typescript/native/bin/tsc --noEmit --incremental false",
     "prepare": "husky"
   },

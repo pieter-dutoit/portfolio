@@ -42,13 +42,74 @@ from production authorization and server-side persistence.
 
 Run its scoped checks with `pnpm test:forms-demo`.
 
-### Project dates
+### Publication and revision dates
 
 Every project in `src/content/projects` requires a quoted `addedAt` frontmatter
 date, for example `addedAt: '2026-09-19'`. Use the date the case study was first
 added to the portfolio, and keep it unchanged when editing the project. The home
 page shows up to five projects ordered by this date, newest first; the projects
-page remains alphabetical.
+page remains alphabetical. This is also the case study's visible publication
+date and JSON-LD `datePublished`, not the dates when the underlying project was
+developed. Blog posts use their existing `date` field for publication.
+
+Posts and projects may include `updatedAt: '2026-10-11'` when a genuine content
+revision date is known. Dates must be quoted, valid `YYYY-MM-DD` calendar dates,
+and `updatedAt` must not precede publication. Leave it absent when unknown;
+never derive it from Git history, build time or the current date automatically.
+The detail page displays it as “Updated” and JSON-LD emits `dateModified` from
+the same value. Dates display in UTC to preserve their calendar day everywhere.
+Listing dates and project ordering continue to use publication dates.
+
+Article and listing JSON-LD includes compact author identity linked to the
+homepage, where the full profile graph belongs. Blog keywords combine visible
+tags and stack entries without duplicates. Keep visible attribution, metadata
+and JSON-LD aligned when extending these fields. Run the focused date,
+attribution and graph checks with `pnpm test:seo`.
+
+### Crawler access and sitemap
+
+Set this environment variable in the Vercel project's **Production** environment
+before building or deploying:
+
+```dotenv
+NEXT_PUBLIC_SITE_URL=https://www.pieterdutoit.dev
+```
+
+The robots and sitemap routes use the shared URL helpers, as does the site's
+structured data. Set the variable explicitly so production URLs use the public
+domain rather than a Vercel deployment hostname. For a local production build,
+run `NEXT_PUBLIC_SITE_URL=https://www.pieterdutoit.dev pnpm build`.
+
+`src/app/robots.ts` serves `/robots.txt`, allowing all crawlers to read public
+pages and assets and linking to `/sitemap.xml`. This includes AI assistants,
+recruiter tools, and training crawlers. Crawl permission does not override
+firewall rules or guarantee indexing.
+
+`src/app/sitemap.ts` generates `/sitemap.xml` from the homepage, blog and project
+indexes, forms demo, and all posts and project case studies. Both routes are
+static and regenerate on every build, remaining cached until the next
+deployment. Adding or removing content updates the sitemap on the next build;
+new standalone pages must be added to its static path list. Query-string
+variants and assets are excluded. Modification dates are omitted because the
+sitemap does not currently consume the optional content revision dates.
+
+In Vercel, open **Project → Firewall → Rules → Bot Management**:
+
+| Setting        | Value |
+| -------------- | ----- |
+| AI Bots        | Allow |
+| Bot Protection | Off   |
+
+These settings allow unfamiliar recruiter tools to fetch pages without browser
+challenges. Review custom rules for blanket crawler blocks while retaining
+normal platform protections. See [Vercel's managed rulesets documentation](https://vercel.com/docs/vercel-firewall/vercel-waf/managed-rulesets).
+The domain is managed by Vercel; no Cloudflare settings are required.
+
+After deployment, confirm `/robots.txt` and `/sitemap.xml` return HTTP 200 with
+text and XML content types respectively. Check that all sitemap URLs use
+`https://www.pieterdutoit.dev` and resolve successfully. Fetch representative
+pages with ordinary and crawler user agents to check for challenges or
+indexing restrictions, and inspect Vercel's Firewall traffic for blocked bots.
 
 ### Development
 
