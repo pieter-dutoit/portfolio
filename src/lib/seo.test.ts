@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 import { test } from 'node:test'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -11,7 +13,12 @@ import { profile, socialLinks } from '@/data/resume'
 import { parseContentDate, parseUpdatedAt } from '@/lib/content-dates'
 import { getAllPosts } from '@/lib/posts'
 import { getAllProjects } from '@/lib/projects'
-import { getSiteUrl, resolveUrl, serializeJsonLd } from '@/lib/seo'
+import {
+  buildContentMetadata,
+  getSiteUrl,
+  resolveUrl,
+  serializeJsonLd
+} from '@/lib/seo'
 import {
   buildBlogPostingNode,
   buildBreadcrumbNode,
@@ -26,6 +33,102 @@ import {
   type JsonLdNode
 } from '@/lib/structured-data'
 import { formatDate } from '@/lib/utils'
+
+test('posts and projects share social metadata backed by existing thumbnail assets', () => {
+  const entries = [
+    ...getAllPosts().map((post) => ({
+      ...post,
+      thumbnailAlt: undefined,
+      path: `/blog/${post.slug}`
+    })),
+    ...getAllProjects().map((project) => ({
+      ...project,
+      path: `/projects/${project.slug}`
+    }))
+  ]
+
+  for (const entry of entries) {
+    const metadata = buildContentMetadata(entry)
+    const images = entry.thumbnail
+      ? [
+          {
+            url: resolveUrl(entry.thumbnail),
+            alt: entry.thumbnailAlt ?? entry.title
+          }
+        ]
+      : undefined
+    assert.equal(metadata.title, entry.title)
+    assert.equal(metadata.description, entry.excerpt)
+    assert.deepEqual(metadata.openGraph, {
+      title: entry.title,
+      description: entry.excerpt,
+      url: resolveUrl(entry.path),
+      type: 'article',
+      siteName: profile.full_name,
+      ...(images ? { images } : {})
+    })
+    assert.deepEqual(metadata.twitter, {
+      card: images ? 'summary_large_image' : 'summary',
+      title: entry.title,
+      description: entry.excerpt,
+      ...(images ? { images } : {})
+    })
+    if (entry.thumbnail?.startsWith('/')) {
+      assert.ok(
+        existsSync(path.join(process.cwd(), 'public', entry.thumbnail)),
+        `Missing thumbnail for ${entry.path}: ${entry.thumbnail}`
+      )
+    }
+  }
+})
+
+test('social metadata resolves local URLs against the configured domain and preserves remote images', () => {
+  const original = process.env.NEXT_PUBLIC_SITE_URL
+  try {
+    process.env.NEXT_PUBLIC_SITE_URL = ' https://portfolio.example/ '
+    for (const thumbnail of [
+      '/images/fixture.jpg',
+      'https://cdn.example/fixture.jpg'
+    ]) {
+      const metadata = buildContentMetadata({
+        title: 'A < B & C',
+        excerpt: 'An example description.',
+        path: '/blog/fixture',
+        thumbnail
+      })
+      const expectedImage = {
+        url: thumbnail.startsWith('/')
+          ? `https://portfolio.example${thumbnail}`
+          : thumbnail,
+        alt: 'A < B & C'
+      }
+      assert.equal(
+        metadata.openGraph?.url,
+        'https://portfolio.example/blog/fixture'
+      )
+      assert.deepEqual(metadata.openGraph?.images, [expectedImage])
+      assert.deepEqual(metadata.twitter?.images, [expectedImage])
+    }
+  } finally {
+    if (original === undefined) delete process.env.NEXT_PUBLIC_SITE_URL
+    else process.env.NEXT_PUBLIC_SITE_URL = original
+  }
+})
+
+test('projects without thumbnails omit social image fields and use a summary card', () => {
+  const metadata = buildContentMetadata({
+    title: 'Project without a thumbnail',
+    excerpt: 'This project has text metadata.',
+    path: '/projects/fixture'
+  })
+  assert.ok(metadata.openGraph)
+  assert.ok(metadata.twitter)
+  assert.equal('images' in metadata.openGraph, false)
+  assert.equal('images' in metadata.twitter, false)
+  assert.equal('card' in metadata.twitter && metadata.twitter.card, 'summary')
+  assert.equal(metadata.openGraph.title, 'Project without a thumbnail')
+  assert.equal(metadata.twitter.description, 'This project has text metadata.')
+})
 
 test('content dates accept calendar days and reject invalid or unquoted YAML dates', () => {
   for (const value of ['2026-10-11', '2024-02-29', '2000-02-29']) {
@@ -159,12 +262,10 @@ test('demo graphs connect each page to its application and shared site identity'
     const nodes = graph['@graph']
     const pageUrl = `${getSiteUrl()}${demo.path}`
     assert.equal(graph['@context'], 'https://schema.org')
-    assert.deepEqual(nodes.map((node) => node['@type']), [
-      'WebSite',
-      'Person',
-      'WebPage',
-      'WebApplication'
-    ])
+    assert.deepEqual(
+      nodes.map((node) => node['@type']),
+      ['WebSite', 'Person', 'WebPage', 'WebApplication']
+    )
     assertConnected(nodes)
     const page = nodes.find((node) => node['@type'] === 'WebPage')!
     const application = nodes.find(
@@ -175,6 +276,16 @@ test('demo graphs connect each page to its application and shared site identity'
     assert.deepEqual(page.mainEntity, { '@id': application['@id'] })
     assert.deepEqual(page.isPartOf, { '@id': getWebSiteId() })
     assert.deepEqual(application.author, { '@id': getPersonId() })
+    assert.equal(application.applicationCategory, 'EducationalApplication')
+    assert.equal(application.operatingSystem, 'Any')
+    assert.equal(
+      application.browserRequirements,
+      'Requires a modern browser with JavaScript enabled.'
+    )
+    assert.equal(application.isAccessibleForFree, true)
+    assert.deepEqual(application.offers, { '@type': 'Offer', price: 0 })
+    assert.ok(!('aggregateRating' in application))
+    assert.ok(!('review' in application))
     for (const node of [page, application]) {
       assert.equal(node.url, pageUrl)
       assert.match(node.url as string, /^https?:\/\//)
@@ -193,6 +304,30 @@ test('demo graphs connect each page to its application and shared site identity'
     assert.deepEqual(JSON.parse(scripts[0][1]), graph)
     assert.equal((html.match(/<script/g) ?? []).length, 1)
   }
+})
+
+test('demo defaults can be overridden without claiming a non-free demo is free', () => {
+  const graph = buildDemoJsonLd({
+    path: '/demos/fixture',
+    title: 'Restricted demo fixture',
+    description: 'A fixture with different access and browser requirements.',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Windows',
+    browserRequirements: 'Requires a WebGPU-enabled browser.',
+    isAccessibleForFree: false
+  })
+  const application = graph['@graph'].find(
+    (node) => node['@type'] === 'WebApplication'
+  )!
+  assert.equal(application.applicationCategory, 'DeveloperApplication')
+  assert.equal(application.operatingSystem, 'Windows')
+  assert.equal(
+    application.browserRequirements,
+    'Requires a WebGPU-enabled browser.'
+  )
+  assert.equal(application.isAccessibleForFree, false)
+  assert.ok(!('offers' in application))
+  assertConnected(graph['@graph'])
 })
 
 test('post and project graphs use publication dates, optional revisions and visible keywords', () => {

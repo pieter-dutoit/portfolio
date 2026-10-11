@@ -8,7 +8,7 @@ import { ContentAttribution } from '@/components/content-attribution'
 import RecentProjects from '@/components/projects/recent-projects'
 import { ProjectLink } from '@/components/projects/project-link'
 import { getAllProjects, getProjectBySlug } from '@/lib/projects'
-import { getSiteUrl, resolveUrl } from '@/lib/seo'
+import { buildContentMetadata, getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
   buildBreadcrumbNode,
   buildJsonLdGraph,
@@ -38,10 +38,7 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug)
   if (!project) notFound()
 
-  return {
-    title: project.title,
-    description: project.excerpt
-  }
+  return buildContentMetadata({ ...project, path: `/projects/${project.slug}` })
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

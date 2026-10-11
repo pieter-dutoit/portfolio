@@ -32,6 +32,18 @@ and tests. Keep routes under `src/app/demos/<demo>/` thin. MDX posts import the
 same demo entry component. Reuse shared UI primitives, but keep demo-specific
 abstractions in the owning folder.
 
+Standalone demo pages use `buildDemoJsonLd` from `src/lib/structured-data.ts`.
+It connects each `WebPage` to a `WebApplication` and the shared site and author.
+Defaults describe a free educational demo: `EducationalApplication`, operating
+system `Any`, a modern browser with JavaScript enabled, `isAccessibleForFree:
+true`, and an `Offer` with price `0`. Override the category, operating system,
+browser requirements or free-access flag when a demo differs. Setting
+`isAccessibleForFree: false` omits the free offer; it does not invent a price.
+Only use these defaults where the demo's actual access and behavior match.
+Ratings and reviews are omitted because the demos have none. These defaults
+provide descriptive metadata, not a guarantee of [Google software-app rich
+results](https://developers.google.com/search/docs/appearance/structured-data/software-app).
+
 Published assets belong in `public/images/demos/<demo>/`. Keep diagram sources
 beside their rendered SVGs. Namespace and version browser storage by demo, and
 use separate query keys and providers so examples remain independent.
@@ -65,6 +77,20 @@ homepage, where the full profile graph belongs. Blog keywords combine visible
 tags and stack entries without duplicates. Keep visible attribution, metadata
 and JSON-LD aligned when extending these fields. Run the focused date,
 attribution and graph checks with `pnpm test:seo`.
+
+### Social previews
+
+Blog posts and project detail pages share `buildContentMetadata` in
+`src/lib/seo.ts`. It uses each entry's title, excerpt and existing thumbnail for
+Open Graph and Twitter/X previews. Social titles use the content title, while
+browser titles retain the site's title template. Project image alt text uses
+`thumbnailAlt` when supplied; otherwise it uses the title.
+
+Projects without a thumbnail still emit text metadata and a Twitter summary
+card, with image fields omitted. No additional frontmatter or generated images
+are needed. Page and image URLs use the shared site URL configuration below;
+set `NEXT_PUBLIC_SITE_URL` before the production build so preview links point to
+the public domain.
 
 ### Crawler access and sitemap
 

@@ -1,3 +1,14 @@
+import type { Metadata } from 'next';
+import { profile } from '@/data/resume';
+
+type ContentMetadataInput = {
+  title: string;
+  excerpt: string;
+  path: string;
+  thumbnail?: string;
+  thumbnailAlt?: string;
+};
+
 export type BreadcrumbItem = {
   label: string;
   href: string;
@@ -30,6 +41,37 @@ export function resolveUrl(href: string) {
     return href;
   }
   return `${normalizedBase}${href.startsWith("/") ? href : `/${href}`}`;
+}
+
+export function buildContentMetadata({
+  title,
+  excerpt,
+  path,
+  thumbnail,
+  thumbnailAlt,
+}: ContentMetadataInput): Metadata {
+  const images = thumbnail
+    ? [{ url: resolveUrl(thumbnail), alt: thumbnailAlt ?? title }]
+    : undefined;
+
+  return {
+    title,
+    description: excerpt,
+    openGraph: {
+      title,
+      description: excerpt,
+      url: resolveUrl(path),
+      type: 'article',
+      siteName: profile.full_name,
+      ...(images ? { images } : {}),
+    },
+    twitter: {
+      card: images ? 'summary_large_image' : 'summary',
+      title,
+      description: excerpt,
+      ...(images ? { images } : {}),
+    },
+  };
 }
 
 export function buildBreadcrumbList(items: BreadcrumbItem[]) {

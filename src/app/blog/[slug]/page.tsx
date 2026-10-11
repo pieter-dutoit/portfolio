@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import Breadcrumbs from '@/components/breadcrumbs'
 import JsonLd from '@/components/json-ld'
 import { PostAttribution } from '@/components/posts/post-attribution'
-import { getSiteUrl, resolveUrl } from '@/lib/seo'
+import { buildContentMetadata, getSiteUrl, resolveUrl } from '@/lib/seo'
 import {
   buildBlogPostingNode,
   buildBreadcrumbNode,
@@ -39,10 +39,7 @@ export async function generateMetadata({
     }
   }
 
-  return {
-    title: post.title,
-    description: post.excerpt
-  }
+  return buildContentMetadata({ ...post, path: `/blog/${post.slug}` })
 }
 
 export default async function PostPage({

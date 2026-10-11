@@ -287,11 +287,19 @@ export function buildWebPageNode({
 export function buildDemoJsonLd({
   path,
   title,
-  description
+  description,
+  applicationCategory = 'EducationalApplication',
+  operatingSystem = 'Any',
+  browserRequirements = 'Requires a modern browser with JavaScript enabled.',
+  isAccessibleForFree = true
 }: {
   path: string
   title: string
   description: string
+  applicationCategory?: string
+  operatingSystem?: string
+  browserRequirements?: string
+  isAccessibleForFree?: boolean
 }): JsonLdGraph {
   const siteUrl = getSiteUrl()
   const pageUrl = resolveUrl(path)
@@ -306,14 +314,19 @@ export function buildDemoJsonLd({
       websiteId: getWebSiteId(siteUrl),
       mainEntityId: applicationId
     }),
-    {
+    compact({
       '@id': applicationId,
       '@type': 'WebApplication',
       url: pageUrl,
       name: title,
       description,
-      author: { '@id': getPersonId(siteUrl) }
-    }
+      author: { '@id': getPersonId(siteUrl) },
+      applicationCategory,
+      operatingSystem,
+      browserRequirements,
+      isAccessibleForFree,
+      offers: isAccessibleForFree ? { '@type': 'Offer', price: 0 } : undefined
+    })
   ])
 }
 
@@ -420,7 +433,9 @@ export function buildProjectArticleNodes({
       description: project.excerpt,
       image: project.thumbnail ? resolveUrl(project.thumbnail) : undefined,
       datePublished: toIsoDateTime(project.addedAt),
-      dateModified: project.updatedAt ? toIsoDateTime(project.updatedAt) : undefined,
+      dateModified: project.updatedAt
+        ? toIsoDateTime(project.updatedAt)
+        : undefined,
       keywords: project.stack,
       inLanguage: 'en',
       url: pageUrl,
