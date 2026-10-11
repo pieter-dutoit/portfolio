@@ -24,6 +24,24 @@ imports and `public/`.
 
 ## Getting Started
 
+### Interactive article demos
+
+Each demo owns its implementation under `src/features/demos/<demo>/`, including
+its components, provider, schemas, Server Actions, storage helpers, query setup,
+and tests. Keep routes under `src/app/demos/<demo>/` thin. MDX posts import the
+same demo entry component. Reuse shared UI primitives, but keep demo-specific
+abstractions in the owning folder.
+
+Published assets belong in `public/images/demos/<demo>/`. Keep diagram sources
+beside their rendered SVGs. Namespace and version browser storage by demo, and
+use separate query keys and providers so examples remain independent.
+
+The forms demo uses a live Server Action with simulated integration and local
+browser persistence. Its source comments distinguish those teaching choices
+from production authorization and server-side persistence.
+
+Run its scoped checks with `pnpm test:forms-demo`.
+
 ### Project dates
 
 Every project in `src/content/projects` requires a quoted `addedAt` frontmatter

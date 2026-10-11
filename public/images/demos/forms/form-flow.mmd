@@ -1,0 +1,18 @@
+%% Regenerate from the repository root:
+%% pnpm dlx @mermaid-js/mermaid-cli@11.12.0 -i public/images/demos/forms/form-flow.mmd -o public/images/demos/forms/form-flow.svg -c public/images/demos/forms/mermaid-config.json -b '#f8fafc'
+flowchart TB
+  accTitle: Form submission and database persistence
+  accDescr: Browser validation starts a mutation. The Server Action validates the request and writes to the database. A successful result triggers targeted query invalidation in the browser, a refetch through a server endpoint and an updated cached list. Failures preserve the draft.
+  subgraph B[Browser · draft]
+    F[Form + Zod validation] --> M[TanStack mutation]
+  end
+  subgraph S[Server]
+    A[Server Action validates request] --> D[(Write to database)]
+  end
+  subgraph R[Browser · cached data]
+    Q[Invalidate task query] --> V[Refetch via server endpoint]
+    V --> C[Update cached list]
+  end
+  M --> A
+  D -->|Successful result| Q
+  D -.->|Failure: keep draft| F
