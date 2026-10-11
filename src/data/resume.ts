@@ -151,10 +151,11 @@ export const jobs: Job[] = [
         description:
           'I build customer-facing frontend features at Fourfifty, including verification flows, CMS-managed content and embedded game experiences.',
         achievements: [
-          'Implemented SMS verification across gameplay, profile updates and communication preferences, including API integration, resend cooldowns, error recovery and marketing consent handling.',
-          'Built CMS-controlled scratchcard theming, allowing content editors to change artwork, colours and messaging across claim, game and result screens without frontend code changes.',
-          'Resolved animation and embedded-game lifecycle issues involving Lottie, WebAssembly and Unity WebGL, and preserved user sessions during temporary backend network failures.',
-          'Built CMS-driven article publishing with pagination, dynamic XML sitemaps, crawl controls and JSON-LD structured metadata.'
+          'Built reusable SMS phone verification in React and TypeScript, allowing users to verify their number and continue their original task, with clear error messages and retry options.',
+          'Improved the reliability of website animations and browser games by resolving loading and cleanup failures in Lottie and Unity WebGL.',
+          'Fixed session handling so temporary network failures no longer unnecessarily log users out, avoiding repeated sign-ins while retaining checks for invalid or expired sessions.',
+          'Built CMS-driven article publishing in Next.js, allowing editors to manage content and helping search engines discover articles through paginated listings, XML sitemaps and structured metadata.',
+          'Built configurable themes for online scratchcards, allowing content editors to preview and change artwork, colours and messaging without frontend code changes.'
         ],
         start_date: '2026-06-01'
       }
@@ -170,6 +171,7 @@ export const jobs: Job[] = [
       { id: 2, name: 'React' },
       { id: 3, name: 'TypeScript' },
       { id: 4, name: 'SWR' },
+      { id: 8, name: 'Formik' },
       { id: 5, name: 'Yup' },
       { id: 6, name: 'Strapi' },
       { id: 7, name: 'Docker' }
@@ -179,9 +181,9 @@ export const jobs: Job[] = [
         id: 1,
         title: 'Senior Frontend Developer',
         description:
-          'I built frontend features and contributed to shared integrations, with a focus on complex forms and content publishing.',
+          'I built frontend features and contributed to shared integrations, with a focus on forms spanning multiple resources and content publishing.',
         achievements: [
-          'Built complex forms using SWR and Yup, combining data fetching, form state and input validation to keep the interface responsive and reduce unnecessary backend requests.',
+          'Built large forms combining data from multiple resources, with custom inputs, drag-and-drop and translations. Used Formik and Yup to manage and validate edits before transforming them for submission, and SWR to cache server data and reduce unnecessary requests.',
           'Helped develop and maintain a shared API layer for consistent integration across frontend applications.',
           'Integrated Strapi into a Next.js website so the marketing team could publish articles and manage Open Graph and structured metadata.',
           'Built custom-styled form fields using native HTML inputs to retain their built-in behaviour.'
