@@ -284,6 +284,39 @@ export function buildWebPageNode({
   })
 }
 
+export function buildDemoJsonLd({
+  path,
+  title,
+  description
+}: {
+  path: string
+  title: string
+  description: string
+}): JsonLdGraph {
+  const siteUrl = getSiteUrl()
+  const pageUrl = resolveUrl(path)
+  const applicationId = `${pageUrl}#webapplication`
+
+  return buildJsonLdGraph([
+    ...buildSiteNodes(siteUrl),
+    buildWebPageNode({
+      url: pageUrl,
+      name: title,
+      description,
+      websiteId: getWebSiteId(siteUrl),
+      mainEntityId: applicationId
+    }),
+    {
+      '@id': applicationId,
+      '@type': 'WebApplication',
+      url: pageUrl,
+      name: title,
+      description,
+      author: { '@id': getPersonId(siteUrl) }
+    }
+  ])
+}
+
 export function buildItemListNode({
   pageUrl,
   items

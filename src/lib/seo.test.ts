@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import matter from 'gray-matter'
 
 import { ContentAttribution } from '@/components/content-attribution'
+import JsonLd from '@/components/json-ld'
 import { PostAttribution } from '@/components/posts/post-attribution'
 import { profile, socialLinks } from '@/data/resume'
 import { parseContentDate, parseUpdatedAt } from '@/lib/content-dates'
@@ -14,6 +15,7 @@ import { getSiteUrl, resolveUrl, serializeJsonLd } from '@/lib/seo'
 import {
   buildBlogPostingNode,
   buildBreadcrumbNode,
+  buildDemoJsonLd,
   buildJsonLdGraph,
   buildProfileSiteNodes,
   buildProjectArticleNodes,
@@ -135,6 +137,62 @@ test('shared identity is compact while the homepage retains the detailed profile
   assert.ok(full.some((node) => node['@type'] === 'EducationalOrganization'))
   assertConnected(shared)
   assertConnected(full)
+})
+
+test('demo graphs connect each page to its application and shared site identity', () => {
+  const demos = [
+    {
+      path: '/demos/forms',
+      title: 'Form flow demo',
+      description:
+        'Try a form with shared Zod validation, a Next.js Server Action, local browser persistence and TanStack Query.'
+    },
+    {
+      path: '/demos/fixture',
+      title: 'A < B </script><script>alert(1)</script>',
+      description: 'Explore <example> & compare "values".'
+    }
+  ]
+
+  for (const demo of demos) {
+    const graph = buildDemoJsonLd(demo)
+    const nodes = graph['@graph']
+    const pageUrl = `${getSiteUrl()}${demo.path}`
+    assert.equal(graph['@context'], 'https://schema.org')
+    assert.deepEqual(nodes.map((node) => node['@type']), [
+      'WebSite',
+      'Person',
+      'WebPage',
+      'WebApplication'
+    ])
+    assertConnected(nodes)
+    const page = nodes.find((node) => node['@type'] === 'WebPage')!
+    const application = nodes.find(
+      (node) => node['@type'] === 'WebApplication'
+    )!
+    assert.equal(page['@id'], `${pageUrl}#webpage`)
+    assert.equal(application['@id'], `${pageUrl}#webapplication`)
+    assert.deepEqual(page.mainEntity, { '@id': application['@id'] })
+    assert.deepEqual(page.isPartOf, { '@id': getWebSiteId() })
+    assert.deepEqual(application.author, { '@id': getPersonId() })
+    for (const node of [page, application]) {
+      assert.equal(node.url, pageUrl)
+      assert.match(node.url as string, /^https?:\/\//)
+      assert.equal(node.name, demo.title)
+      assert.equal(node.description, demo.description)
+    }
+
+    const html = renderToStaticMarkup(createElement(JsonLd, { data: graph }))
+    const scripts = [
+      ...html.matchAll(
+        /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g
+      )
+    ]
+    assert.equal(scripts.length, 1)
+    assert.ok(!scripts[0][1].includes('<'))
+    assert.deepEqual(JSON.parse(scripts[0][1]), graph)
+    assert.equal((html.match(/<script/g) ?? []).length, 1)
+  }
 })
 
 test('post and project graphs use publication dates, optional revisions and visible keywords', () => {
